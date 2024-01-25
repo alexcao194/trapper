@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trapper/app/presentation/widget/sign_up_box.dart';
+import 'package:trapper/config/const/dimen.dart';
 import 'package:trapper/generated/l10n.dart';
 
 class DialogTools {
@@ -27,8 +28,11 @@ class DialogTools {
       context: context,
       builder: (context) => SimpleDialog(
         title: Text(S.current.signup),
-        children: const [
-          SignUpBox(),
+        children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: Dimen.mobileWidth),
+            child: const SignUpBox(),
+          ),
         ],
       ),
     );

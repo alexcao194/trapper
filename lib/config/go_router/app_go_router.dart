@@ -18,31 +18,43 @@ class AppGoRouter {
             }
             return null;
           }
+          return null;
           return RoutePath.login;
         },
         routes: [
           GoRoute(
-            path: RoutePath.login,
+            path: "/${RoutePath.login}",
             pageBuilder: (context, state) => const MaterialPage(child: LoginScreen()),
           ),
           GoRoute(
-            path: RoutePath.home,
+            path: "/${RoutePath.home}",
             pageBuilder: (context, state) => const MaterialPage(child: HomeScreen()),
+            routes: [
+              GoRoute(
+                path: RoutePath.messages,
+                name: RoutePath.messages,
+                pageBuilder: (context, state) => const MaterialPage(child: MessageScreen()),
+              ),
+            ],
           ),
         ],
       );
 }
 
 class RoutePath {
-  static const String login = '/login';
-  static const String home = '/home';
-  static const String signUp = '/sign-up';
-  static const String profile = '/profile';
-  static const String messages = '/';
-  static const String settings = '/settings';
+  static const String login = '';
+  static const String home = 'home';
+  static const String signUp = 'sign-up';
+  static const String profile = 'profile';
+  static const String messages = 'message';
+  static const String settings = 'settings';
 
   static const publicPaths = [
     login,
     signUp,
   ];
+
+  static join(List<String> paths) {
+    return "/${paths.join('/')}";
+  }
 }

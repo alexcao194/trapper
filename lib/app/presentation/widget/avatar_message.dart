@@ -6,8 +6,9 @@ class AvatarMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const CircleAvatar(
-      radius: 30,
-      backgroundImage: NetworkImage('https://inkythuatso.com/uploads/thumbnails/800/2022/03/anh-co-gai-cam-hoa-che-mat-1-22-15-05-30.jpg'),
+      maxRadius: 20,
+      minRadius: 20,
+      backgroundImage: NetworkImage('https://picsum.photos/200', scale: 0.5),
     );
   }
 }
