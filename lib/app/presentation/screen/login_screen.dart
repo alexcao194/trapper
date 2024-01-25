@@ -122,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           if (canLogin) {
                                             login();
                                           } else {
-                                            DialogTools.showFailureDialog(context, message: 'Please fill all fields with valid data');
+                                            DialogTools.showFailureDialog(context, message: S.current.common_fields_error);
                                           }
                                         },
                                         child: Container(
