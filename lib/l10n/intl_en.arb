@@ -1,1 +1,47 @@
-{}
+{
+  "app_name": "Trapper",
+  "app_name_annotation": "@Trapper",
+  "app_description": "Trap all person you want",
+
+  "login": "Login",
+  "signup": "Sign up",
+  "email": "Email",
+  "password": "Password",
+  "confirm_password": "Confirm password",
+  "forgot_password": "Forgot password?",
+  "reset_password": "Reset password",
+  "full_name": "Full name",
+  "phone_number": "Phone number",
+  "date_of_birth": "Date of birth",
+  "gender": "Gender",
+  "cancel": "Cancel",
+  "save": "Save",
+  "logout": "Logout",
+  "ok": "OK",
+  "error": "Error",
+  "success": "Success",
+  "male": "Male",
+  "female": "Female",
+
+
+  "email_example": "example@gmail.com",
+  "password_example": "********",
+  "confirm_password_example": "********",
+  "full_name_example": "John Doe",
+  "phone_number_example": "0123456789",
+
+  "email_invalid": "Invalid email",
+  "email_required": "Email is required",
+  "password_invalid": "Invalid password",
+  "password_required": "Password is required",
+  "confirm_password_invalid": "Invalid confirm password",
+  "confirm_password_required": "Confirm password is required",
+  "confirm_password_not_match": "Confirm password does not match",
+  "password_length_error": "Password must be at least 6 characters",
+  "full_name_required": "Full name is required",
+  "phone_number_invalid": "Invalid phone number",
+  "phone_number_required": "Phone number is required",
+  "common_error": "Something went wrong. Please try again later.",
+  "common_fields_error": "Please fill all required fields.",
+  "date_of_birth_example": "dd/mm/yyyy"
+}

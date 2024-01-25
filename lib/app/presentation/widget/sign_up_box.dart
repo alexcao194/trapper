@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../../../utils/validator.dart';
 import '../bloc/auth/auth_bloc.dart';
+import '../../../generated/l10n.dart';
 import 'form_text_field.dart';
 
 class SignUpBox extends StatefulWidget {
@@ -39,8 +40,8 @@ class _SignUpBoxState extends State<SignUpBox> {
         children: [
           FormTextField(
             controller: _email,
-            hintText: 'Email',
-            labelText: 'Email',
+            hintText: S.current.email_example,
+            labelText: S.current.email,
             errorText: _emailErrorText,
           ),
           Row(
@@ -48,8 +49,8 @@ class _SignUpBoxState extends State<SignUpBox> {
               Expanded(
                 child: FormTextField(
                   controller: _password,
-                  hintText: 'Password',
-                  labelText: 'Password',
+                  hintText: S.current.password_example,
+                  labelText: S.current.password,
                   errorText: _passwordErrorText,
                   obscureText: true,
                 ),
@@ -58,8 +59,8 @@ class _SignUpBoxState extends State<SignUpBox> {
               Expanded(
                 child: FormTextField(
                   controller: _confirmPassword,
-                  hintText: 'Confirm Password',
-                  labelText: 'Confirm Password',
+                  hintText: S.current.confirm_password_example,
+                  labelText: S.current.confirm_password,
                   errorText: _confirmPasswordErrorText,
                   obscureText: true,
                 ),
@@ -68,8 +69,8 @@ class _SignUpBoxState extends State<SignUpBox> {
           ),
           FormTextField(
             controller: _name,
-            hintText: 'Name',
-            labelText: 'Name',
+            hintText: S.current.full_name_example,
+            labelText: S.current.full_name,
             errorText: _nameErrorText,
           ),
           Row(
@@ -79,19 +80,19 @@ class _SignUpBoxState extends State<SignUpBox> {
                   onTap: pickADate,
                   child: FormTextField(
                     controller: _dateOfBirth,
-                    hintText: 'Date of Birth',
-                    labelText: 'Date of Birth',
+                    hintText: S.current.date_of_birth_example,
+                    labelText: S.current.date_of_birth,
                     enabled: false,
                   ),
                 ),
               ),
               const SizedBox(width: 8),
               DropdownMenu(
-                label: const Text("Gender"),
+                label: Text(S.current.gender),
                 controller: _gender,
-                dropdownMenuEntries: const [
-                  DropdownMenuEntry(value: true, label: "Male"),
-                  DropdownMenuEntry(value: false, label: "Female"),
+                dropdownMenuEntries: [
+                  DropdownMenuEntry(value: true, label: S.current.male),
+                  DropdownMenuEntry(value: false, label: S.current.female),
                 ],
               )
             ],
@@ -102,9 +103,9 @@ class _SignUpBoxState extends State<SignUpBox> {
             children: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text('Cancel'),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(S.current.cancel),
                 ),
               ),
               TextButton(
@@ -113,12 +114,12 @@ class _SignUpBoxState extends State<SignUpBox> {
                     signup();
                     Navigator.of(context).pop();
                   } else {
-                    DialogTools.showFailureDialog(context, message: "Please fill all fields with valid data");
+                    DialogTools.showFailureDialog(context, message: S.current.common_fields_error);
                   }
                 },
-                child: const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text('Sign up'),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(S.current.signup),
                 ),
               ),
             ],
@@ -200,7 +201,7 @@ class _SignUpBoxState extends State<SignUpBox> {
             ),
             profile: Profile(
               name: _name.text,
-              gender: _gender.text == "Male",
+              gender: _gender.text == S.current.male,
               birthDate: _dateOfBirth.text,
               email: _email.text,
             ),

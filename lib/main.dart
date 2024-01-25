@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'app/presentation/bloc/auth/auth_bloc.dart';
 import 'config/go_router/app_go_router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'generated/l10n.dart';
 import 'di.dart';
 
 void main() async {
@@ -27,11 +28,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Trapper',
       routerConfig: AppGoRouter.router,
       theme: ThemeData.light().copyWith(),
       darkTheme: ThemeData.dark(),
       localizationsDelegates: const [
+        S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

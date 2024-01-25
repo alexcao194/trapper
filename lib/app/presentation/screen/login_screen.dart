@@ -11,6 +11,7 @@ import '../../../generated/assets.dart';
 import '../../domain/entity/account.dart';
 import '../widget/rounded_text_field.dart';
 import '../bloc/auth/auth_bloc.dart';
+import '../../../generated/l10n.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -62,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             decoration: BoxDecoration(color: Theme.of(context).colorScheme.primaryContainer, borderRadius: BorderRadius.circular(25)),
                             child: Center(
                               child: Text(
-                                'Trapper',
+                                S.current.app_name,
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ),
@@ -92,8 +93,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Column(
                                 children: [
                                   RoundedTextField(
-                                    labelText: 'Email',
-                                    hintText: 'example@gmail.com',
+                                    labelText: S.current.email,
+                                    hintText: S.current.email_example,
                                     errorText: emailError,
                                     controller: _email,
                                     prefixIcon: const Icon(Icons.email_outlined, size: 18),
@@ -103,8 +104,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   const SizedBox(height: 16),
                                   RoundedTextField(
-                                    labelText: "Password",
-                                    hintText: "********",
+                                    labelText: S.current.password,
+                                    hintText: S.current.password_example,
                                     prefixIcon: const Icon(Icons.lock_outline, size: 18),
                                     errorText: passwordError,
                                     obscureText: true,
@@ -126,14 +127,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                         },
                                         child: Container(
                                           padding: const EdgeInsets.all(16),
-                                          child: const Text('Login'),
+                                          child: Text(S.current.login),
                                         ),
                                       ),
                                       ElevatedButton(
                                         onPressed: signup,
                                         child: Container(
                                           padding: const EdgeInsets.all(16),
-                                          child: const Text('Signup'),
+                                          child: Text(S.current.signup),
                                         ),
                                       ),
                                     ],
@@ -144,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           Expanded(child: Container()),
                           Text(
-                            '@Trapper',
+                            S.current.app_name_annotation,
                             style: Theme.of(context).textTheme.labelMedium,
                           ),
                         ],

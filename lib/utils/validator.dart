@@ -1,37 +1,39 @@
+import '../generated/l10n.dart';
+
 class Validator {
   static String? email(String value) {
     if (value.isEmpty) {
-      return 'Email is required';
+      return S.current.email_required;
     }
     if (!RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)) {
-      return 'Email must be valid';
+      return S.current.email_invalid;
     }
     return null;
   }
 
   static String? password(String value) {
     if (value.isEmpty) {
-      return 'Password is required';
+      return S.current.password_required;
     }
     if (value.length < 6) {
-      return 'Password must be at least 6 characters';
+      return S.current.password_length_error;
     }
     return null;
   }
 
   static String? confirmPassword(String value, String password) {
     if (value.isEmpty) {
-      return 'Confirm Password is required';
+      return S.current.confirm_password_required;
     }
     if (value != password) {
-      return 'Confirm Password must be same as Password';
+      return S.current.confirm_password_not_match;
     }
     return null;
   }
 
   static String? name(String value) {
     if (value.isEmpty) {
-      return 'Name is required';
+      return S.current.full_name_required;
     }
     return null;
   }

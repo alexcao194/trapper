@@ -1,1 +1,47 @@
-{}
+{
+  "app_name": "Trapper",
+  "app_name_annotation": "@Trapper",
+  "app_description": "Trap all person you want",
+
+  "login": "Đăng nhập",
+  "signup": "Đăng ký",
+  "email": "Email",
+  "password": "Mật khẩu",
+  "confirm_password": "Xác nhận mật khẩu",
+  "forgot_password": "Quên mật khẩu",
+  "reset_password": "Đặt lại mật khẩu",
+  "full_name": "Họ và tên",
+  "phone_number": "Số điện thoại",
+  "date_of_birth": "Ngày sinh",
+  "gender": "Giới tính",
+  "cancel": "Hủy",
+  "ok": "Đồng ý",
+  "save": "Lưu",
+  "logout": "Đăng xuất",
+  "error": "Lỗi",
+  "success": "Thành công",
+  "male": "Nam",
+  "female": "Nữ",
+
+
+  "email_example": "example@gmail.com",
+  "password_example": "********",
+  "confirm_password_example": "********",
+  "full_name_example": "Nguyễn Văn A",
+  "phone_number_example": "0123456789",
+
+  "email_invalid": "Email không hợp lệ",
+  "email_required": "Email không được để trống",
+  "password_invalid": "Mật khẩu không hợp lệ",
+  "password_required": "Mật khẩu không được để trống",
+  "confirm_password_invalid": "Mật khẩu không hợp lệ",
+  "confirm_password_required": "Mật khẩu không được để trống",
+  "confirm_password_not_match": "Mật khẩu không khớp",
+  "password_length_error": "Mật khẩu phải có ít nhất 6 ký tự",
+  "full_name_required": "Họ và tên không được để trống",
+  "phone_number_invalid": "Số điện thoại không hợp lệ",
+  "phone_number_required": "Số điện thoại không được để trống",
+  "common_error": "Có lỗi xảy ra, vui lòng thử lại sau",
+  "common_fields_error": "Vui lòng kiểm tra lại các trường thông tin",
+  "date_of_birth_example": "dd/mm/yyyy"
+}

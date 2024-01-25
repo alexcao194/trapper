@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:trapper/app/presentation/widget/form_text_field.dart';
-import 'package:trapper/app/presentation/widget/rounded_text_field.dart';
 import 'package:trapper/app/presentation/widget/sign_up_box.dart';
-import 'package:trapper/utils/validator.dart';
+import 'package:trapper/generated/l10n.dart';
 
 class DialogTools {
   static void showFailureDialog(
@@ -12,12 +10,12 @@ class DialogTools {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Error'),
+        title: Text(S.current.error),
         content: Text(message),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('OK'),
+            child: Text(S.current.ok),
           ),
         ],
       ),
@@ -27,9 +25,9 @@ class DialogTools {
   static void showSignupDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => const SimpleDialog(
-        title: Text('Sign up'),
-        children: [
+      builder: (context) => SimpleDialog(
+        title: Text(S.current.signup),
+        children: const [
           SignUpBox(),
         ],
       ),
