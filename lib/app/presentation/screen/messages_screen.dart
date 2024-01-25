@@ -9,46 +9,53 @@ class MessageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       body: Row(
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width / 3,
-            color: Colors.black26,
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
+          Expanded(
+            flex: 1,
             child: Column(
               children: [
-                HeaderMessage(),
-                Container(
-                  width: MediaQuery.of(context).size.width / 3,
-                  height: MediaQuery.of(context).size.height / 8 * 7 ,
-                  padding: const EdgeInsets.fromLTRB(0, 15, 5, 15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
-                  ),
-                  child: Column(
-                    children: [
-                      SearchMessage(),
-                      SizedBox(height: 15),
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: 10,
-                          itemBuilder: (context, index) { return MessageItem();},
-                        ),
+                const Expanded(child: HeaderMessage()),
+                Expanded(
+                  flex: 12,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Theme.of(context).colorScheme.background,
                       ),
-                    ]
+                      child: Column(children: [
+                        const SearchMessage(),
+                        const SizedBox(height: 15),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: 20,
+                            itemBuilder: (context, index) {
+                              return const Padding(
+                                padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                child: MessageItem(),
+                              );
+                            },
+                          ),
+                        ),
+                      ]),
+                    ),
                   ),
                 ),
               ],
-            )
+            ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width / 3 * 2,
-            color: Colors.black,
+          Expanded(
+            flex: 3,
+            child: Container(
 
+            ),
           )
         ],
-      )
+      ),
     );
   }
 }

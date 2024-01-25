@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:trapper/config/go_router/app_go_router.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -8,11 +10,11 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
         onPressed: () {
-
+          context.go(RoutePath.messages);
         },
-        child: Icon(Icons.arrow_forward),
+        child: const Icon(Icons.arrow_forward),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Login Screen'),
       )
     );

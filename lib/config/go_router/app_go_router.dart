@@ -14,6 +14,7 @@ class AppGoRouter {
       if (context.read<AuthBloc>().state is AuthStateAuthenticated) {
         return null;
       }
+      return null;
       return RoutePath.login;
     },
     routes: [
@@ -30,11 +31,11 @@ class AppGoRouter {
 }
 
 class RoutePath {
-  static const String login = '/';
+  static const String login = '/login';
   static const String home = '/home';
   static const String signUp = '/sign-up';
   static const String profile = '/profile';
-  static const String messages = '/messages';
+  static const String messages = '/';
   static const String settings = '/settings';
 
   static const publicPaths = [
