@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:trapper/app/presentation/bloc/auth/auth_bloc.dart';
 import 'package:trapper/app/presentation/screen/home_screen.dart';
 import 'package:trapper/app/presentation/screen/login_screen.dart';
+import 'package:trapper/app/presentation/screen/messages_screen.dart';
 
 class AppGoRouter {
   static get router => GoRouter(
@@ -33,10 +34,11 @@ class AppGoRouter {
 }
 
 class RoutePath {
-  static const String login = '/';
+  static const String login = '/login';
   static const String home = '/home';
   static const String signUp = '/sign-up';
   static const String profile = '/profile';
+  static const String messages = '/';
   static const String settings = '/settings';
 
   static const publicPaths = [
