@@ -11,7 +11,7 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(
-          create: (context) => AuthBloc(),
+          create: (context) => DependencyInjection.sl<AuthBloc>(),
         ),
       ],
       child: const MyApp(),
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Trapper',
       routerConfig: AppGoRouter.router,
-      theme: ThemeData.light(),
+      theme: ThemeData.light().copyWith(),
       darkTheme: ThemeData.dark(),
     );
   }

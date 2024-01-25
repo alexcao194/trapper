@@ -1,15 +1,15 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class LocalDataSource {
+abstract class LocalData {
   Future<void> saveToken(String token);
   Future<void> deleteToken();
   Future<String> getToken();
 }
 
-class LocalDataSourceImpl implements LocalDataSource {
+class LocalDataImpl implements LocalData {
   final SharedPreferences sharedPreferences;
 
-  LocalDataSourceImpl({required this.sharedPreferences});
+  LocalDataImpl({required this.sharedPreferences});
 
   @override
   Future<void> deleteToken() async {
