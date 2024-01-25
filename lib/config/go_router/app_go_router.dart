@@ -12,6 +12,9 @@ class AppGoRouter {
             return null;
           }
           if (context.read<AuthBloc>().state is AuthStateAuthenticated) {
+            if (RoutePath.publicPaths.contains(state.path)) {
+              return RoutePath.home;
+            }
             return null;
           }
           return RoutePath.login;
