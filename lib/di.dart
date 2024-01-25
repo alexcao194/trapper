@@ -14,18 +14,21 @@ class DependencyInjection {
 
   static Future<void> init() async {
     // Bloc
-    sl.registerFactory<AuthBloc> (() => AuthBloc());
+    sl.registerFactory<AuthBloc> (() => AuthBloc(login: sl()));
 
     // Use case
     sl.registerLazySingleton<Login>(() => Login(authRepository: sl()));
 
 
     // Repositories
-    sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl());
+    sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(
+      localData: sl(),
+      remoteData: sl(),
+    ));
 
     // Data
     sl.registerLazySingleton<RemoteData>(() => RemoteDataImpl(dio: sl()));
-    sl.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImpl(sharedPreferences: sl()));
+    sl.registerLazySingleton<LocalData>(() => LocalDataImpl(sharedPreferences: sl()));
 
 
     // 3th service
