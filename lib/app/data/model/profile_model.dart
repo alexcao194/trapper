@@ -1,7 +1,7 @@
 import 'package:trapper/app/domain/entity/profile.dart';
 
-class ProfileModel extends Profile{
-  ProfileModel({required super.name, required super.email, required super.photoUrl, required super.gender, required super.birthDate});
+class ProfileModel extends Profile {
+  ProfileModel({required super.name, required super.email, super.photoUrl, required super.gender, required super.birthDate});
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(

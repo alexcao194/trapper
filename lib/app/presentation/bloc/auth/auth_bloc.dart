@@ -19,6 +19,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }) : super(const AuthStateUnauthenticated()) {
     _login = login;
     on<AuthEventLogin>(_onLogin);
+    on<AuthEventRegister>(_onRegister);
   }
 
   FutureOr<void> _onLogin(AuthEventLogin event, Emitter<AuthState> emit) async {
@@ -28,5 +29,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (failure) => emit(AuthStateFailure(error: failure.message)),
       (_) => emit(const AuthStateAuthenticated()),
     );
+  }
+
+  FutureOr<void> _onRegister(AuthEventRegister event, Emitter<AuthState> emit) async {
+    emit(const AuthStateLoading());
+    await Future.delayed(const Duration(seconds: 2));
+    emit(const AuthStateAuthenticated());
   }
 }

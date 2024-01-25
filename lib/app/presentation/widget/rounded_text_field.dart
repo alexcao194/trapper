@@ -7,18 +7,22 @@ class RoundedTextField extends StatelessWidget {
   final bool obscureText;
   final TextEditingController controller;
   final VoidCallback? onTap;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final ValueChanged<String>? onChanged;
   final Function(PointerDownEvent)? onTapOutside;
   const RoundedTextField({
     super.key,
     required this.hintText,
     required this.labelText,
-    required this.obscureText,
+    this.obscureText = false,
     required this.controller,
     this.onTap,
     this.onChanged,
     this.onTapOutside,
-    this.errorText
+    this.errorText,
+    this.suffixIcon,
+    this.prefixIcon,
   });
 
   @override
@@ -28,8 +32,10 @@ class RoundedTextField extends StatelessWidget {
       obscureText: obscureText,
       decoration: InputDecoration(
         hintText: hintText,
-        error: errorText != null ? Text(errorText!) : null,
+        error: errorText != null ? Text(errorText!, style: TextStyle(color: Theme.of(context).colorScheme.error)) : null,
         label: Text(labelText),
+        suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(100),
           borderSide: BorderSide(

@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
-import '../../../core/validate/account_validator.dart';
+import 'package:go_router/go_router.dart';
+import 'package:trapper/config/const/dimen.dart';
+import 'package:trapper/config/go_router/app_go_router.dart';
+import 'package:trapper/utils/dialog_tools.dart';
+import '../../../utils/validator.dart';
 import '../../../generated/assets.dart';
 import '../../domain/entity/account.dart';
 import '../widget/rounded_text_field.dart';
@@ -34,103 +38,132 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SafeArea(child: BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, state) {
-          return Stack(
-            children: [
-              Row(
-                children: [
-                  if (size.width > 800)
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primaryContainer,
-                          borderRadius: BorderRadius.circular(25)
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Trapper',
-                            style: Theme.of(context).textTheme.labelMedium,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 300,
-                          width: 300,
-                          child: Center(
-                            child: _artboard != null
-                                ? Rive(
-                                    artboard: _artboard!,
-                                    fit: BoxFit.cover,
-                                  )
-                                : const SizedBox(),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      body: SafeArea(
+        child: BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthStateAuthenticated) {
+              _successTrigger.fire();
+              context.go(RoutePath.home);
+            } else if (state is AuthStateFailure) {
+              _failTrigger.fire();
+              DialogTools.showFailureDialog(context, message: state.error);
+            }
+          },
+          builder: (context, state) {
+            return Stack(
+              children: [
+                Row(
+                  children: [
+                    if (size.width > Dimen.mobileWidth)
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
                           child: Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primaryContainer, width: 2), borderRadius: BorderRadius.circular(5)),
-                            child: Column(
-                              children: [
-                                RoundedTextField(
-                                  labelText: 'Email',
-                                  hintText: 'example@gmail.com',
-                                  errorText: emailError,
-                                  obscureText: false,
-                                  controller: _email,
-                                  onTap: lookOn,
-                                  onChanged: lookFollow,
-                                  onTapOutside: (event) => stopLooking(),
-                                ),
-                                const SizedBox(height: 16),
-                                RoundedTextField(
-                                  labelText: "Password",
-                                  hintText: "********",
-                                  errorText: passwordError,
-                                  obscureText: true,
-                                  controller: _password,
-                                  onTap: handOn,
-                                  onTapOutside: (event) => stopLooking(),
-                                ),
-                                const SizedBox(height: 16),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      if (canLogin) {
-                                        login();
-                                      }
-                                    },
-                                    child: Container(
-                                      padding: const EdgeInsets.all(16),
-                                      child: const Text('Login'),
-                                    ))
-                              ],
+                            decoration: BoxDecoration(color: Theme.of(context).colorScheme.primaryContainer, borderRadius: BorderRadius.circular(25)),
+                            child: Center(
+                              child: Text(
+                                'Trapper',
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
                             ),
                           ),
                         ),
-                      ],
+                      ),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 300,
+                            width: 300,
+                            child: Center(
+                              child: _artboard != null
+                                  ? Rive(
+                                      artboard: _artboard!,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : const SizedBox(),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primaryContainer, width: 2), borderRadius: BorderRadius.circular(5)),
+                              child: Column(
+                                children: [
+                                  RoundedTextField(
+                                    labelText: 'Email',
+                                    hintText: 'example@gmail.com',
+                                    errorText: emailError,
+                                    controller: _email,
+                                    prefixIcon: const Icon(Icons.email_outlined, size: 18),
+                                    onTap: lookOn,
+                                    onChanged: lookFollow,
+                                    onTapOutside: (event) => stopLooking(),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  RoundedTextField(
+                                    labelText: "Password",
+                                    hintText: "********",
+                                    prefixIcon: const Icon(Icons.lock_outline, size: 18),
+                                    errorText: passwordError,
+                                    obscureText: true,
+                                    controller: _password,
+                                    onTap: handOn,
+                                    onTapOutside: (event) => stopLooking(),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          if (canLogin) {
+                                            login();
+                                          } else {
+                                            DialogTools.showFailureDialog(context, message: 'Please fill all fields with valid data');
+                                          }
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.all(16),
+                                          child: const Text('Login'),
+                                        ),
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: signup,
+                                        child: Container(
+                                          padding: const EdgeInsets.all(16),
+                                          child: const Text('Signup'),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(child: Container()),
+                          Text(
+                            '@Trapper',
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                if (state is AuthStateLoading)
+                  Container(
+                    color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.5),
+                    child: const Center(
+                      child: CircularProgressIndicator(),
                     ),
                   ),
-                ],
-              ),
-              if (state is AuthStateLoading)
-                Container(
-                  color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.5),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
-            ],
-          );
-        },
-      )),
+              ],
+            );
+          },
+        ),
+      ),
     );
   }
 
@@ -168,25 +201,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
     _email.addListener(() {
       setState(() {
-        emailError = AccountValidator.validateEmail(_email.text);
+        emailError = Validator.email(_email.text);
         canLogin = emailError == null && passwordError == null;
       });
     });
 
     _password.addListener(() {
       setState(() {
-        passwordError = AccountValidator.validatePassword(_password.text);
+        passwordError = Validator.password(_password.text);
         canLogin = emailError == null && passwordError == null;
       });
-    });
-
-    context.read<AuthBloc>().stream.listen((state) {
-      print(state.runtimeType);
-      if (state is AuthStateAuthenticated) {
-        _successTrigger.fire();
-      } else if (state is AuthStateFailure) {
-        _failTrigger.fire();
-      }
     });
   }
 
@@ -220,5 +244,11 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         );
+  }
+
+  void signup() {
+    _isChecking.change(false);
+    _isHandUp.change(false);
+    DialogTools.showSignupDialog(context);
   }
 }
