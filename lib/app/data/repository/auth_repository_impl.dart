@@ -16,6 +16,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required RemoteData remoteData,
   })  : _localData = localData,
         _remoteData = remoteData;
+
   @override
   Future<Either<Failure, void>> login(Account account) async {
     try {
