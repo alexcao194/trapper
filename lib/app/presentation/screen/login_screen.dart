@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
 import 'package:trapper/config/const/dimen.dart';
 import 'package:trapper/config/go_router/app_go_router.dart';
@@ -12,9 +13,11 @@ import '../../domain/entity/account.dart';
 import '../widget/rounded_text_field.dart';
 import '../bloc/auth/auth_bloc.dart';
 import '../../../generated/l10n.dart';
-
+import '../../../di.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  static const EMAIL_KEY = 'email';
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -180,6 +183,11 @@ class _LoginScreenState extends State<LoginScreen> {
     _email = TextEditingController();
     _password = TextEditingController();
 
+    var cachedEmail = DependencyInjection.sl<SharedPreferences>().getString(LoginScreen.EMAIL_KEY);
+    if (cachedEmail != null) {
+      _email.text = cachedEmail;
+    }
+
     rootBundle.load(Assets.riveBear).then((value) {
       final file = RiveFile.import(value);
       final artboard = file.mainArtboard;
@@ -243,6 +251,9 @@ class _LoginScreenState extends State<LoginScreen> {
   void login() {
     _isChecking.change(false);
     _isHandUp.change(false);
+    if(emailError == null) {
+      DependencyInjection.sl<SharedPreferences>().setString(LoginScreen.EMAIL_KEY, _email.text);
+    }
     context.read<AuthBloc>().add(
           AuthEventLogin(
             account: Account(
