@@ -14,6 +14,8 @@ import '../widget/rounded_text_field.dart';
 import '../bloc/auth/auth_bloc.dart';
 import '../../../generated/l10n.dart';
 import '../../../di.dart';
+import 'home_screen.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -44,7 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.pushReplacementNamed(RoutePath.messages);
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+          //context.pushReplacementNamed(RoutePath.messages);
         },
         child: const Icon(Icons.home),
       ),
