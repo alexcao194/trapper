@@ -50,6 +50,12 @@ class _HomeScreenState extends State<HomeScreen>{
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.go("/${RoutePath.messages}");
+        },
+        child: const Icon(Icons.message),
+      ),
       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       body: Row(
         children: [
@@ -79,14 +85,6 @@ class _HomeScreenState extends State<HomeScreen>{
                   title: S.current.friends_button,
                   onTap: () {
                     _go(1);
-                  },
-                ),
-                ProfileButton(
-                  isActivated: false,
-                  icon: Icons.message,
-                  title: S.current.messages_button,
-                  onTap: () {
-                    context.go("/${RoutePath.messages}");
                   },
                 ),
                 ProfileButton(
