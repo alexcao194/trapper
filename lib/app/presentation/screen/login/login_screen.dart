@@ -7,13 +7,13 @@ import 'package:go_router/go_router.dart';
 import 'package:trapper/config/const/dimen.dart';
 import 'package:trapper/config/go_router/app_go_router.dart';
 import 'package:trapper/utils/dialog_tools.dart';
-import '../../../utils/validator.dart';
-import '../../../generated/assets.dart';
-import '../../domain/entity/account.dart';
-import '../widget/rounded_text_field.dart';
-import '../bloc/auth/auth_bloc.dart';
-import '../../../generated/l10n.dart';
-import '../../../di.dart';
+import '../../../../utils/validator.dart';
+import '../../../../generated/assets.dart';
+import '../../../domain/entity/account.dart';
+import 'widget/rounded_text_field.dart';
+import '../../bloc/auth/auth_bloc.dart';
+import '../../../../generated/l10n.dart';
+import '../../../../di.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:trapper/app/presentation/bloc/auth/auth_bloc.dart';
-import 'package:trapper/app/presentation/screen/home_screen.dart';
-import 'package:trapper/app/presentation/screen/home_tabs/connect_tab.dart';
-import 'package:trapper/app/presentation/screen/home_tabs/friends_tab.dart';
-import 'package:trapper/app/presentation/screen/home_tabs/help_tab.dart';
-import 'package:trapper/app/presentation/screen/home_tabs/profile_tab.dart';
-import 'package:trapper/app/presentation/screen/home_tabs/settings_tab.dart';
-import 'package:trapper/app/presentation/screen/login_screen.dart';
-import 'package:trapper/app/presentation/screen/messages_screen.dart';
+import 'package:trapper/app/presentation/screen/home/home_screen.dart';
+import 'package:trapper/app/presentation/screen/login/login_screen.dart';
+import 'package:trapper/app/presentation/screen/rooms/messages_screen.dart';
+
+import '../../app/presentation/screen/home/home_tabs/connect_tab.dart';
+import '../../app/presentation/screen/home/home_tabs/friends_tab.dart';
+import '../../app/presentation/screen/home/home_tabs/help_tab.dart';
+import '../../app/presentation/screen/home/home_tabs/profile_tab.dart';
+import '../../app/presentation/screen/home/home_tabs/settings_tab.dart';
 
 class AppGoRouter {
   static get router => GoRouter(

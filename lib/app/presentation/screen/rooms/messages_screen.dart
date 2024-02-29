@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:trapper/app/presentation/widget/detail_header_message.dart';
-import 'package:trapper/app/presentation/widget/header_message.dart';
-import 'package:trapper/app/presentation/widget/input_message.dart';
-import 'package:trapper/app/presentation/widget/room_avatar.dart';
-import 'package:trapper/app/presentation/widget/room_card.dart';
-import 'package:trapper/app/presentation/widget/room_search_bar.dart';
-import 'package:trapper/app/presentation/widget/text_message.dart';
+import 'package:trapper/app/presentation/screen/rooms/widget/detail_header_message.dart';
+import 'package:trapper/app/presentation/screen/rooms/widget/header_message.dart';
+import 'package:trapper/app/presentation/screen/rooms/widget/input_message.dart';
+import 'package:trapper/app/presentation/screen/rooms/widget/room_avatar.dart';
+import 'package:trapper/app/presentation/screen/rooms/widget/room_card.dart';
+import 'package:trapper/app/presentation/screen/rooms/widget/room_search_bar.dart';
+import 'package:trapper/app/presentation/screen/rooms/widget/text_message.dart';
 
-import '../../../config/const/dimen.dart';
+import '../../../../config/const/dimen.dart';
 
 class MessageScreen extends StatelessWidget {
   const MessageScreen({super.key});

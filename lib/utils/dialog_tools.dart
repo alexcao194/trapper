@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trapper/app/presentation/widget/sign_up_box.dart';
+import 'package:trapper/app/presentation/screen/login/widget/sign_up_box.dart';
 import 'package:trapper/config/const/dimen.dart';
 import 'package:trapper/generated/l10n.dart';
 

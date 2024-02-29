@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../config/const/dimen.dart';
+import '../../../../../config/const/dimen.dart';
 
 class ProfileButton extends StatelessWidget {
   const ProfileButton(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trapper/app/presentation/widget/room_avatar.dart';
+import 'package:trapper/app/presentation/screen/rooms/widget/room_avatar.dart';
 
 class HeaderMessage extends StatelessWidget {
   const HeaderMessage({super.key});

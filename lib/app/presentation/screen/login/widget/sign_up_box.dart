@@ -5,10 +5,10 @@ import 'package:trapper/app/domain/entity/profile.dart';
 import 'package:trapper/utils/dialog_tools.dart';
 import 'package:intl/intl.dart';
 
-import '../../../utils/validator.dart';
-import '../bloc/auth/auth_bloc.dart';
-import '../../../generated/l10n.dart';
-import 'form_text_field.dart';
+import '../../../../../utils/validator.dart';
+import '../../../bloc/auth/auth_bloc.dart';
+import '../../../../../generated/l10n.dart';
+import '../../rooms/widget/form_text_field.dart';
 
 class SignUpBox extends StatefulWidget {
   const SignUpBox({super.key});
