@@ -23,11 +23,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>{
   PageController? _pageController;
+  int index = 0;
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+    _pageController = PageController(
+      initialPage: index,
+    );
+    _pageController?.addListener(() {
+      setState(() {
+        index = _pageController!.page!.round();
+      });
+    });
   }
 
   _go(int index) {
@@ -58,49 +66,56 @@ class _HomeScreenState extends State<HomeScreen>{
                   ),
                 const SizedBox(height: 8),
                 ProfileButton(
-                  icon: const Icon(Icons.person),
+                  isActivated: index == 0,
+                  icon: Icons.person,
                   title: S.current.profile_button,
                   onTap: () {
                     _go(0);
                   },
                 ),
                 ProfileButton(
-                  icon: const Icon(Icons.group),
+                  isActivated: index == 1,
+                  icon: Icons.group,
                   title: S.current.friends_button,
                   onTap: () {
                     _go(1);
                   },
                 ),
                 ProfileButton(
-                  icon: const Icon(Icons.message),
+                  isActivated: false,
+                  icon: Icons.message,
                   title: S.current.messages_button,
                   onTap: () {
                     context.go("/${RoutePath.messages}");
                   },
                 ),
                 ProfileButton(
-                  icon: const Icon(Icons.connect_without_contact),
+                  isActivated: index == 2,
+                  icon: Icons.connect_without_contact,
                   title: S.current.connect_button,
                   onTap: () {
                     _go(2);
                   },
                 ),
                 ProfileButton(
-                  icon: const Icon(Icons.settings),
+                  isActivated: index == 3,
+                  icon: Icons.settings,
                   title: S.current.settings_button,
                   onTap: () {
                     _go(3);
                   },
                 ),
                 ProfileButton(
-                  icon: const Icon(Icons.help),
+                  isActivated: index == 4,
+                  icon: Icons.help,
                   title: S.current.help_button,
                   onTap: () {
                     _go(4);
                   },
                 ),
                 ProfileButton(
-                  icon: const Icon(Icons.logout),
+                  isActivated: false,
+                  icon: Icons.logout,
                   title: S.current.logout_button,
                   onTap: () {
 
