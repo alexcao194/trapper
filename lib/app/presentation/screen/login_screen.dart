@@ -214,7 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
         _artboard = artboard;
       });
 
-      context.go("/${RoutePath.messages}");
+      // context.go("/${RoutePath.messages}");
     });
 
     _email.addListener(() {
