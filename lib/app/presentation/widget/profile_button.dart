@@ -23,7 +23,7 @@ class ProfileButton extends StatelessWidget {
         child: size.width > Dimen.mobileWidth ? ListTile(
           leading: icon,
           title: Text(title),
-          onTap: () {},
+          onTap: onTap,
         ) : IconButton(
           icon: icon,
           onPressed: onTap,
