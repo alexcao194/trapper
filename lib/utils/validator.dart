@@ -3,7 +3,7 @@ import '../generated/l10n.dart';
 class Validator {
   static String? email(String value) {
     if (value.isEmpty) {
-      return S.current.email_required;
+      return null;
     }
     if (!RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)) {
       return S.current.email_invalid;
@@ -13,7 +13,7 @@ class Validator {
 
   static String? password(String value) {
     if (value.isEmpty) {
-      return S.current.password_required;
+      return null;
     }
     if (value.length < 6) {
       return S.current.password_length_error;
