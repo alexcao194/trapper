@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.pushReplacementNamed(RoutePath.messages);
+          context.go("/${RoutePath.home}");
         },
         child: const Icon(Icons.home),
       ),
