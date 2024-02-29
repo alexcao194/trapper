@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:trapper/app/presentation/widget/avatar_message.dart';
+import 'package:trapper/app/presentation/widget/room_avatar.dart';
 import 'package:trapper/app/presentation/widget/detail_header_message.dart';
 import 'package:trapper/app/presentation/widget/header_message.dart';
 import 'package:trapper/app/presentation/widget/input_message.dart';
-import 'package:trapper/app/presentation/widget/message_item.dart';
-import 'package:trapper/app/presentation/widget/search_message.dart';
+import 'package:trapper/app/presentation/widget/room_card.dart';
+import 'package:trapper/app/presentation/widget/room_search_bar.dart';
 import 'package:trapper/app/presentation/widget/text_message.dart';
 
 import '../../../config/const/dimen.dart';
@@ -30,7 +30,7 @@ class MessageScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   if (size.width > Dimen.mobileWidth) const HeaderMessage() else const Padding(
                     padding: EdgeInsets.symmetric(vertical: 8.0),
-                    child: AvatarMessage(),
+                    child: RoomAvatar(),
                   ),
                   Expanded(
                     child: Padding(
@@ -44,7 +44,7 @@ class MessageScreen extends StatelessWidget {
                         child: Column(children: [
                           if(size.width > Dimen.mobileWidth) const Padding(
                             padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-                            child: SearchMessage(),
+                            child: RoomSearchBar(),
                           ),
                           const SizedBox(height: 15),
                           Expanded(
@@ -53,7 +53,7 @@ class MessageScreen extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                                  child: size.width > Dimen.mobileWidth ? const MessageItem() : const AvatarMessage()
+                                  child: size.width > Dimen.mobileWidth ? const RoomCard() : const RoomAvatar()
                                 );
                               },
                             ),

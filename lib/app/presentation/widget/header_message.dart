@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trapper/app/presentation/widget/avatar_message.dart';
+import 'package:trapper/app/presentation/widget/room_avatar.dart';
 
 class HeaderMessage extends StatelessWidget {
   const HeaderMessage({super.key});
@@ -7,7 +7,7 @@ class HeaderMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const AvatarMessage(),
+      leading: const RoomAvatar(),
       title: Text(
         "Annona",
         style: Theme.of(context).textTheme.titleMedium!.copyWith(
