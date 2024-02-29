@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Confirm password does not match"),
         "confirm_password_required": MessageLookupByLibrary.simpleMessage(
             "Confirm password is required"),
+        "connect_button":
+            MessageLookupByLibrary.simpleMessage("Connect with friends"),
         "date_of_birth": MessageLookupByLibrary.simpleMessage("Date of birth"),
         "date_of_birth_example":
             MessageLookupByLibrary.simpleMessage("dd/mm/yyyy"),
@@ -54,14 +56,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "female": MessageLookupByLibrary.simpleMessage("Female"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot password?"),
+        "friends_button": MessageLookupByLibrary.simpleMessage("Friends"),
         "full_name": MessageLookupByLibrary.simpleMessage("Full name"),
         "full_name_example": MessageLookupByLibrary.simpleMessage("John Doe"),
         "full_name_required":
             MessageLookupByLibrary.simpleMessage("Full name is required"),
         "gender": MessageLookupByLibrary.simpleMessage("Gender"),
+        "help_button": MessageLookupByLibrary.simpleMessage("Help"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "logout_button": MessageLookupByLibrary.simpleMessage("Logout"),
         "male": MessageLookupByLibrary.simpleMessage("Male"),
+        "messages_button": MessageLookupByLibrary.simpleMessage("Messages"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_example": MessageLookupByLibrary.simpleMessage("********"),
@@ -78,9 +84,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Invalid phone number"),
         "phone_number_required":
             MessageLookupByLibrary.simpleMessage("Phone number is required"),
+        "profile_button": MessageLookupByLibrary.simpleMessage("Profile"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset password"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "settings_button": MessageLookupByLibrary.simpleMessage("Settings"),
         "signup": MessageLookupByLibrary.simpleMessage("Sign up"),
         "success": MessageLookupByLibrary.simpleMessage("Success")
       };

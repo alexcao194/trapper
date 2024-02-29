@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Mật khẩu không khớp"),
         "confirm_password_required": MessageLookupByLibrary.simpleMessage(
             "Mật khẩu không được để trống"),
+        "connect_button":
+            MessageLookupByLibrary.simpleMessage("Kết nối với bạn bè"),
         "date_of_birth": MessageLookupByLibrary.simpleMessage("Ngày sinh"),
         "date_of_birth_example":
             MessageLookupByLibrary.simpleMessage("dd/mm/yyyy"),
@@ -55,15 +57,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "female": MessageLookupByLibrary.simpleMessage("Nữ"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Quên mật khẩu"),
+        "friends_button": MessageLookupByLibrary.simpleMessage("Bạn bè"),
         "full_name": MessageLookupByLibrary.simpleMessage("Họ và tên"),
         "full_name_example":
             MessageLookupByLibrary.simpleMessage("Nguyễn Văn A"),
         "full_name_required": MessageLookupByLibrary.simpleMessage(
             "Họ và tên không được để trống"),
         "gender": MessageLookupByLibrary.simpleMessage("Giới tính"),
+        "help_button": MessageLookupByLibrary.simpleMessage("Trợ giúp"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "logout": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
+        "logout_button": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
         "male": MessageLookupByLibrary.simpleMessage("Nam"),
+        "messages_button": MessageLookupByLibrary.simpleMessage("Tin nhắn"),
         "ok": MessageLookupByLibrary.simpleMessage("Đồng ý"),
         "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
         "password_example": MessageLookupByLibrary.simpleMessage("********"),
@@ -80,9 +86,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Số điện thoại không hợp lệ"),
         "phone_number_required": MessageLookupByLibrary.simpleMessage(
             "Số điện thoại không được để trống"),
+        "profile_button": MessageLookupByLibrary.simpleMessage("Hồ sơ"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Đặt lại mật khẩu"),
         "save": MessageLookupByLibrary.simpleMessage("Lưu"),
+        "settings_button": MessageLookupByLibrary.simpleMessage("Cài đặt"),
         "signup": MessageLookupByLibrary.simpleMessage("Đăng ký"),
         "success": MessageLookupByLibrary.simpleMessage("Thành công")
       };

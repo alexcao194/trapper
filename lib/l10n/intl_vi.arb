@@ -43,5 +43,13 @@
   "phone_number_required": "Số điện thoại không được để trống",
   "common_error": "Có lỗi xảy ra, vui lòng thử lại sau",
   "common_fields_error": "Vui lòng kiểm tra lại các trường thông tin",
-  "date_of_birth_example": "dd/mm/yyyy"
+  "date_of_birth_example": "dd/mm/yyyy",
+
+  "profile_button": "Hồ sơ",
+  "friends_button": "Bạn bè",
+  "messages_button": "Tin nhắn",
+  "connect_button": "Kết nối với bạn bè",
+  "settings_button": "Cài đặt",
+  "help_button": "Trợ giúp",
+  "logout_button": "Đăng xuất"
 }

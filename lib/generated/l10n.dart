@@ -459,6 +459,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Profile`
+  String get profile_button {
+    return Intl.message(
+      'Profile',
+      name: 'profile_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Friends`
+  String get friends_button {
+    return Intl.message(
+      'Friends',
+      name: 'friends_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Messages`
+  String get messages_button {
+    return Intl.message(
+      'Messages',
+      name: 'messages_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connect with friends`
+  String get connect_button {
+    return Intl.message(
+      'Connect with friends',
+      name: 'connect_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings_button {
+    return Intl.message(
+      'Settings',
+      name: 'settings_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Help`
+  String get help_button {
+    return Intl.message(
+      'Help',
+      name: 'help_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get logout_button {
+    return Intl.message(
+      'Logout',
+      name: 'logout_button',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
