@@ -213,6 +213,8 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         _artboard = artboard;
       });
+
+      context.go("/${RoutePath.messages}");
     });
 
     _email.addListener(() {

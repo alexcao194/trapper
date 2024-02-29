@@ -78,35 +78,30 @@ class MessageScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: 1000,
-              ),
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                //color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.75),
-                child: Column(
-                  children: [
-                    Container(
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Theme.of(context).colorScheme.onInverseSurface,
-                        ),
-                        child: const DetailHeaderMessage()),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: 1,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                              child: const TextMessage());
-                        },
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              //color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.75),
+              child: Column(
+                children: [
+                  Container(
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Theme.of(context).colorScheme.onInverseSurface,
                       ),
+                      child: const DetailHeaderMessage()),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return TextMessage(
+                          isSender: index % 3 == 0,
+                        );
+                      },
                     ),
-                    const InputMessage()
-                  ],
-                ),
+                  ),
+                  const InputMessage()
+                ],
               ),
             ),
           ),
