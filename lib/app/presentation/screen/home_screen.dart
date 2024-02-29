@@ -4,9 +4,9 @@ import 'package:trapper/app/presentation/screen/home_tabs/connect_tab.dart';
 import 'package:trapper/app/presentation/screen/home_tabs/friends_tab.dart';
 import 'package:trapper/app/presentation/screen/home_tabs/help_tab.dart';
 import 'package:trapper/app/presentation/screen/home_tabs/settings_tab.dart';
+import 'package:trapper/app/presentation/widget/avatar_message.dart';
 import 'package:trapper/app/presentation/widget/header_message.dart';
 import 'package:trapper/app/presentation/widget/profile_button.dart';
-import 'package:trapper/app/presentation/widget/room_avatar.dart';
 import 'package:trapper/config/go_router/app_go_router.dart';
 import '../../../generated/l10n.dart';
 
@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen>{
                 else
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 8.0),
-                    child: RoomAvatar(),
+                    child: AvatarMessage(),
                   ),
                 const SizedBox(height: 8),
                 ProfileButton(
