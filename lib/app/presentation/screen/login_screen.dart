@@ -219,20 +219,24 @@ class _LoginScreenState extends State<LoginScreen> {
     _email.addListener(() {
       setState(() {
         emailError = Validator.email(_email.text);
-        canLogin = emailError == null && passwordError == null;
+        updateLoginStatus();
       });
     });
 
     _password.addListener(() {
       setState(() {
         passwordError = Validator.password(_password.text);
-        canLogin = emailError == null && passwordError == null;
+        updateLoginStatus();
       });
     });
   }
 
   void handOn() {
     _isHandUp.change(true);
+  }
+
+  void updateLoginStatus() {
+    canLogin = emailError == null && passwordError == null && _email.text.isNotEmpty && _password.text.isNotEmpty;
   }
 
   void stopLooking() {
