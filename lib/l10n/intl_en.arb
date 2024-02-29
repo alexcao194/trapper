@@ -43,5 +43,13 @@
   "phone_number_required": "Phone number is required",
   "common_error": "Something went wrong. Please try again later.",
   "common_fields_error": "Please fill all required fields.",
-  "date_of_birth_example": "dd/mm/yyyy"
+  "date_of_birth_example": "dd/mm/yyyy",
+
+  "profile_button": "Profile",
+  "friends_button": "Friends",
+  "messages_button": "Messages",
+  "connect_button": "Connect with friends",
+  "settings_button": "Settings",
+  "help_button": "Help",
+  "logout_button": "Logout"
 }
