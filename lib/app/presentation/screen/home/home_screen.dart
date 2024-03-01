@@ -133,6 +133,7 @@ class _HomeScreenState extends State<HomeScreen>{
                   child: PageView(
                     controller: _pageController,
                     scrollDirection: Axis.vertical,
+                    physics: const NeverScrollableScrollPhysics(),
                     children: const [
                       Center(child: ProfileTab()),
                       Center(child: FriendsTab()),
