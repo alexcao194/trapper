@@ -50,19 +50,22 @@ class ConnectTab extends StatelessWidget {
               SizedBox(height: 10.0),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    IconButton(onPressed: (){}, icon: Icon(Icons.filter_alt)),
-                    Text("Lọc", style: TextStyle(fontSize: 15)),
-                    SizedBox(width: 10.0),
-                    GenderDropdown(),
-                    SizedBox(width: 10.0),
-                    AgeDropDown(),
-                    SizedBox(width: 10.0),
-                    LocationDropDown(),
-                    SizedBox(width: 10.0),
-                    AddHobbies(),
-                  ]
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      IconButton(onPressed: (){}, icon: Icon(Icons.filter_alt)),
+                      Text("Lọc", style: TextStyle(fontSize: 15)),
+                      SizedBox(width: 10.0),
+                      GenderDropdown(),
+                      SizedBox(width: 10.0),
+                      AgeDropDown(),
+                      SizedBox(width: 10.0),
+                      LocationDropDown(),
+                      SizedBox(width: 10.0),
+                      AddHobbies(),
+                    ]
+                  ),
                 ),
               ),
             ],
