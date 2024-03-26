@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,131 +50,137 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         child: const Icon(Icons.home),
       ),
-      body: SafeArea(
-        child: BlocConsumer<AuthBloc, AuthState>(
-          listener: (context, state) {
-            if (state is AuthStateAuthenticated) {
-              _successTrigger.fire();
-              context.go(RoutePath.home);
-            } else if (state is AuthStateFailure) {
-              _failTrigger.fire();
-              DialogTools.showFailureDialog(context, message: state.error);
-            }
-          },
-          builder: (context, state) {
-            return Stack(
-              children: [
-                Row(
-                  children: [
-                    if (size.width > Dimen.mobileWidth)
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+      body: BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthStateAuthenticated) {
+            _successTrigger.fire();
+            context.go(RoutePath.home);
+          } else if (state is AuthStateFailure) {
+            _failTrigger.fire();
+            DialogTools.showFailureDialog(context, message: state.error);
+          }
+        },
+        builder: (context, state) {
+          return Stack(
+            children: [
+              Row(
+                children: [
+                  if (size.width > Dimen.mobileWidth)
+                    Expanded(
+                      flex: 5,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Container(
+                          height: size.height,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFFFE6C9),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              bottomLeft: Radius.circular(20),
+                            ),
+                          ),
+                          child: Image.asset(Assets.assetsBanner),
+                        ),
+                      ),
+                    ),
+                  Expanded(
+                    flex: 3,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 300,
+                          width: 300,
+                          child: Center(
+                            child: _artboard != null
+                                ? Rive(
+                                    artboard: _artboard!,
+                                    fit: BoxFit.cover,
+                                  )
+                                : const SizedBox(),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: Container(
-                            decoration: BoxDecoration(color: Theme.of(context).colorScheme.primaryContainer, borderRadius: BorderRadius.circular(25)),
-                            child: Center(
-                              child: Text(
-                                S.current.app_name,
-                                style: Theme.of(context).textTheme.labelMedium,
-                              ),
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primaryContainer, width: 2), borderRadius: BorderRadius.circular(5)),
+                            child: Column(
+                              children: [
+                                RoundedTextField(
+                                  labelText: S.current.email,
+                                  hintText: S.current.email_example,
+                                  errorText: emailError,
+                                  controller: _email,
+                                  prefixIcon: const Icon(Icons.email_outlined, size: 18),
+                                  onTap: lookOn,
+                                  onChanged: lookFollow,
+                                  onTapOutside: (event) => stopLooking(),
+                                ),
+                                const SizedBox(height: 16),
+                                RoundedTextField(
+                                  labelText: S.current.password,
+                                  hintText: S.current.password_example,
+                                  prefixIcon: const Icon(Icons.lock_outline, size: 18),
+                                  errorText: passwordError,
+                                  obscureText: true,
+                                  controller: _password,
+                                  onTap: handOn,
+                                  onTapOutside: (event) => stopLooking(),
+                                ),
+                                const SizedBox(height: 16),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    TextButton(
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+
+                                      ),
+                                      onPressed: () {
+                                        if (canLogin) {
+                                          login();
+                                        } else {
+                                          DialogTools.showFailureDialog(context, message: S.current.common_fields_error);
+                                        }
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Text(S.current.login),
+                                      ),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: signup,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Text(S.current.signup),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                      ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 300,
-                            width: 300,
-                            child: Center(
-                              child: _artboard != null
-                                  ? Rive(
-                                      artboard: _artboard!,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : const SizedBox(),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primaryContainer, width: 2), borderRadius: BorderRadius.circular(5)),
-                              child: Column(
-                                children: [
-                                  RoundedTextField(
-                                    labelText: S.current.email,
-                                    hintText: S.current.email_example,
-                                    errorText: emailError,
-                                    controller: _email,
-                                    prefixIcon: const Icon(Icons.email_outlined, size: 18),
-                                    onTap: lookOn,
-                                    onChanged: lookFollow,
-                                    onTapOutside: (event) => stopLooking(),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  RoundedTextField(
-                                    labelText: S.current.password,
-                                    hintText: S.current.password_example,
-                                    prefixIcon: const Icon(Icons.lock_outline, size: 18),
-                                    errorText: passwordError,
-                                    obscureText: true,
-                                    controller: _password,
-                                    onTap: handOn,
-                                    onTapOutside: (event) => stopLooking(),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          if (canLogin) {
-                                            login();
-                                          } else {
-                                            DialogTools.showFailureDialog(context, message: S.current.common_fields_error);
-                                          }
-                                        },
-                                        child: Container(
-                                          padding: const EdgeInsets.all(16),
-                                          child: Text(S.current.login),
-                                        ),
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: signup,
-                                        child: Container(
-                                          padding: const EdgeInsets.all(16),
-                                          child: Text(S.current.signup),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(child: Container()),
-                          Text(
-                            S.current.app_name_annotation,
-                            style: Theme.of(context).textTheme.labelMedium,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                if (state is AuthStateLoading)
-                  Container(
-                    color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.5),
-                    child: const Center(
-                      child: CircularProgressIndicator(),
+                        Expanded(child: Container()),
+                        Text(
+                          S.current.app_name_annotation,
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
+                      ],
                     ),
                   ),
-              ],
-            );
-          },
-        ),
+                ],
+              ),
+              if (state is AuthStateLoading)
+                Container(
+                  color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.5),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -258,7 +265,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void login() {
     _isChecking.change(false);
     _isHandUp.change(false);
-    if(emailError == null) {
+    if (emailError == null) {
       DependencyInjection.sl<SharedPreferences>().setString(LoginScreen.EMAIL_KEY, _email.text);
     }
     context.read<AuthBloc>().add(

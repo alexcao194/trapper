@@ -29,7 +29,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: AppGoRouter.router,
-      theme: ThemeData.light().copyWith(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light().copyWith(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+      ),
       darkTheme: ThemeData.dark(),
       localizationsDelegates: const [
         S.delegate,
