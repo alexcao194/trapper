@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:trapper/app/presentation/screen/home/home_tabs/widget/add_hobbies.dart';
 import 'package:trapper/app/presentation/screen/home/home_tabs/widget/age_dropdown.dart';
