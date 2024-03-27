@@ -15,7 +15,7 @@ import 'widget/rounded_text_field.dart';
 import '../../bloc/auth/auth_bloc.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../di.dart';
-import 'widget/side_banner.dart';
+import '../widgets/side_banner.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -71,24 +71,27 @@ class _LoginScreenState extends State<LoginScreen> {
                       flex: 5,
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: SlideBanner(size: size),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.primaryContainer,
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              bottomLeft: Radius.circular(20),
+                            ),
+                          ),
+                          child: Center(child: SlideBanner(size: size)),
+                        ),
                       ),
                     ),
                   Expanded(
                     flex: 3,
                     child: Column(
                       children: [
+                        const SizedBox(height: 16),
                         SizedBox(
-                          height: 300,
                           width: 300,
-                          child: Center(
-                            child: _artboard != null
-                                ? Rive(
-                                    artboard: _artboard!,
-                                    fit: BoxFit.cover,
-                                  )
-                                : const SizedBox(),
-                          ),
+                          height: size.width > Dimen.mobileWidth ? 300 : null,
+                          child: Center(child: getChar()),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -125,7 +128,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     TextButton(
                                       style: TextButton.styleFrom(
                                         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-
                                       ),
                                       onPressed: () {
                                         if (canLogin) {
@@ -139,7 +141,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                         child: Text(S.current.login),
                                       ),
                                     ),
-                                    ElevatedButton(
+                                    TextButton(
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                                      ),
                                       onPressed: signup,
                                       child: Container(
                                         padding: const EdgeInsets.all(16),
@@ -273,5 +278,18 @@ class _LoginScreenState extends State<LoginScreen> {
     _isChecking.change(false);
     _isHandUp.change(false);
     DialogTools.showSignupDialog(context);
+  }
+
+  Widget getChar() {
+    if (MediaQuery.of(context).size.width > Dimen.mobileWidth) {
+      return _artboard != null
+          ? Rive(
+              artboard: _artboard!,
+              fit: BoxFit.cover,
+            )
+          : const SizedBox();
+    } else {
+      return SlideBanner(size: MediaQuery.of(context).size);
+    }
   }
 }

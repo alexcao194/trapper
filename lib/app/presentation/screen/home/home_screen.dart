@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:trapper/app/presentation/screen/rooms/widget/header_message.dart';
-import 'package:trapper/app/presentation/screen/home/widget/profile_button.dart';
 import 'package:trapper/app/presentation/screen/rooms/widget/room_avatar.dart';
 import 'package:trapper/config/go_router/app_go_router.dart';
 import '../../../../generated/l10n.dart';
@@ -13,6 +12,7 @@ import 'home_tabs/friends_tab.dart';
 import 'home_tabs/help_tab.dart';
 import 'home_tabs/profile_tab.dart';
 import 'home_tabs/settings_tab.dart';
+import 'home_tabs/widget/profile_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
