@@ -15,6 +15,7 @@ import 'widget/rounded_text_field.dart';
 import '../../bloc/auth/auth_bloc.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../di.dart';
+import 'widget/side_banner.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -70,17 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       flex: 5,
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: Container(
-                          height: size.height,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFFFE6C9),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              bottomLeft: Radius.circular(20),
-                            ),
-                          ),
-                          child: Image.asset(Assets.assetsBanner),
-                        ),
+                        child: SlideBanner(size: size),
                       ),
                     ),
                   Expanded(

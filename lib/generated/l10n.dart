@@ -70,10 +70,10 @@ class S {
     );
   }
 
-  /// `Trap all person you want`
+  /// `Dating app no.1 PTIT`
   String get app_description {
     return Intl.message(
-      'Trap all person you want',
+      'Dating app no.1 PTIT',
       name: 'app_description',
       desc: '',
       args: [],

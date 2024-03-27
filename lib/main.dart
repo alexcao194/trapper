@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       routerConfig: AppGoRouter.router,
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light().copyWith(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFFFE6C9)),
       ),
       darkTheme: ThemeData.dark(),
       localizationsDelegates: const [
