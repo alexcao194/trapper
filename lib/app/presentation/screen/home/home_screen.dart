@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:trapper/app/presentation/screen/home/home_tabs/widget/keep_alive_page.dart';
 import 'package:trapper/app/presentation/screen/rooms/widget/header_message.dart';
 import 'package:trapper/app/presentation/screen/rooms/widget/room_avatar.dart';
 import 'package:trapper/config/go_router/app_go_router.dart';
@@ -135,11 +136,11 @@ class _HomeScreenState extends State<HomeScreen>{
                     scrollDirection: Axis.vertical,
                     physics: const NeverScrollableScrollPhysics(),
                     children: const [
-                      Center(child: ProfileTab()),
-                      Center(child: FriendsTab()),
-                      Center(child: ConnectTab()),
-                      Center(child: SettingsTab()),
-                      Center(child: HelpTab()),
+                      KeepAlivePage(child: Center(child: ProfileTab())),
+                      KeepAlivePage(child: Center(child: FriendsTab())),
+                      KeepAlivePage(child: Center(child: ConnectTab())),
+                      KeepAlivePage(child: Center(child: SettingsTab())),
+                      KeepAlivePage(child: Center(child: HelpTab())),
                     ],
                   )),
             ),

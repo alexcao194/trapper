@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class RoundedTextField extends StatelessWidget {
   final String hintText;
@@ -10,6 +11,8 @@ class RoundedTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final FocusNode? focusNode;
   final Widget? prefixIcon;
+  final TextInputAction? textInputAction;
+  final TextInputType? inputType;
   final ValueChanged<String>? onChanged;
   final Function(PointerDownEvent)? onTapOutside;
   const RoundedTextField({
@@ -21,15 +24,19 @@ class RoundedTextField extends StatelessWidget {
     this.onTap,
     this.onChanged,
     this.onTapOutside,
+    this.inputType,
     this.errorText,
     this.suffixIcon,
     this.prefixIcon,
+    this.textInputAction,
     this.focusNode,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      textInputAction: textInputAction,
+      keyboardType: inputType,
       focusNode: focusNode,
       controller: controller,
       obscureText: obscureText,

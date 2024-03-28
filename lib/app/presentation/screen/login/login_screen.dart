@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -67,110 +68,120 @@ class _LoginScreenState extends State<LoginScreen> {
         builder: (context, state) {
           return Stack(
             children: [
-              Row(
-                children: [
-                  if (size.width > Dimen.mobileWidth)
-                    Expanded(
-                      flex: 5,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primaryContainer,
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              bottomLeft: Radius.circular(20),
+              SingleChildScrollView(
+                child: SizedBox(
+                  height: size.height,
+                  width: size.width,
+                  child: Row(
+                    children: [
+                      if (size.width > Dimen.mobileWidth)
+                        Expanded(
+                          flex: 5,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.primaryContainer,
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                ),
+                              ),
+                              child: Center(child: SlideBanner(size: size)),
                             ),
                           ),
-                          child: Center(child: SlideBanner(size: size)),
                         ),
-                      ),
-                    ),
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 16),
-                        SizedBox(
-                          width: 300,
-                          height: size.width > Dimen.mobileWidth ? 300 : null,
-                          child: Center(child: getChar()),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primaryContainer, width: 2), borderRadius: BorderRadius.circular(5)),
-                            child: Column(
-                              children: [
-                                RoundedTextField(
-                                  focusNode: _emailFocusNode,
-                                  labelText: S.current.email,
-                                  hintText: S.current.email_example,
-                                  errorText: emailError,
-                                  controller: _email,
-                                  prefixIcon: const Icon(Icons.email_outlined, size: 18),
-                                  onTap: lookOn,
-                                  onChanged: lookFollow,
-                                  onTapOutside: (event) => stopLooking(),
-                                ),
-                                const SizedBox(height: 16),
-                                RoundedTextField(
-                                  focusNode: _passwordFocusNode,
-                                  labelText: S.current.password,
-                                  hintText: S.current.password_example,
-                                  prefixIcon: const Icon(Icons.lock_outline, size: 18),
-                                  errorText: passwordError,
-                                  obscureText: true,
-                                  controller: _password,
-                                  onTap: handOn,
-                                  onTapOutside: (event) => stopLooking(),
-                                ),
-                                const SizedBox(height: 16),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      Expanded(
+                        flex: 3,
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 60),
+                            SizedBox(
+                              width: 300,
+                              height: size.width > Dimen.mobileWidth ? 300 : null,
+                              child: Center(child: getChar()),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Container(
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primaryContainer, width: 2), borderRadius: BorderRadius.circular(5)),
+                                child: Column(
                                   children: [
-                                    TextButton(
-                                      style: TextButton.styleFrom(
-                                        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                                      ),
-                                      onPressed: () {
-                                        if (canLogin) {
-                                          login();
-                                        } else {
-                                          DialogTools.showFailureDialog(context, message: S.current.common_fields_error);
-                                        }
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.all(16),
-                                        child: Text(S.current.login),
-                                      ),
+                                    RoundedTextField(
+                                      textInputAction: TextInputAction.next,
+                                      inputType: TextInputType.emailAddress,
+                                      focusNode: _emailFocusNode,
+                                      labelText: S.current.email,
+                                      hintText: S.current.email_example,
+                                      errorText: emailError,
+                                      controller: _email,
+                                      prefixIcon: const Icon(Icons.email_outlined, size: 18),
+                                      onTap: lookOn,
+                                      onChanged: lookFollow,
+                                      onTapOutside: (event) => stopLooking(),
                                     ),
-                                    TextButton(
-                                      style: TextButton.styleFrom(
-                                        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                                      ),
-                                      onPressed: signup,
-                                      child: Container(
-                                        padding: const EdgeInsets.all(16),
-                                        child: Text(S.current.signup),
-                                      ),
+                                    const SizedBox(height: 16),
+                                    RoundedTextField(
+                                      textInputAction: TextInputAction.done,
+                                      inputType: TextInputType.visiblePassword,
+                                      focusNode: _passwordFocusNode,
+                                      labelText: S.current.password,
+                                      hintText: S.current.password_example,
+                                      prefixIcon: const Icon(Icons.lock_outline, size: 18),
+                                      errorText: passwordError,
+                                      obscureText: true,
+                                      controller: _password,
+                                      onTap: handOn,
+                                      onTapOutside: (event) => stopLooking(),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        TextButton(
+                                          style: TextButton.styleFrom(
+                                            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                                          ),
+                                          onPressed: () {
+                                            if (canLogin) {
+                                              login();
+                                            } else {
+                                              DialogTools.showFailureDialog(context, message: S.current.common_fields_error);
+                                            }
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.all(16),
+                                            child: Text(S.current.login),
+                                          ),
+                                        ),
+                                        TextButton(
+                                          style: TextButton.styleFrom(
+                                            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                                          ),
+                                          onPressed: signup,
+                                          child: Container(
+                                            padding: const EdgeInsets.all(16),
+                                            child: Text(S.current.signup),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
+                            Expanded(child: Container()),
+                            Text(
+                              S.current.app_name_annotation,
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                          ],
                         ),
-                        Expanded(child: Container()),
-                        Text(
-                          S.current.app_name_annotation,
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
               if (state is AuthStateLoading)
                 Container(

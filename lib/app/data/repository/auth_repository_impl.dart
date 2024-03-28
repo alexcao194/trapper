@@ -1,12 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:trapper/app/data/data_source/local_data.dart';
 import 'package:trapper/app/data/data_source/remote_data.dart';
+import 'package:trapper/app/data/model/account_model.dart';
 import 'package:trapper/app/domain/entity/account.dart';
 
 import 'package:trapper/core/failure/failure.dart';
 
 import '../../domain/entity/profile.dart';
 import '../../domain/repository/auth_repository.dart';
+import '../model/profile_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final LocalData _localData;
@@ -20,7 +22,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, void>> login(Account account) async {
     try {
-      final token = await _remoteData.login(account);
+      final token = await _remoteData.login(AccountModel.fromEntity(account));
       await _localData.saveToken(token);
       return const Right(null);
     } on Exception catch (e) {
@@ -35,9 +37,17 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, void>> register(Account account, Profile profile) {
-    // TODO: implement register
-    throw UnimplementedError();
+  Future<Either<Failure, void>> register(Account account, Profile profile) async {
+    try {
+      final token = await _remoteData.register(
+        AccountModel.fromEntity(account),
+        ProfileModel.fromEntity(profile),
+      );
+      await _localData.saveToken(token);
+      return const Right(null);
+    } on Exception catch (e) {
+      return Left(Failure(e.toString()));
+    }
   }
 
 }

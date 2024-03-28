@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:trapper/app/data/model/account_model.dart';
+import 'package:trapper/app/data/model/profile_model.dart';
 import 'package:trapper/app/domain/entity/account.dart';
+import 'package:trapper/app/domain/entity/profile.dart';
 
 abstract class RemoteData {
-  Future<String> login(Account account);
-  Future<void> register(Account account, String password);
+  Future<String> login(AccountModel account);
+  Future<String> register(AccountModel account, ProfileModel profile);
   Future<void> logout();
 }
 
@@ -12,8 +17,16 @@ class RemoteDataImpl implements RemoteData {
   const RemoteDataImpl({required this.dio});
 
   @override
-  Future<String> login(Account account) {
-    throw Exception('Not implemented');
+  Future<String> login(AccountModel account) async {
+    var response = await dio.post(
+      '/auth/login',
+      data: account.toJson()
+    );
+    if (response.statusCode == 200) {
+      return response.data['token'];
+    } else {
+      throw Exception(response.data);
+    }
   }
 
   @override
@@ -23,9 +36,23 @@ class RemoteDataImpl implements RemoteData {
   }
 
   @override
-  Future<void> register(Account account, String password) {
-    // TODO: implement register
-    throw UnimplementedError();
+  Future<String> register(Account account, ProfileModel profile) async {
+    var response = await dio.post(
+      '/auth/register',
+      data: {
+        'email': account.email,
+        'password': account.password,
+        'full_name': profile.name,
+        'gender': profile.gender,
+        'date_of_birth': profile.birthDate,
+      }
+    );
+
+    if (response.statusCode == 200) {
+      return response.data['token'];
+    } else {
+      throw Exception(response.data);
+    }
   }
 }
 
