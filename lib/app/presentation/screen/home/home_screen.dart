@@ -50,102 +50,104 @@ class _HomeScreenState extends State<HomeScreen>{
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.go("/${RoutePath.messages}");
-        },
-        child: const Icon(Icons.message),
-      ),
-      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-      body: Row(
-        children: [
-          SizedBox(
-            width: size.width > Dimen.mobileWidth ? 400 : 80,
-            child: Column(
-              children: [
-                if (size.width > Dimen.mobileWidth)
-                  const HeaderMessage()
-                else
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.0),
-                    child: RoomAvatar(),
+    return SafeArea(
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            context.go("/${RoutePath.messages}");
+          },
+          child: const Icon(Icons.message),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+        body: Row(
+          children: [
+            SizedBox(
+              width: size.width > Dimen.mobileWidth ? 400 : 80,
+              child: Column(
+                children: [
+                  if (size.width > Dimen.mobileWidth)
+                    const HeaderMessage()
+                  else
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                      child: RoomAvatar(),
+                    ),
+                  const SizedBox(height: 8),
+                  ProfileButton(
+                    isActivated: index == 0,
+                    icon: Icons.person,
+                    title: S.current.profile_button,
+                    onTap: () {
+                      _go(0);
+                    },
                   ),
-                const SizedBox(height: 8),
-                ProfileButton(
-                  isActivated: index == 0,
-                  icon: Icons.person,
-                  title: S.current.profile_button,
-                  onTap: () {
-                    _go(0);
-                  },
-                ),
-                ProfileButton(
-                  isActivated: index == 1,
-                  icon: Icons.group,
-                  title: S.current.friends_button,
-                  onTap: () {
-                    _go(1);
-                  },
-                ),
-                ProfileButton(
-                  isActivated: index == 2,
-                  icon: Icons.connect_without_contact,
-                  title: S.current.connect_button,
-                  onTap: () {
-                    _go(2);
-                  },
-                ),
-                ProfileButton(
-                  isActivated: index == 3,
-                  icon: Icons.settings,
-                  title: S.current.settings_button,
-                  onTap: () {
-                    _go(3);
-                  },
-                ),
-                ProfileButton(
-                  isActivated: index == 4,
-                  icon: Icons.help,
-                  title: S.current.help_button,
-                  onTap: () {
-                    _go(4);
-                  },
-                ),
-                ProfileButton(
-                  isActivated: false,
-                  icon: Icons.logout,
-                  title: S.current.logout_button,
-                  onTap: () {
+                  ProfileButton(
+                    isActivated: index == 1,
+                    icon: Icons.group,
+                    title: S.current.friends_button,
+                    onTap: () {
+                      _go(1);
+                    },
+                  ),
+                  ProfileButton(
+                    isActivated: index == 2,
+                    icon: Icons.connect_without_contact,
+                    title: S.current.connect_button,
+                    onTap: () {
+                      _go(2);
+                    },
+                  ),
+                  ProfileButton(
+                    isActivated: index == 3,
+                    icon: Icons.settings,
+                    title: S.current.settings_button,
+                    onTap: () {
+                      _go(3);
+                    },
+                  ),
+                  ProfileButton(
+                    isActivated: index == 4,
+                    icon: Icons.help,
+                    title: S.current.help_button,
+                    onTap: () {
+                      _go(4);
+                    },
+                  ),
+                  ProfileButton(
+                    isActivated: false,
+                    icon: Icons.logout,
+                    title: S.current.logout_button,
+                    onTap: () {
 
-                  },
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
-                    borderRadius: BorderRadius.circular(20),
+                    },
                   ),
-                  child: PageView(
-                    controller: _pageController,
-                    scrollDirection: Axis.vertical,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: const [
-                      KeepAlivePage(child: Center(child: ProfileTab())),
-                      KeepAlivePage(child: Center(child: FriendsTab())),
-                      KeepAlivePage(child: Center(child: ConnectTab())),
-                      KeepAlivePage(child: Center(child: SettingsTab())),
-                      KeepAlivePage(child: Center(child: HelpTab())),
-                    ],
-                  )),
+                ],
+              ),
             ),
-          ),
-        ],
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: PageView(
+                      controller: _pageController,
+                      scrollDirection: Axis.vertical,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: const [
+                        KeepAlivePage(child: Center(child: ProfileTab())),
+                        KeepAlivePage(child: Center(child: FriendsTab())),
+                        KeepAlivePage(child: Center(child: ConnectTab())),
+                        KeepAlivePage(child: Center(child: SettingsTab())),
+                        KeepAlivePage(child: Center(child: HelpTab())),
+                      ],
+                    )),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
