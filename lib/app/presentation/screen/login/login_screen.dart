@@ -30,6 +30,9 @@ class _LoginScreenState extends State<LoginScreen> {
   late final TextEditingController _email;
   late final TextEditingController _password;
 
+  late FocusNode _emailFocusNode;
+  late FocusNode _passwordFocusNode;
+
   Artboard? _artboard;
   late final SMITrigger _successTrigger, _failTrigger;
   late final SMIBool _isHandUp, _isChecking;
@@ -101,6 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Column(
                               children: [
                                 RoundedTextField(
+                                  focusNode: _emailFocusNode,
                                   labelText: S.current.email,
                                   hintText: S.current.email_example,
                                   errorText: emailError,
@@ -112,6 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 const SizedBox(height: 16),
                                 RoundedTextField(
+                                  focusNode: _passwordFocusNode,
                                   labelText: S.current.password,
                                   hintText: S.current.password_example,
                                   prefixIcon: const Icon(Icons.lock_outline, size: 18),
@@ -192,6 +197,9 @@ class _LoginScreenState extends State<LoginScreen> {
       _email.text = cachedEmail;
     }
 
+    _emailFocusNode = FocusNode();
+    _passwordFocusNode = FocusNode();
+
     rootBundle.load(Assets.riveBear).then((value) {
       final file = RiveFile.import(value);
       final artboard = file.mainArtboard;
@@ -217,7 +225,13 @@ class _LoginScreenState extends State<LoginScreen> {
         _artboard = artboard;
       });
 
-      // context.go("/${RoutePath.messages}");
+      _passwordFocusNode.addListener(() {
+        if (_passwordFocusNode.hasFocus) {
+          _isHandUp.change(true);
+        } else {
+          _isHandUp.change(false);
+        }
+      });
     });
 
     _email.addListener(() {

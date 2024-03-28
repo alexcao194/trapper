@@ -12,7 +12,7 @@ import '../../app/presentation/screen/home/home_tabs/settings_tab.dart';
 
 class AppGoRouter {
   static get router => GoRouter(
-        initialLocation: "/${RoutePath.login}",
+        initialLocation: "/${RoutePath.home}",
         routes: [
           GoRoute(
             path: "/${RoutePath.login}",

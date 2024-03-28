@@ -8,6 +8,7 @@ class RoundedTextField extends StatelessWidget {
   final TextEditingController controller;
   final VoidCallback? onTap;
   final Widget? suffixIcon;
+  final FocusNode? focusNode;
   final Widget? prefixIcon;
   final ValueChanged<String>? onChanged;
   final Function(PointerDownEvent)? onTapOutside;
@@ -23,11 +24,13 @@ class RoundedTextField extends StatelessWidget {
     this.errorText,
     this.suffixIcon,
     this.prefixIcon,
+    this.focusNode,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      focusNode: focusNode,
       controller: controller,
       obscureText: obscureText,
       decoration: InputDecoration(
