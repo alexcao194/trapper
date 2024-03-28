@@ -6,9 +6,7 @@ class SettingsState extends Equatable {
   final int blueColor;
   final int themeIndex;
   final String languageCode;
-  final Color seek;
-  final int currentThemeIndex;
-  final String currentLanguageCode;
+  final SettingsSnapshot settingsSnapshot;
 
   const SettingsState({
     required this.redColor,
@@ -16,9 +14,7 @@ class SettingsState extends Equatable {
     required this.blueColor,
     required this.themeIndex,
     required this.languageCode,
-    required this.seek,
-    required this.currentThemeIndex,
-    required this.currentLanguageCode,
+    required this.settingsSnapshot,
   });
 
   factory SettingsState.initial() {
@@ -28,14 +24,18 @@ class SettingsState extends Equatable {
       blueColor: 0,
       themeIndex: 0,
       languageCode: 'en',
-      seek: Color(0xFF000000),
-      currentThemeIndex: 0,
-      currentLanguageCode: 'en',
+      settingsSnapshot: SettingsSnapshot(
+        red: 0,
+        green: 0,
+        blue: 0,
+        themeIndex: 0,
+        languageCode: 'en',
+      ),
     );
   }
 
   @override
-  List<Object> get props => [redColor, greenColor, blueColor, themeIndex, languageCode, seek, currentThemeIndex, currentLanguageCode];
+  List<Object> get props => [redColor, greenColor, blueColor, themeIndex, languageCode, settingsSnapshot];
 
   SettingsState copyWith({
     int? redColor,
@@ -43,9 +43,7 @@ class SettingsState extends Equatable {
     int? blueColor,
     int? themeIndex,
     String? languageCode,
-    Color? seek,
-    int? currentThemeIndex,
-    String? currentLanguageCode,
+    SettingsSnapshot? settingsSnapshot,
   }) {
     return SettingsState(
       redColor: redColor ?? this.redColor,
@@ -53,9 +51,7 @@ class SettingsState extends Equatable {
       blueColor: blueColor ?? this.blueColor,
       themeIndex: themeIndex ?? this.themeIndex,
       languageCode: languageCode ?? this.languageCode,
-      seek: seek ?? this.seek,
-      currentThemeIndex: currentThemeIndex ?? this.currentThemeIndex,
-      currentLanguageCode: currentLanguageCode ?? this.currentLanguageCode,
+      settingsSnapshot: settingsSnapshot ?? this.settingsSnapshot,
     );
   }
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:trapper/app/domain/entity/settings_snapshot.dart';
 
 part 'settings_event.dart';
 part 'settings_state.dart';
@@ -48,9 +49,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   FutureOr<void> _onSave(SettingsSave event, Emitter<SettingsState> emit) {
     emit(state.copyWith(
-      currentThemeIndex: themeIndex,
-      currentLanguageCode: languageCode,
-      seek: seek,
+      settingsSnapshot: SettingsSnapshot(
+        red: state.redColor,
+        green: state.greenColor,
+        blue: state.blueColor,
+        themeIndex: themeIndex,
+        languageCode: languageCode,
+      ),
     ));
   }
 }

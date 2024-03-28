@@ -29,20 +29,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
-      buildWhen: (previous, current) => previous.currentThemeIndex != current.currentThemeIndex || previous.seek != current.seek || previous.currentLanguageCode != current.currentLanguageCode,
+      buildWhen: (previous, current) => previous.settingsSnapshot != current.settingsSnapshot,
       builder: (context, state) {
-        print('object');
+        var colorScheme = ColorScheme.fromSeed(
+          seedColor: state.settingsSnapshot.themeIndex == 0 ? Color.fromARGB(255, state.settingsSnapshot.red, state.settingsSnapshot.green, state.settingsSnapshot.blue) : AppColors.seeks[state.settingsSnapshot.themeIndex - 1],
+        );
         return MaterialApp.router(
           routerConfig: AppGoRouter.router,
           debugShowCheckedModeBanner: false,
-          theme: ThemeData.light().copyWith(
-            colorScheme: ColorScheme.fromSeed(
-              seedColor: state.currentThemeIndex == 0
-                  ? state.seek
-                  : AppColors.seeks[state.currentThemeIndex - 1]
-            ),
-          ),
-          darkTheme: ThemeData.dark(),
+          theme: ThemeData.light().copyWith(colorScheme: colorScheme),
+          darkTheme: ThemeData.dark().copyWith(colorScheme: colorScheme),
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,
