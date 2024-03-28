@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 import 'package:trapper/app/presentation/bloc/auth/auth_bloc.dart';
+import 'package:trapper/app/presentation/bloc/settings/settings_bloc.dart';
 import 'package:trapper/config/dio/dio_tools.dart';
 import 'app/data/data_source/local_data.dart';
 import 'app/data/data_source/remote_data.dart';
@@ -15,6 +16,7 @@ class DependencyInjection {
   static Future<void> init() async {
     // Bloc
     sl.registerFactory<AuthBloc> (() => AuthBloc(login: sl()));
+    sl.registerFactory<SettingsBloc> (() => SettingsBloc());
 
     // Use case
     sl.registerLazySingleton<Login>(() => Login(authRepository: sl()));
