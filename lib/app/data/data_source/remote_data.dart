@@ -22,7 +22,7 @@ class RemoteDataImpl implements RemoteData {
       data: account.toJson()
     );
     if (response.statusCode == 200) {
-      return response.data['access-token'];
+      return response.data['access_token'];
     } else {
       throw Exception(response.data);
     }
@@ -48,7 +48,7 @@ class RemoteDataImpl implements RemoteData {
     );
 
     if (response.statusCode == 200) {
-      return response.data['token'];
+      return response.data['access_token'];
     } else {
       throw Exception(response.data);
     }
