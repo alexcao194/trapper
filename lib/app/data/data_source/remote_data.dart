@@ -9,6 +9,9 @@ abstract class RemoteData {
   Future<String> login(AccountModel account);
   Future<String> register(AccountModel account, ProfileModel profile);
   Future<void> logout();
+
+  Future<ProfileModel> getProfile();
+  Future<ProfileModel> updateProfile(ProfileModel profile);
 }
 
 class RemoteDataImpl implements RemoteData {
@@ -49,6 +52,29 @@ class RemoteDataImpl implements RemoteData {
 
     if (response.statusCode == 200) {
       return response.data['access_token'];
+    } else {
+      throw Exception(response.data);
+    }
+  }
+
+  @override
+  Future<ProfileModel> getProfile() async {
+    var response = await dio.get('/profile');
+    if (response.statusCode == 200) {
+      return ProfileModel.fromJson(response.data);
+    } else {
+      throw Exception(response.data);
+    }
+  }
+
+  @override
+  Future<ProfileModel> updateProfile(ProfileModel profile) async {
+    var response = await dio.put(
+      '/profile',
+      data: profile.toJson()
+    );
+    if (response.statusCode == 200) {
+      return ProfileModel.fromJson(response.data);
     } else {
       throw Exception(response.data);
     }

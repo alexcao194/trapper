@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trapper/app/presentation/bloc/settings/settings_bloc.dart';
 import 'package:trapper/config/const/app_colors.dart';
 import 'app/presentation/bloc/auth/auth_bloc.dart';
+import 'app/presentation/bloc/profile/profile_bloc.dart';
 import 'config/go_router/app_go_router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
@@ -16,6 +17,7 @@ void main() async {
       providers: [
         BlocProvider<AuthBloc>(create: (context) => DependencyInjection.sl<AuthBloc>()),
         BlocProvider<SettingsBloc>(create: (context) => DependencyInjection.sl<SettingsBloc>()),
+        BlocProvider<ProfileBloc>(create: (context) => DependencyInjection.sl<ProfileBloc>()),
       ],
       child: const MyApp(),
     ),
