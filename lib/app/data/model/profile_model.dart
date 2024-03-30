@@ -1,14 +1,14 @@
 import 'package:trapper/app/domain/entity/profile.dart';
 
 class ProfileModel extends Profile {
-  ProfileModel({required super.name, required super.email, super.photoUrl, required super.gender, required super.birthDate});
+  const ProfileModel({super.name, super.email, super.photoUrl, super.gender, super.birthDate});
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
       name: json['name'],
       email: json['email'],
       photoUrl: json['photo_url'],
-      gender: json['gender'],
+      gender: json['gender'] == "true",
       birthDate: json['birth_date'],
     );
   }

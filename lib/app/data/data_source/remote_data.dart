@@ -69,7 +69,7 @@ class RemoteDataImpl implements RemoteData {
 
   @override
   Future<ProfileModel> updateProfile(ProfileModel profile) async {
-    var response = await dio.put('/profile', data: profile.toJson());
+    var response = await dio.post('/profile', data: profile.toJson());
     if (response.statusCode == 200) {
       return ProfileModel.fromJson(response.data);
     } else {
