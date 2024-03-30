@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:trapper/app/data/model/account_model.dart';
 import 'package:trapper/app/data/model/profile_model.dart';
 import 'package:trapper/app/domain/entity/account.dart';
-import 'package:trapper/app/domain/entity/profile.dart';
 
 abstract class RemoteData {
   Future<String> login(AccountModel account);
@@ -23,7 +22,7 @@ class RemoteDataImpl implements RemoteData {
       data: account.toJson()
     );
     if (response.statusCode == 200) {
-      return response.data['token'];
+      return response.data['access-token'];
     } else {
       throw Exception(response.data);
     }
