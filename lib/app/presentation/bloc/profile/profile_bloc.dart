@@ -29,7 +29,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(const ProfileInitial());
     final result = await _getProfile();
     result.fold(
-      (exception) => emit(ProfileError(exception)),
+      (exception) => emit(ProfileError(exception.message)),
       (profile) => emit(ProfileGot(profile)),
     );
   }
@@ -38,7 +38,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(const ProfileLoading());
     _updateProfile(event.profile).then((result) {
       result.fold(
-        (exception) => emit(ProfileError(exception)),
+        (exception) => emit(ProfileError(exception.message)),
         (profile) => emit(ProfileGot(profile)),
       );
     });

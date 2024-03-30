@@ -10,6 +10,8 @@ abstract class RemoteData {
   Future<String> register(AccountModel account, ProfileModel profile);
   Future<void> logout();
 
+  Future<void> validateToken(String token);
+
   Future<ProfileModel> getProfile();
   Future<ProfileModel> updateProfile(ProfileModel profile);
 }
@@ -75,6 +77,23 @@ class RemoteDataImpl implements RemoteData {
     );
     if (response.statusCode == 200) {
       return ProfileModel.fromJson(response.data);
+    } else {
+      throw Exception(response.data);
+    }
+  }
+
+  @override
+  Future<void> validateToken(String token) async {
+    var response = await dio.get(
+      '/auth/validate',
+      options: Options(
+        headers: {
+          'access_token': token
+        }
+      )
+    );
+    if (response.statusCode == 200) {
+      return Future.value();
     } else {
       throw Exception(response.data);
     }

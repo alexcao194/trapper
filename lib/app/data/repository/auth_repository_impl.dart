@@ -50,4 +50,15 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, void>> validateToken() async {
+    try {
+      var token = await _localData.getToken();
+      await _remoteData.validateToken(token);
+      return const Right(null);
+    } on Exception catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
 }

@@ -7,4 +7,6 @@ abstract class AuthRepository {
   Future<Either<Failure, void>> login(Account account);
   Future<Either<Failure, void>> register(Account account, Profile profile);
   Future<Either<Failure, void>> logout();
+
+  Future<Either<Failure, void>> validateToken();
 }

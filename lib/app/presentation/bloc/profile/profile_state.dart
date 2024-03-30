@@ -20,11 +20,11 @@ class ProfileGot extends ProfileState {
 }
 
 class ProfileError extends ProfileState {
-  final Exception exception;
-  const ProfileError(this.exception);
+  final String message;
+  const ProfileError(this.message);
 
   @override
-  List<Object?> get props => [exception];
+  List<Object?> get props => [message];
 }
 
 class ProfileLoading extends ProfileState {

@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
+import 'package:trapper/app/domain/use_case/validate_token.dart';
 import 'package:trapper/app/presentation/bloc/auth/auth_bloc.dart';
 import 'package:trapper/app/presentation/bloc/profile/profile_bloc.dart';
 import 'package:trapper/app/presentation/bloc/settings/settings_bloc.dart';
@@ -25,6 +26,7 @@ class DependencyInjection {
       () => AuthBloc(
         login: sl(),
         register: sl(),
+        validateToken: sl(),
       ),
     );
     sl.registerFactory<SettingsBloc>(() => SettingsBloc());
@@ -40,6 +42,7 @@ class DependencyInjection {
     sl.registerLazySingleton<Register>(() => Register(authRepository: sl()));
     sl.registerLazySingleton<GetProfile>(() => GetProfile(profileRepository: sl()));
     sl.registerLazySingleton<UpdateProfile>(() => UpdateProfile(profileRepository: sl()));
+    sl.registerLazySingleton<ValidateToken>(() => ValidateToken(authRepository: sl()));
 
     // Repositories
     sl.registerLazySingleton<AuthRepository>(

@@ -20,3 +20,17 @@ class AuthEventRegister extends AuthEvent {
   @override
   List<Object?> get props => [account, profile];
 }
+
+class AuthEventLogout extends AuthEvent {
+  const AuthEventLogout();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class AuthEventValidateToken extends AuthEvent {
+  const AuthEventValidateToken();
+
+  @override
+  List<Object?> get props => [];
+}
