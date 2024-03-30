@@ -1,6 +1,9 @@
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
+import 'package:trapper/app/data/model/profile_model.dart';
+import 'package:trapper/app/data/model/settings_snapshot_model.dart';
 import 'package:trapper/app/domain/use_case/validate_token.dart';
 import 'package:trapper/app/presentation/bloc/auth/auth_bloc.dart';
 import 'package:trapper/app/presentation/bloc/profile/profile_bloc.dart';
@@ -16,6 +19,7 @@ import 'app/domain/use_case/get_profile.dart';
 import 'app/domain/use_case/login.dart';
 import 'app/domain/use_case/register.dart';
 import 'app/domain/use_case/update_profile.dart';
+import 'config/database/hive_tools.dart';
 
 class DependencyInjection {
   static final sl = GetIt.instance;
@@ -23,12 +27,7 @@ class DependencyInjection {
   static Future<void> init() async {
     // Bloc
     sl.registerFactory<AuthBloc>(
-      () => AuthBloc(
-        login: sl(),
-        register: sl(),
-        validateToken: sl(),
-        authSubscription: DioTools.registerInterceptors(sl<Dio>())
-      ),
+      () => AuthBloc(login: sl(), register: sl(), validateToken: sl(), authSubscription: DioTools.registerInterceptors(sl<Dio>())),
     );
     sl.registerFactory<SettingsBloc>(() => SettingsBloc());
     sl.registerFactory<ProfileBloc>(
@@ -62,11 +61,15 @@ class DependencyInjection {
 
     // Data
     sl.registerLazySingleton<RemoteData>(() => RemoteDataImpl(dio: sl()));
-    sl.registerLazySingleton<LocalData>(() => LocalDataImpl(sharedPreferences: sl()));
+    sl.registerLazySingleton<LocalData>(() => LocalDataImpl(sharedPreferences: sl(), profileBox: sl(), settingsSnapshotBox: sl()));
 
     // 3th service
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
     sl.registerLazySingleton<Dio>(() => DioTools.dio);
+
+    // Hive
+    sl.registerLazySingleton<Box<ProfileModel>>(() => HiveTools.profileBox);
+    sl.registerLazySingleton<Box<SettingsSnapshotModel>>(() => HiveTools.settingsSnapshotBox);
   }
 }

@@ -1,5 +1,9 @@
+import 'package:hive/hive.dart';
 import 'package:trapper/app/domain/entity/profile.dart';
 
+part 'profile_model.g.dart';
+
+@HiveType(typeId: 10)
 class ProfileModel extends Profile {
   const ProfileModel({super.name, super.email, super.photoUrl, super.gender, super.birthDate});
 

@@ -5,6 +5,7 @@ import 'package:trapper/app/presentation/bloc/settings/settings_bloc.dart';
 import 'package:trapper/config/const/app_colors.dart';
 import 'app/presentation/bloc/auth/auth_bloc.dart';
 import 'app/presentation/bloc/profile/profile_bloc.dart';
+import 'config/database/hive_tools.dart';
 import 'config/go_router/app_go_router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
@@ -12,7 +13,9 @@ import 'di.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await HiveTools.init();
   await DependencyInjection.init();
+
   runApp(
     MultiBlocProvider(
       providers: [

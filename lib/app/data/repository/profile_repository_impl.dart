@@ -20,16 +20,18 @@ class ProfileRepositoryImpl implements ProfileRepository {
     try {
       final profile = await _remoteData.getProfile();
       return Right(profile);
-    } on Exception catch (e) {
-      return Left(Failure(e.toString()));
+    } on Exception {
+      var profile = await _remoteData.getProfile();
+      return Right(profile);
     }
   }
 
   @override
   Future<Either<Failure, Profile>> updateProfile(Profile profile) async {
     try {
-      final updatedProfile = await _remoteData.updateProfile(ProfileModel.fromEntity(profile));
-      return Right(updatedProfile);
+      await _remoteData.updateProfile(ProfileModel.fromEntity(profile));
+      await _localData.saveProfile(ProfileModel.fromEntity(profile));
+      return Right(profile);
     } on Exception catch (e) {
       return Left(Failure(e.toString()));
     }
