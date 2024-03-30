@@ -14,7 +14,7 @@ import '../../app/presentation/screen/home/home_tabs/settings_tab.dart';
 
 class AppGoRouter {
   static get router => GoRouter(
-        initialLocation: RoutePath.login,
+        initialLocation: RoutePath.home,
         redirect: (context, state) {
           final authState = context.read<AuthBloc>().state;
           if (authState is! AuthStateAuthenticated) {
