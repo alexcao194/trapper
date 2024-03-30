@@ -4,6 +4,7 @@ class Assets {
 
   static const String assetsBanner = 'assets/banner.png';
   static const String assetsBannerBackground = 'assets/banner_background.png';
+  static const String pngDefaultAvatar = 'assets/png/default_avatar.png';
   static const String riveBear = 'assets/rive/bear.riv';
 
 }

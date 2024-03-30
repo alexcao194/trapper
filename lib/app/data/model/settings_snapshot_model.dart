@@ -1,7 +1,7 @@
 import 'package:trapper/app/domain/entity/settings_snapshot.dart';
 
 class SettingsSnapshotModel extends SettingsSnapshot {
-  SettingsSnapshotModel({
+  const SettingsSnapshotModel({
     required super.red,
     required super.green,
     required super.blue,

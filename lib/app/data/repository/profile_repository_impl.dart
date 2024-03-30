@@ -11,7 +11,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
   final LocalData _localData;
   final RemoteData _remoteData;
 
-  ProfileRepositoryImpl({required LocalData localData, required RemoteData remoteData}) : _localData = localData, _remoteData = remoteData;
+  ProfileRepositoryImpl({required LocalData localData, required RemoteData remoteData})
+      : _localData = localData,
+        _remoteData = remoteData;
 
   @override
   Future<Either<Failure, Profile>> getProfile() async {
@@ -32,5 +34,4 @@ class ProfileRepositoryImpl implements ProfileRepository {
       return Left(Failure(e.toString()));
     }
   }
-
 }

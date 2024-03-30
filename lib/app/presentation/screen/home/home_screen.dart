@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:trapper/app/presentation/bloc/profile/profile_bloc.dart';
 import 'package:trapper/app/presentation/screen/home/home_tabs/widget/keep_alive_page.dart';
 import 'package:trapper/app/presentation/screen/rooms/widget/header_message.dart';
 import 'package:trapper/app/presentation/screen/rooms/widget/room_avatar.dart';
 import 'package:trapper/config/go_router/app_go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../generated/l10n.dart';
 
-
 import '../../../../config/const/dimen.dart';
+import '../../../domain/entity/profile.dart';
 import 'home_tabs/connect_tab.dart';
 import 'home_tabs/friends_tab.dart';
 import 'home_tabs/help_tab.dart';
@@ -22,13 +24,14 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>{
+class _HomeScreenState extends State<HomeScreen> {
   PageController? _pageController;
   int index = 0;
 
   @override
   void initState() {
     super.initState();
+    context.read<ProfileBloc>().add(const ProfileEventGet());
     _pageController = PageController(
       initialPage: index,
     );
@@ -40,11 +43,7 @@ class _HomeScreenState extends State<HomeScreen>{
   }
 
   _go(int index) {
-    _pageController?.animateToPage(
-        index,
-        duration: const Duration(milliseconds: 800),
-        curve: Curves.fastOutSlowIn
-    );
+    _pageController?.animateToPage(index, duration: const Duration(milliseconds: 800), curve: Curves.fastOutSlowIn);
   }
 
   @override
@@ -54,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen>{
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            context.go("/${RoutePath.messages}");
+            context.go(RoutePath.messages);
           },
           child: const Icon(Icons.message),
         ),
@@ -117,9 +116,7 @@ class _HomeScreenState extends State<HomeScreen>{
                     isActivated: false,
                     icon: Icons.logout,
                     title: S.current.logout_button,
-                    onTap: () {
-
-                    },
+                    onTap: () {},
                   ),
                 ],
               ),

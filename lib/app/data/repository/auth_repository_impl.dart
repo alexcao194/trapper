@@ -23,7 +23,8 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, void>> login(Account account) async {
     try {
       final token = await _remoteData.login(AccountModel.fromEntity(account));
-      await _localData.saveToken(token);
+      await _localData.saveToken(token['access_token']!);
+      await _localData.saveRefreshToken(token['refresh_token']!);
       return const Right(null);
     } on Exception catch (e) {
       return Left(Failure(e.toString()));
@@ -43,7 +44,8 @@ class AuthRepositoryImpl implements AuthRepository {
         AccountModel.fromEntity(account),
         ProfileModel.fromEntity(profile),
       );
-      await _localData.saveToken(token);
+      await _localData.saveToken(token['access_token']!);
+      await _localData.saveRefreshToken(token['refresh_token']!);
       return const Right(null);
     } on Exception catch (e) {
       return Left(Failure(e.toString()));
@@ -53,8 +55,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, void>> validateToken() async {
     try {
-      var token = await _localData.getToken();
-      await _remoteData.validateToken(token);
+      await _remoteData.validateToken();
       return const Right(null);
     } on Exception catch (e) {
       return Left(Failure(e.toString()));

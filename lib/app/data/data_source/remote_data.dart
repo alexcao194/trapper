@@ -6,28 +6,29 @@ import 'package:trapper/app/data/model/profile_model.dart';
 import 'package:trapper/app/domain/entity/account.dart';
 
 abstract class RemoteData {
-  Future<String> login(AccountModel account);
-  Future<String> register(AccountModel account, ProfileModel profile);
+  Future<Map<String, String>> login(AccountModel account);
+
+  Future<Map<String, String>> register(AccountModel account, ProfileModel profile);
+
   Future<void> logout();
 
-  Future<void> validateToken(String token);
+  Future<void> validateToken();
 
   Future<ProfileModel> getProfile();
+
   Future<ProfileModel> updateProfile(ProfileModel profile);
 }
 
 class RemoteDataImpl implements RemoteData {
   final Dio dio;
+
   const RemoteDataImpl({required this.dio});
 
   @override
-  Future<String> login(AccountModel account) async {
-    var response = await dio.post(
-      '/auth/login',
-      data: account.toJson()
-    );
+  Future<Map<String, String>> login(AccountModel account) async {
+    var response = await dio.post('/auth/login', data: account.toJson());
     if (response.statusCode == 200) {
-      return response.data['access_token'];
+      return {"access_token": response.data["access_token"], "refresh_token": response.data["refresh_token"]};
     } else {
       throw Exception(response.data);
     }
@@ -40,20 +41,17 @@ class RemoteDataImpl implements RemoteData {
   }
 
   @override
-  Future<String> register(Account account, ProfileModel profile) async {
-    var response = await dio.post(
-      '/auth/registry',
-      data: {
-        'email': account.email,
-        'password': account.password,
-        'full_name': profile.name,
-        'gender': profile.gender,
-        'date_of_birth': profile.birthDate,
-      }
-    );
+  Future<Map<String, String>> register(Account account, ProfileModel profile) async {
+    var response = await dio.post('/auth/registry', data: {
+      'email': account.email,
+      'password': account.password,
+      'full_name': profile.name,
+      'gender': profile.gender,
+      'date_of_birth': profile.birthDate,
+    });
 
     if (response.statusCode == 200) {
-      return response.data['access_token'];
+      return {"access_token": response.data["access_token"], "refresh_token": response.data["refresh_token"]};
     } else {
       throw Exception(response.data);
     }
@@ -71,10 +69,7 @@ class RemoteDataImpl implements RemoteData {
 
   @override
   Future<ProfileModel> updateProfile(ProfileModel profile) async {
-    var response = await dio.put(
-      '/profile',
-      data: profile.toJson()
-    );
+    var response = await dio.put('/profile', data: profile.toJson());
     if (response.statusCode == 200) {
       return ProfileModel.fromJson(response.data);
     } else {
@@ -83,15 +78,8 @@ class RemoteDataImpl implements RemoteData {
   }
 
   @override
-  Future<void> validateToken(String token) async {
-    var response = await dio.get(
-      '/auth/validate',
-      options: Options(
-        headers: {
-          'access_token': token
-        }
-      )
-    );
+  Future<void> validateToken() async {
+    var response = await dio.get('/auth/validate');
     if (response.statusCode == 200) {
       return Future.value();
     } else {
@@ -99,4 +87,3 @@ class RemoteDataImpl implements RemoteData {
     }
   }
 }
-

@@ -110,5 +110,6 @@ flutter:
   assets:
     - assets/
     - assets/rive/
+    - assets/png/
 flutter_intl:
   enabled: true

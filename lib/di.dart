@@ -27,6 +27,7 @@ class DependencyInjection {
         login: sl(),
         register: sl(),
         validateToken: sl(),
+        authSubscription: DioTools.registerInterceptors(sl<Dio>())
       ),
     );
     sl.registerFactory<SettingsBloc>(() => SettingsBloc());
