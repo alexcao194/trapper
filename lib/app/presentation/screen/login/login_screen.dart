@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
           listener: (context, state) {
             if (state is AuthStateAuthenticated) {
               _successTrigger.fire();
-              context.go("/${RoutePath.home}");
+              context.go(RoutePath.home);
             } else if (state is AuthStateFailure) {
               _failTrigger.fire();
               DialogTools.showFailureDialog(context, message: state.error);
