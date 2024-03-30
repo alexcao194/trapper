@@ -15,12 +15,11 @@ class DioTools {
       BaseOptions(
         validateStatus: (status) => status! < 500,
         baseUrl: baseUrl,
-        connectTimeout: const Duration(seconds: 10),
-        receiveTimeout: const Duration(seconds: 10),
         headers: {
           'Content-Type': 'application/json',
           'Accept': '*/*',
           'Connection': 'keep-alive',
+          'Access-Control-Allow-Origin': '*',
         },
       )
     );
@@ -63,9 +62,9 @@ class DioTools {
     String refreshToken = DependencyInjection.sl<LocalData>().getRefreshToken();
     var response = await dio.get(
       '/auth/refresh_token',
-      data: {
+      options: Options(headers: {
         'refresh_token': refreshToken
-      }
+      })
     );
     if (response.statusCode == 200) {
       return {

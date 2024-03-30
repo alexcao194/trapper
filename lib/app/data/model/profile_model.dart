@@ -5,20 +5,20 @@ class ProfileModel extends Profile {
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
-      name: json['name'],
+      name: json['full_name'],
       email: json['email'],
       photoUrl: json['photo_url'],
       gender: json['gender'] == "true",
-      birthDate: json['birth_date'],
+      birthDate: json['date_of_birth'],
     );
   }
 
   Map<String, dynamic> toJson() => {
-    'name': name,
+    'full_name': name,
     'email': email,
     'photo_url': photoUrl,
     'gender': gender,
-    'birth_date': birthDate,
+    'date_of_birth': birthDate,
   };
 
   factory ProfileModel.fromEntity(Profile profile) {

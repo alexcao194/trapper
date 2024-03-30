@@ -26,7 +26,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   FutureOr<void> _onGet(ProfileEventGet event, Emitter<ProfileState> emit) async {
-    emit(const ProfileInitial());
+    emit(const ProfileLoading());
     final result = await _getProfile();
     result.fold(
       (exception) => emit(ProfileError(exception.message)),

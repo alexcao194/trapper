@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trapper/generated/assets.dart';
@@ -16,7 +17,11 @@ class RoomAvatar extends StatelessWidget {
         return CircleAvatar(
           maxRadius: 20,
           minRadius: 20,
-          backgroundImage: (profile.photoUrl != null ? NetworkImage(profile.photoUrl!) : const AssetImage(Assets.pngDefaultAvatar)) as ImageProvider<Object>,
+          backgroundImage: (profile.photoUrl != null ? CachedNetworkImage(
+            imageUrl: profile.photoUrl!,
+            placeholder: (context, url) => Image.asset(Assets.pngDefaultAvatar),
+            errorWidget: (context, url, error) => Image.asset(Assets.pngDefaultAvatar),
+          ) : const AssetImage(Assets.pngDefaultAvatar)) as ImageProvider<Object>,
         );
       },
     );

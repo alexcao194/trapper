@@ -16,6 +16,7 @@ class HeaderMessage extends StatelessWidget {
         if (state is ProfileGot) {
           profile = state.profile;
         }
+        print(profile);
         return ListTile(
           leading: const RoomAvatar(),
           title: Text(

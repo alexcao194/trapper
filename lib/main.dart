@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
           routerConfig: AppGoRouter.router,
           debugShowCheckedModeBanner: false,
           theme: ThemeData.light().copyWith(colorScheme: colorScheme),
-          darkTheme: ThemeData.dark().copyWith(colorScheme: colorScheme),
+          darkTheme: ThemeData.dark().copyWith(),
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,
