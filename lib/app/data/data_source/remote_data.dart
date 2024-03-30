@@ -37,7 +37,7 @@ class RemoteDataImpl implements RemoteData {
   @override
   Future<String> register(Account account, ProfileModel profile) async {
     var response = await dio.post(
-      '/auth/register',
+      '/auth/registry',
       data: {
         'email': account.email,
         'password': account.password,

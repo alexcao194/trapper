@@ -34,101 +34,118 @@ class _SignUpBoxState extends State<SignUpBox> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.8,
-        child: Column(
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is AuthStateAuthenticated) {
+          Navigator.of(context).pop();
+        }
+      },
+      builder: (context, state) {
+        return Stack(
           children: [
-            FormTextField(
-              controller: _email,
-              hintText: S.current.email_example,
-              labelText: S.current.email,
-              errorText: _emailErrorText,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: FormTextField(
-                    controller: _password,
-                    hintText: S.current.password_example,
-                    labelText: S.current.password,
-                    errorText: _passwordErrorText,
-                    obscureText: true,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: FormTextField(
-                    controller: _confirmPassword,
-                    hintText: S.current.confirm_password_example,
-                    labelText: S.current.confirm_password,
-                    errorText: _confirmPasswordErrorText,
-                    obscureText: true,
-                  ),
-                ),
-              ],
-            ),
-            FormTextField(
-              controller: _name,
-              hintText: S.current.full_name_example,
-              labelText: S.current.full_name,
-              errorText: _nameErrorText,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: pickADate,
-                    child: FormTextField(
-                      controller: _dateOfBirth,
-                      hintText: S.current.date_of_birth_example,
-                      labelText: S.current.date_of_birth,
-                      enabled: false,
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: Column(
+                  children: [
+                    FormTextField(
+                      controller: _email,
+                      hintText: S.current.email_example,
+                      labelText: S.current.email,
+                      errorText: _emailErrorText,
                     ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                DropdownMenu(
-                  label: Text(S.current.gender),
-                  controller: _gender,
-                  dropdownMenuEntries: [
-                    DropdownMenuEntry(value: true, label: S.current.male),
-                    DropdownMenuEntry(value: false, label: S.current.female),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: FormTextField(
+                            controller: _password,
+                            hintText: S.current.password_example,
+                            labelText: S.current.password,
+                            errorText: _passwordErrorText,
+                            obscureText: true,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: FormTextField(
+                            controller: _confirmPassword,
+                            hintText: S.current.confirm_password_example,
+                            labelText: S.current.confirm_password,
+                            errorText: _confirmPasswordErrorText,
+                            obscureText: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                    FormTextField(
+                      controller: _name,
+                      hintText: S.current.full_name_example,
+                      labelText: S.current.full_name,
+                      errorText: _nameErrorText,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: pickADate,
+                            child: FormTextField(
+                              controller: _dateOfBirth,
+                              hintText: S.current.date_of_birth_example,
+                              labelText: S.current.date_of_birth,
+                              enabled: false,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        DropdownMenu(
+                          label: Text(S.current.gender),
+                          controller: _gender,
+                          dropdownMenuEntries: [
+                            DropdownMenuEntry(value: true, label: S.current.male),
+                            DropdownMenuEntry(value: false, label: S.current.female),
+                          ],
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(S.current.cancel),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            if (canSignup) {
+                              signup();
+                            } else {
+                              DialogTools.showFailureDialog(context, message: S.current.common_fields_error);
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: state is AuthStateLoading
+                                ? const RefreshProgressIndicator(
+                              backgroundColor: Colors.transparent,
+                              elevation: 0,
+                            )
+                                : Text(S.current.signup)
+                          ),
+                        ),
+                      ],
+                    )
                   ],
-                )
-              ],
+                ),
+              ),
             ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(S.current.cancel),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    if (canSignup) {
-                      signup();
-                      Navigator.of(context).pop();
-                    } else {
-                      DialogTools.showFailureDialog(context, message: S.current.common_fields_error);
-                    }
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(S.current.signup),
-                  ),
-                ),
-              ],
-            )
           ],
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -178,7 +195,6 @@ class _SignUpBoxState extends State<SignUpBox> {
       checkCanSignup();
     });
   }
-
 
   void checkCanSignup() {
     canSignup = _emailErrorText == null && _passwordErrorText == null && _confirmPasswordErrorText == null && _nameErrorText == null && _gender.text.isNotEmpty && _dateOfBirth.text.isNotEmpty;

@@ -19,8 +19,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc({
     required Login login,
+    required Register register,
   }) : super(const AuthStateUnauthenticated()) {
     _login = login;
+    _register = register;
     on<AuthEventLogin>(_onLogin);
     on<AuthEventRegister>(_onRegister);
   }
@@ -41,6 +43,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (failure) => emit(AuthStateFailure(error: failure.message)),
       (_) => emit(const AuthStateAuthenticated()),
     );
-    emit(const AuthStateAuthenticated());
   }
 }

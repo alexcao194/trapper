@@ -9,17 +9,22 @@ import 'app/data/data_source/remote_data.dart';
 import 'app/data/repository/auth_repository_impl.dart';
 import 'app/domain/repository/auth_repository.dart';
 import 'app/domain/use_case/login.dart';
+import 'app/domain/use_case/register.dart';
 
 class DependencyInjection {
   static final sl = GetIt.instance;
 
   static Future<void> init() async {
     // Bloc
-    sl.registerFactory<AuthBloc> (() => AuthBloc(login: sl()));
+    sl.registerFactory<AuthBloc> (() => AuthBloc(
+        login: sl(),
+        register: sl(),
+    ));
     sl.registerFactory<SettingsBloc> (() => SettingsBloc());
 
     // Use case
     sl.registerLazySingleton<Login>(() => Login(authRepository: sl()));
+    sl.registerLazySingleton<Register>(() => Register(authRepository: sl()));
 
 
     // Repositories
