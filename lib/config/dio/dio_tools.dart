@@ -6,6 +6,7 @@ import 'package:trapper/di.dart';
 import '../../app/data/data_source/local_data.dart';
 class DioTools {
   static String get baseUrl {
+    // return 'http://localhost:1904';
     return 'https://trapper-server.onrender.com';
   }
 
@@ -36,12 +37,13 @@ class DioTools {
       },
       onResponse: (response, handler) async {
         if (response.statusCode == 401) {
-          String? newToken = await refreshToken();
+          Map<String, String>? newToken = await refreshToken();
           if (newToken == null) {
             return handler.reject(DioException(requestOptions: response.requestOptions, response: response));
           }
-          DependencyInjection.sl<LocalData>().saveToken(newToken);
-          response.requestOptions.headers['access_token'] = newToken;
+          DependencyInjection.sl<LocalData>().saveToken(newToken['access_token']!);
+          DependencyInjection.sl<LocalData>().saveRefreshToken(newToken['refresh_token']!);
+          response.requestOptions.headers['access_token'] = newToken['access_token'];
           return handler.resolve(await dio.fetch(response.requestOptions));
         }
         if (response.statusCode == 403) {
@@ -57,17 +59,19 @@ class DioTools {
     return stream;
   }
 
-  static Future<String?> refreshToken() async {
-    print('refresh token');
+  static Future<Map<String, String>?> refreshToken() async {
     String refreshToken = DependencyInjection.sl<LocalData>().getRefreshToken();
-    var response = await dio.post(
+    var response = await dio.get(
       '/auth/refresh_token',
       data: {
         'refresh_token': refreshToken
       }
     );
     if (response.statusCode == 200) {
-      return response.data['access_token'];
+      return {
+        'access_token': response.data['access_token'],
+        'refresh_token': response.data['refresh_token']
+      };
     }
     return null;
   }
