@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trapper/app/data/model/profile_model.dart';
+import 'package:trapper/app/data/model/settings_snapshot_model.dart';
 
 abstract class LocalData {
   Future<void> saveToken(String token);
@@ -14,19 +15,19 @@ abstract class LocalData {
   Future<ProfileModel> getProfile();
   Future<void> saveProfile(ProfileModel profile);
 
-  Future<void> saveSettingsSnapshot(ProfileModel settingsSnapshot);
-  Future<ProfileModel> getSettingsSnapshot();
+  Future<void> saveSettingsSnapshot(SettingsSnapshotModel settingsSnapshot);
+  Future<SettingsSnapshotModel> getSettingsSnapshot();
 }
 
 class LocalDataImpl implements LocalData {
   final SharedPreferences _sharedPreferences;
   final Box<ProfileModel> _profileBox;
-  final Box<ProfileModel> _settingsSnapshotBox;
+  final Box<SettingsSnapshotModel> _settingsSnapshotBox;
 
   static const String tokenKey = 'token';
   static const String refreshTokenKey = 'refreshToken';
 
-  LocalDataImpl({required SharedPreferences sharedPreferences, required Box<ProfileModel> profileBox, required Box<ProfileModel> settingsSnapshotBox})
+  LocalDataImpl({required SharedPreferences sharedPreferences, required Box<ProfileModel> profileBox, required Box<SettingsSnapshotModel> settingsSnapshotBox})
       : _sharedPreferences = sharedPreferences,
         _profileBox = profileBox,
         _settingsSnapshotBox = settingsSnapshotBox;
@@ -67,8 +68,8 @@ class LocalDataImpl implements LocalData {
   }
 
   @override
-  Future<ProfileModel> getSettingsSnapshot() async {
-    return _settingsSnapshotBox.get('settingsSnapshot') ?? const ProfileModel();
+  Future<SettingsSnapshotModel> getSettingsSnapshot() async {
+    return _settingsSnapshotBox.get('settingsSnapshot') ?? const SettingsSnapshotModel();
   }
 
   @override
@@ -77,7 +78,7 @@ class LocalDataImpl implements LocalData {
   }
 
   @override
-  Future<void> saveSettingsSnapshot(ProfileModel settingsSnapshot ) async {
+  Future<void> saveSettingsSnapshot(SettingsSnapshotModel settingsSnapshot ) async {
     await _settingsSnapshotBox.put('settingsSnapshot', settingsSnapshot);
   }
 }

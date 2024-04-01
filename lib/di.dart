@@ -15,9 +15,11 @@ import 'app/data/repository/auth_repository_impl.dart';
 import 'app/data/repository/profile_repository_impl.dart';
 import 'app/domain/repository/auth_repository.dart';
 import 'app/domain/repository/profile_repository.dart';
+import 'app/domain/use_case/fetch_settings.dart';
 import 'app/domain/use_case/get_profile.dart';
 import 'app/domain/use_case/login.dart';
 import 'app/domain/use_case/register.dart';
+import 'app/domain/use_case/save_settings.dart';
 import 'app/domain/use_case/update_profile.dart';
 import 'config/database/hive_tools.dart';
 
@@ -29,7 +31,10 @@ class DependencyInjection {
     sl.registerFactory<AuthBloc>(
       () => AuthBloc(login: sl(), register: sl(), validateToken: sl(), authSubscription: DioTools.registerInterceptors(sl<Dio>())),
     );
-    sl.registerFactory<SettingsBloc>(() => SettingsBloc());
+    sl.registerFactory<SettingsBloc>(() => SettingsBloc(
+          fetchSettings: sl(),
+          saveSettings: sl(),
+    ));
     sl.registerFactory<ProfileBloc>(
       () => ProfileBloc(
         getProfile: sl(),
@@ -43,6 +48,9 @@ class DependencyInjection {
     sl.registerLazySingleton<GetProfile>(() => GetProfile(profileRepository: sl()));
     sl.registerLazySingleton<UpdateProfile>(() => UpdateProfile(profileRepository: sl()));
     sl.registerLazySingleton<ValidateToken>(() => ValidateToken(authRepository: sl()));
+    sl.registerLazySingleton<FetchSettings>(() => FetchSettings(repository: sl()));
+    sl.registerLazySingleton<SaveSettings>(() => SaveSettings(repository: sl()));
+
 
     // Repositories
     sl.registerLazySingleton<AuthRepository>(

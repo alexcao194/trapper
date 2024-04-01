@@ -45,3 +45,9 @@ final class SettingsSave extends SettingsEvent {
   @override
   List<Object> get props => [];
 }
+
+final class SettingsFetch extends SettingsEvent {
+  const SettingsFetch();
+  @override
+  List<Object> get props => [];
+}

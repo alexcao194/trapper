@@ -6,11 +6,11 @@ part 'settings_snapshot_model.g.dart';
 @HiveType(typeId: 11)
 class SettingsSnapshotModel extends SettingsSnapshot {
   const SettingsSnapshotModel({
-    required super.red,
-    required super.green,
-    required super.blue,
-    required super.themeIndex,
-    required super.languageCode,
+    super.red = 0,
+    super.green = 0,
+    super.blue = 0,
+    super.themeIndex = 0,
+    super.languageCode = 'en',
   });
 
   factory SettingsSnapshotModel.fromMap(Map<String, dynamic> map) {
@@ -31,5 +31,15 @@ class SettingsSnapshotModel extends SettingsSnapshot {
       'themeIndex': themeIndex,
       'languageCode': languageCode,
     };
+  }
+
+  factory SettingsSnapshotModel.fromEntity(SettingsSnapshot entity) {
+    return SettingsSnapshotModel(
+      red: entity.red,
+      green: entity.green,
+      blue: entity.blue,
+      themeIndex: entity.themeIndex,
+      languageCode: entity.languageCode,
+    );
   }
 }
