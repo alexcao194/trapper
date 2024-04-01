@@ -37,4 +37,24 @@ class DialogTools {
       ),
     );
   }
+
+  static void showForgotPasswordDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Forgot Password"),
+        content: const Text("Please enter your email address to reset your password"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(S.current.cancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(S.current.ok),
+          ),
+        ],
+      ),
+    );
+  }
 }

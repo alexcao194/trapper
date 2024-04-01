@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class RoundedTextField extends StatelessWidget {
+class RoundedTextField extends StatefulWidget {
   final String hintText;
   final String labelText;
   final String? errorText;
@@ -15,6 +15,7 @@ class RoundedTextField extends StatelessWidget {
   final TextInputType? inputType;
   final ValueChanged<String>? onChanged;
   final Function(PointerDownEvent)? onTapOutside;
+
   const RoundedTextField({
     super.key,
     required this.hintText,
@@ -33,38 +34,42 @@ class RoundedTextField extends StatelessWidget {
   });
 
   @override
+  State<RoundedTextField> createState() => _RoundedTextFieldState();
+}
+
+class _RoundedTextFieldState extends State<RoundedTextField> {
+  bool obscureText = true;
+
+  @override
   Widget build(BuildContext context) {
     return TextField(
-      textInputAction: textInputAction,
-      keyboardType: inputType,
-      focusNode: focusNode,
-      controller: controller,
-      obscureText: obscureText,
+      textInputAction: widget.textInputAction,
+      keyboardType: widget.inputType,
+      focusNode: widget.focusNode,
+      controller: widget.controller,
+      obscureText: widget.obscureText ? obscureText : false,
       decoration: InputDecoration(
-        hintText: hintText,
-        error: errorText != null ? Text(errorText!, style: TextStyle(color: Theme.of(context).colorScheme.error)) : null,
-        label: Text(labelText),
-        suffixIcon: suffixIcon,
-        prefixIcon: prefixIcon,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.secondaryContainer,
-            width: 2
-          )
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.primaryContainer,
-            width: 2
-          )
-        ),
-
+        hintText: widget.hintText,
+        error: widget.errorText != null ? Text(widget.errorText!, style: TextStyle(color: Theme.of(context).colorScheme.error)) : null,
+        suffix: widget.obscureText
+            ? GestureDetector(
+                onTap: () {
+                  setState(() {
+                    obscureText = !obscureText;
+                  });
+                },
+                child: Text(obscureText ? 'Show' : 'Hide', style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+              )
+            : null,
+        label: Text(widget.labelText),
+        suffixIcon: widget.suffixIcon,
+        prefixIcon: widget.prefixIcon,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer, width: 2)),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Theme.of(context).colorScheme.primaryContainer, width: 2)),
       ),
-      onTap: onTap,
-      onChanged: onChanged,
-      onTapOutside: onTapOutside,
+      onTap: widget.onTap,
+      onChanged: widget.onChanged,
+      onTapOutside: widget.onTapOutside,
     );
   }
 }

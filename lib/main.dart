@@ -45,15 +45,11 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData.light().copyWith(colorScheme: colorScheme),
           darkTheme: ThemeData.dark().copyWith(),
-          localizationsDelegates: const [
-            S.delegate,
+          localizationsDelegates: [
+            S.delegate..load(Locale(state.languageCode)),
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [
-            Locale('vi', 'VN'),
-            Locale('en', 'US'),
           ],
         );
       },

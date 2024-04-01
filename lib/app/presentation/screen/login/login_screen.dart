@@ -51,12 +51,6 @@ class _LoginScreenState extends State<LoginScreen> {
     var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            context.go("/${RoutePath.home}");
-          },
-          child: const Icon(Icons.home),
-        ),
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthStateAuthenticated) {
@@ -139,7 +133,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                         onTap: handOn,
                                         onTapOutside: (event) => stopLooking(),
                                       ),
-                                      const SizedBox(height: 16),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: MaterialButton(
+                                          padding: const EdgeInsets.symmetric(vertical: 18),
+                                          hoverColor: Colors.transparent,
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onPressed: () {
+                                            _onForgotPassword();
+                                          },
+                                          child: Text("Forgot password?", style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                                            color: Theme.of(context).colorScheme.primary,
+                                          )),
+                                        ),
+                                      ),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
@@ -323,5 +331,9 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       return SlideBanner(size: MediaQuery.of(context).size);
     }
+  }
+
+  void _onForgotPassword() {
+    DialogTools.showForgotPasswordDialog(context);
   }
 }
