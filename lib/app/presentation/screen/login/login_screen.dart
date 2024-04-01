@@ -217,7 +217,6 @@ class _LoginScreenState extends State<LoginScreen> {
     _passwordFocusNode = FocusNode();
 
     rootBundle.load(Assets.riveBear).then((value) {
-      context.read<AuthBloc>().add(const AuthEventValidateToken());
       final file = RiveFile.import(value);
       final artboard = file.mainArtboard;
       _stateController = StateMachineController.fromArtboard(artboard, 'Login Machine')!;
@@ -238,9 +237,11 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       }
 
-      setState(() {
-        _artboard = artboard;
-      });
+      if (mounted) {
+        setState(() {
+          _artboard = artboard;
+        });
+      }
 
       _passwordFocusNode.addListener(() {
         if (_passwordFocusNode.hasFocus) {

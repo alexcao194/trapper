@@ -56,6 +56,10 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, void>> validateToken() async {
     try {
+      var token = _localData.getToken();
+      if (token.isEmpty) {
+        return Left(Failure(null));
+      }
       await _remoteData.validateToken();
       return const Right(null);
     } on DioException catch (e) {

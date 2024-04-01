@@ -36,6 +36,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthEventValidateToken>(_onValidateToken);
     on<AuthEventLogout>(_onLogout);
 
+    add(const AuthEventValidateToken());
+
     _authSubscription.listen((isAuthenticated) {
       if (!isAuthenticated) {
         add(const AuthEventLogout());
