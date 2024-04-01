@@ -13,7 +13,7 @@ import 'package:trapper/utils/dialog_tools.dart';
 import '../../../../utils/validator.dart';
 import '../../../../generated/assets.dart';
 import '../../../domain/entity/account.dart';
-import 'widget/rounded_text_field.dart';
+import 'widget/outline_text_field.dart';
 import '../../bloc/auth/auth_bloc.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../di.dart';
@@ -106,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primaryContainer, width: 2), borderRadius: BorderRadius.circular(5)),
                                   child: Column(
                                     children: [
-                                      RoundedTextField(
+                                      OutlineTextField(
                                         textInputAction: TextInputAction.next,
                                         inputType: TextInputType.emailAddress,
                                         focusNode: _emailFocusNode,
@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         onTapOutside: (event) => stopLooking(),
                                       ),
                                       const SizedBox(height: 16),
-                                      RoundedTextField(
+                                      OutlineTextField(
                                         textInputAction: TextInputAction.done,
                                         inputType: TextInputType.visiblePassword,
                                         focusNode: _passwordFocusNode,

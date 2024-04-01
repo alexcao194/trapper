@@ -1,14 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trapper/app/domain/entity/account.dart';
 import 'package:trapper/app/domain/entity/profile.dart';
+import 'package:trapper/app/presentation/screen/login/widget/rounded_text_field.dart';
 import 'package:trapper/utils/dialog_tools.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../utils/validator.dart';
 import '../../../bloc/auth/auth_bloc.dart';
 import '../../../../../generated/l10n.dart';
-import '../../rooms/widget/form_text_field.dart';
 
 class SignUpBox extends StatefulWidget {
   const SignUpBox({super.key});
@@ -30,7 +32,9 @@ class _SignUpBoxState extends State<SignUpBox> {
   String? _confirmPasswordErrorText;
   String? _nameErrorText;
 
-  bool canSignup = false;
+  bool _canSignup = false;
+
+  bool? _genderValue;
 
   @override
   Widget build(BuildContext context) {
@@ -48,63 +52,105 @@ class _SignUpBoxState extends State<SignUpBox> {
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FormTextField(
-                      controller: _email,
+                    RoundedTextField(
                       hintText: S.current.email_example,
-                      labelText: S.current.email,
+                      label: S.current.email,
+                      controller: _email,
                       errorText: _emailErrorText,
                     ),
                     Row(
                       children: [
                         Expanded(
-                          child: FormTextField(
+                          child: RoundedTextField(
                             controller: _password,
+                            label: S.current.password,
                             hintText: S.current.password_example,
-                            labelText: S.current.password,
                             errorText: _passwordErrorText,
                             obscureText: true,
                           ),
                         ),
                         const SizedBox(width: 8),
                         Expanded(
-                          child: FormTextField(
+                          child: RoundedTextField(
                             controller: _confirmPassword,
+                            label: S.current.confirm_password,
                             hintText: S.current.confirm_password_example,
-                            labelText: S.current.confirm_password,
                             errorText: _confirmPasswordErrorText,
                             obscureText: true,
                           ),
                         ),
                       ],
                     ),
-                    FormTextField(
+                    RoundedTextField(
                       controller: _name,
+                      label: S.current.full_name,
                       hintText: S.current.full_name_example,
-                      labelText: S.current.full_name,
                       errorText: _nameErrorText,
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Expanded(
                           child: GestureDetector(
                             onTap: pickADate,
-                            child: FormTextField(
+                            child: RoundedTextField(
                               controller: _dateOfBirth,
+                              label: S.current.date_of_birth,
                               hintText: S.current.date_of_birth_example,
-                              labelText: S.current.date_of_birth,
                               enabled: false,
                             ),
                           ),
                         ),
                         const SizedBox(width: 8),
-                        DropdownMenu(
-                          label: Text(S.current.gender),
-                          controller: _gender,
-                          dropdownMenuEntries: [
-                            DropdownMenuEntry(value: true, label: S.current.male),
-                            DropdownMenuEntry(value: false, label: S.current.female),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.primaryContainer,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: DropdownMenu<bool>(
+                              width: 120,
+                              trailingIcon: Icon(
+                                Icons.arrow_drop_down,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                              selectedTrailingIcon: Icon(
+                                Icons.arrow_drop_down,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                              menuStyle: MenuStyle(
+                                backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primaryContainer),
+                                elevation: MaterialStateProperty.all(0),
+                              ),
+                              onSelected: (value) {
+                                if (value == null) return;
+                                _genderValue = value;
+                                _gender.text = value ? "Nam" : "Nữ";
+                              },
+                              inputDecorationTheme: InputDecorationTheme(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide.none,
+                                ),
+                              ),
+                              controller: _gender,
+                              hintText: S.current.gender,
+                              dropdownMenuEntries: const [
+                                DropdownMenuEntry<bool>(
+                                  value: true,
+                                  label: 'Nam',
+                                ),
+                                DropdownMenuEntry<bool>(
+                                  value: false,
+                                  label: 'Nữ',
+                                ),
+                              ],
+                            ),
+                          ),
                         )
                       ],
                     ),
@@ -121,7 +167,7 @@ class _SignUpBoxState extends State<SignUpBox> {
                         ),
                         TextButton(
                           onPressed: () {
-                            if (canSignup) {
+                            if (_canSignup) {
                               signup();
                             } else {
                               DialogTools.showFailureDialog(context, message: S.current.common_fields_error);
@@ -131,10 +177,10 @@ class _SignUpBoxState extends State<SignUpBox> {
                             padding: const EdgeInsets.all(16.0),
                             child: state is AuthStateLoading
                                 ? const RefreshProgressIndicator(
-                              backgroundColor: Colors.transparent,
-                              elevation: 0,
-                            )
-                                : Text(S.current.signup)
+                                    backgroundColor: Colors.transparent,
+                                    elevation: 0,
+                                  )
+                                : Text(S.current.signup),
                           ),
                         ),
                       ],
@@ -157,7 +203,6 @@ class _SignUpBoxState extends State<SignUpBox> {
     _confirmPassword = TextEditingController();
     _name = TextEditingController();
     _dateOfBirth = TextEditingController();
-    _dateOfBirth.text = "01/01/1999";
     _gender = TextEditingController();
 
     _email.addListener(
@@ -197,7 +242,7 @@ class _SignUpBoxState extends State<SignUpBox> {
   }
 
   void checkCanSignup() {
-    canSignup = _emailErrorText == null && _passwordErrorText == null && _confirmPasswordErrorText == null && _nameErrorText == null && _gender.text.isNotEmpty && _dateOfBirth.text.isNotEmpty;
+    _canSignup = _emailErrorText == null && _passwordErrorText == null && _confirmPasswordErrorText == null && _nameErrorText == null && _gender.text.isNotEmpty && _dateOfBirth.text.isNotEmpty;
   }
 
   @override
@@ -220,7 +265,7 @@ class _SignUpBoxState extends State<SignUpBox> {
             ),
             profile: Profile(
               name: _name.text,
-              gender: _gender.text == S.current.male,
+              gender: _genderValue!,
               birthDate: _dateOfBirth.text,
               email: _email.text,
             ),
