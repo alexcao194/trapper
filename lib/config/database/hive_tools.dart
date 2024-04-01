@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -17,9 +18,12 @@ class HiveTools {
 
   static init() async {
 
-    final dir = await getApplicationDocumentsDirectory();
-    await Hive.initFlutter(dir.path);
-
+    if (kIsWeb) {
+      await Hive.initFlutter();
+    } else {
+      final dir = await getApplicationDocumentsDirectory();
+      await Hive.initFlutter(dir.path);
+    }
 
     Hive.registerAdapter(ProfileAdapter());
     Hive.registerAdapter(SettingsSnapshotAdapter());

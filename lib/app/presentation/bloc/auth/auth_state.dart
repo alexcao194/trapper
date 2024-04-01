@@ -26,7 +26,7 @@ class AuthStateUnauthenticated extends AuthState {
 }
 
 class AuthStateFailure extends AuthState {
-  final String error;
+  final String? error;
   const AuthStateFailure({required this.error});
 
   @override

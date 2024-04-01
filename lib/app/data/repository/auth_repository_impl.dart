@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:trapper/app/data/data_source/local_data.dart';
 import 'package:trapper/app/data/data_source/remote_data.dart';
 import 'package:trapper/app/data/model/account_model.dart';
@@ -26,8 +27,8 @@ class AuthRepositoryImpl implements AuthRepository {
       await _localData.saveToken(token['access_token']!);
       await _localData.saveRefreshToken(token['refresh_token']!);
       return const Right(null);
-    } on Exception catch (e) {
-      return Left(Failure(e.toString()));
+    } on DioException catch (e) {
+      return Left(Failure(e.message));
     }
   }
 
@@ -47,8 +48,8 @@ class AuthRepositoryImpl implements AuthRepository {
       await _localData.saveToken(token['access_token']!);
       await _localData.saveRefreshToken(token['refresh_token']!);
       return const Right(null);
-    } on Exception catch (e) {
-      return Left(Failure(e.toString()));
+    } on DioException catch (e) {
+      return Left(Failure(e.message));
     }
   }
 
@@ -57,8 +58,8 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       await _remoteData.validateToken();
       return const Right(null);
-    } on Exception catch (e) {
-      return Left(Failure(e.toString()));
+    } on DioException catch (e) {
+      return Left(Failure(e.message));
     }
   }
 

@@ -63,8 +63,10 @@ class _LoginScreenState extends State<LoginScreen> {
               _successTrigger.fire();
               context.go(RoutePath.home);
             } else if (state is AuthStateFailure) {
-              _failTrigger.fire();
-              DialogTools.showFailureDialog(context, message: state.error);
+              if (state.error != null) {
+                _failTrigger.fire();
+                DialogTools.showFailureDialog(context, message: state.error!);
+              }
             }
           },
           builder: (context, state) {
