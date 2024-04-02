@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:trapper/app/domain/entity/profile.dart';
 import 'package:trapper/app/presentation/screen/rooms/widget/room_avatar.dart';
 
 class DetailHeaderMessage extends StatelessWidget {
-  const DetailHeaderMessage({super.key});
+  final Profile profile;
+  const DetailHeaderMessage({super.key, required this.profile});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const RoomAvatar(),
+      leading: RoomAvatar(
+        photoUrl: profile.photoUrl,
+      ),
       title: Text(
         "User Name",
         style: Theme.of(context).textTheme.titleMedium!.copyWith(

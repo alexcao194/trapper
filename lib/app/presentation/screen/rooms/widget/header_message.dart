@@ -16,26 +16,27 @@ class HeaderMessage extends StatelessWidget {
         if (state is ProfileGot) {
           profile = state.profile;
         }
-        print(profile);
-        return ListTile(
-          leading: const RoomAvatar(),
-          title: Text(
-            profile.name ?? "User",
-            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListTile(
+            style: ListTileStyle.list,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
+            contentPadding: const EdgeInsets.all(4),
+            leading: RoomAvatar(photoUrl: profile.photoUrl),
+            title: Text(
+              profile.name ?? "User",
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            trailing: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.notifications_none_outlined),
+            ),
+            onTap: () {},
           ),
-          subtitle: Text(
-            "@${profile.email ?? "username"}",
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontStyle: FontStyle.italic,
-                ),
-          ),
-          trailing: IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.notifications_none_outlined),
-          ),
-          onTap: () {},
         );
       },
     );

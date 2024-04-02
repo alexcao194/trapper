@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
 import 'package:trapper/app/presentation/bloc/profile/profile_bloc.dart';
 import 'package:trapper/app/presentation/screen/home/home_tabs/widget/keep_alive_page.dart';
 import 'package:trapper/app/presentation/screen/rooms/widget/header_message.dart';
@@ -49,110 +50,79 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
-    var buttons = <Widget>[
-      ProfileButton(
-        isActivated: index == 0,
-        icon: Icons.person,
-        title: S.current.profile_button,
-        onTap: () {
-          _go(0);
-        },
-      ),
-      ProfileButton(
-        isActivated: index == 1,
-        icon: Icons.group,
-        title: S.current.friends_button,
-        onTap: () {
-          _go(1);
-        },
-      ),
-      ProfileButton(
-        isActivated: index == 2,
-        icon: Icons.connect_without_contact,
-        title: S.current.connect_button,
-        onTap: () {
-          _go(2);
-        },
-      ),
-      ProfileButton(
-        isActivated: index == 3,
-        icon: Icons.settings,
-        title: S.current.settings_button,
-        onTap: () {
-          _go(3);
-        },
-      ),
-      ProfileButton(
-        isActivated: index == 4,
-        icon: Icons.help,
-        title: S.current.help_button,
-        onTap: () {
-          _go(4);
-        },
-      ),
-    ];
-
     return SafeArea(
-      child: Scaffold(
-        bottomNavigationBar: size.width <= Dimen.mobileWidth
-            ? BottomAppBar(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: buttons,
+      child: BlocBuilder<ProfileBloc, ProfileState>(
+        builder: (context, state) {
+          var profile = const Profile();
+          if (state is ProfileGot) {
+            profile = state.profile;
+          }
+          return Scaffold(
+            bottomNavigationBar: MoltenBottomNavigationBar(
+              selectedIndex: index,
+              onTabChange: _go,
+              margin: const EdgeInsets.only(bottom: 12, top: 4),
+              tabs: [
+                MoltenTab(
+                  icon: const Icon(Icons.person),
+                  selectedColor: Theme.of(context).colorScheme.primary,
+                  unselectedColor: Theme.of(context).colorScheme.onSurface,
+                  title: Text(S.current.profile_button),
                 ),
-              )
-            : null,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            context.go(RoutePath.messages);
-          },
-          child: const Icon(Icons.message),
-        ),
-        backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-        body: Row(
-          children: [
-            if (size.width > Dimen.mobileWidth)
-              SizedBox(
-                width: 400,
-                child: Column(
-                  children: [
-                    if (size.width > Dimen.mobileWidth)
-                      const HeaderMessage()
-                    else
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.0),
-                        child: RoomAvatar(),
-                      ),
-                    const SizedBox(height: 8),
-                    ...buttons
-                  ],
+                MoltenTab(
+                  icon: const Icon(Icons.people),
+                  selectedColor: Theme.of(context).colorScheme.primary,
+                  unselectedColor: Theme.of(context).colorScheme.onSurface,
+                  title: Text(S.current.friends_button),
                 ),
-              ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: PageView(
-                      controller: _pageController,
-                      scrollDirection: size.width > Dimen.mobileWidth ? Axis.vertical : Axis.horizontal,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: const [
-                        KeepAlivePage(child: Center(child: ProfileTab())),
-                        KeepAlivePage(child: Center(child: FriendsTab())),
-                        KeepAlivePage(child: Center(child: ConnectTab())),
-                        KeepAlivePage(child: Center(child: SettingsTab())),
-                        KeepAlivePage(child: Center(child: HelpTab())),
-                      ],
-                    )),
-              ),
+                MoltenTab(
+                  icon: const Icon(Icons.connect_without_contact),
+                  selectedColor: Theme.of(context).colorScheme.primary,
+                  unselectedColor: Theme.of(context).colorScheme.onSurface,
+                  title: Text(S.current.connect_button),
+                ),
+                MoltenTab(
+                  icon: const Icon(Icons.settings),
+                  selectedColor: Theme.of(context).colorScheme.primary,
+                  unselectedColor: Theme.of(context).colorScheme.onSurface,
+                  title: Text(S.current.settings_button),
+                ),
+                MoltenTab(
+                  icon: const Icon(Icons.help),
+                  selectedColor: Theme.of(context).colorScheme.primary,
+                  unselectedColor: Theme.of(context).colorScheme.onSurface,
+                  title: Text(S.current.help_button),
+                ),
+              ],
             ),
-          ],
-        ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                context.go(RoutePath.messages);
+              },
+              child: const Icon(Icons.message),
+            ),
+            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: PageView(
+                    controller: _pageController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: const [
+                      KeepAlivePage(child: Center(child: ProfileTab())),
+                      KeepAlivePage(child: Center(child: FriendsTab())),
+                      KeepAlivePage(child: Center(child: ConnectTab())),
+                      KeepAlivePage(child: Center(child: SettingsTab())),
+                      KeepAlivePage(child: Center(child: HelpTab())),
+                    ],
+                  )),
+            )
+          );
+        },
       ),
     );
   }

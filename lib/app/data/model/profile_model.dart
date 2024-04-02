@@ -9,11 +9,11 @@ class ProfileModel extends Profile {
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
-      name: json['full_name'],
-      email: json['email'],
-      photoUrl: json['photo_url'],
-      gender: json['gender'] == "true",
-      birthDate: json['date_of_birth'],
+      name: json['full_name'] as String?,
+      email: json['email'] as String?,
+      photoUrl: json['photo_url'] as String?,
+      gender: json['gender'] as bool?,
+      birthDate: json['date_of_birth'] as String?,
     );
   }
 
