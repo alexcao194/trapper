@@ -35,7 +35,7 @@ class DioTools {
         return handler.next(options); //continue
       },
       onResponse: (response, handler) async {
-        if (response.statusCode == 401) {
+        if (response.statusCode == 403) {
           Map<String, String>? newToken = await refreshToken();
           if (newToken == null) {
             return handler.reject(DioException(requestOptions: response.requestOptions, response: response));
@@ -45,13 +45,10 @@ class DioTools {
           response.requestOptions.headers['access_token'] = newToken['access_token'];
           return handler.resolve(await dio.fetch(response.requestOptions));
         }
-        if (response.statusCode == 403) {
-          streamController.add(false);
-          return handler.reject(DioException(requestOptions: response.requestOptions, response: response));
-        }
         return handler.next(response); // continue
       },
       onError: (DioException e, handler) {
+        streamController.add(false);
         return handler.next(e); //continue
       }
     ));

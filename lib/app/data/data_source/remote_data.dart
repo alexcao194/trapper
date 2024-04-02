@@ -27,10 +27,15 @@ class RemoteDataImpl implements RemoteData {
   @override
   Future<Map<String, String>> login(AccountModel account) async {
     var response = await dio.post('/auth/login', data: account.toJson());
-    if (response.statusCode == 200) {
-      return {"access_token": response.data["access_token"], "refresh_token": response.data["refresh_token"]};
-    } else {
-      throw Exception(response.data);
+    switch (response.statusCode) {
+      case 200:
+        return {"access_token": response.data["access_token"], "refresh_token": response.data["refresh_token"]};
+      default:
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          message: jsonEncode(response.data),
+        );
     }
   }
 
@@ -53,7 +58,11 @@ class RemoteDataImpl implements RemoteData {
     if (response.statusCode == 200) {
       return {"access_token": response.data["access_token"], "refresh_token": response.data["refresh_token"]};
     } else {
-      throw Exception(response.data);
+      throw DioException(
+        requestOptions: response.requestOptions,
+        response: response,
+        message: jsonEncode(response.data),
+      );
     }
   }
 
@@ -63,7 +72,11 @@ class RemoteDataImpl implements RemoteData {
     if (response.statusCode == 200) {
       return ProfileModel.fromJson(response.data);
     } else {
-      throw Exception(response.data);
+      throw DioException(
+        requestOptions: response.requestOptions,
+        response: response,
+        message: jsonEncode(response.data),
+      );
     }
   }
 
@@ -73,7 +86,11 @@ class RemoteDataImpl implements RemoteData {
     if (response.statusCode == 200) {
       return ProfileModel.fromJson(response.data);
     } else {
-      throw Exception(response.data);
+      throw DioException(
+        requestOptions: response.requestOptions,
+        response: response,
+        message: jsonEncode(response.data),
+      );
     }
   }
 
@@ -83,7 +100,11 @@ class RemoteDataImpl implements RemoteData {
     if (response.statusCode == 200) {
       return Future.value();
     } else {
-      throw Exception(response.data);
+      throw DioException(
+        requestOptions: response.requestOptions,
+        response: response,
+        message: jsonEncode(response.data),
+      );
     }
   }
 }
