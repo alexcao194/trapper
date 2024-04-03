@@ -30,6 +30,7 @@ class HiveTools {
     Hive.registerAdapter(ProfileModelAdapter());
     Hive.registerAdapter(SettingsSnapshotModelAdapter());
 
+
     await Hive.openBox<ProfileModel>(_profileKey);
     await Hive.openBox<SettingsSnapshotModel>(_settingsSnapshotKey);
   }
