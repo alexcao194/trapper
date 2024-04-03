@@ -41,8 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Mật khẩu không khớp"),
         "confirm_password_required": MessageLookupByLibrary.simpleMessage(
             "Mật khẩu không được để trống"),
-        "connect_button":
-            MessageLookupByLibrary.simpleMessage("Kết nối với bạn bè"),
+        "connect_button": MessageLookupByLibrary.simpleMessage("Kết nối"),
         "date_of_birth": MessageLookupByLibrary.simpleMessage("Ngày sinh"),
         "date_of_birth_example":
             MessageLookupByLibrary.simpleMessage("dd/mm/yyyy"),

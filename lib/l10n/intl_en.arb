@@ -48,7 +48,7 @@
   "profile_button": "Profile",
   "friends_button": "Friends",
   "messages_button": "Messages",
-  "connect_button": "Connect with friends",
+  "connect_button": "Connect",
   "settings_button": "Settings",
   "help_button": "Help",
   "logout_button": "Logout"

@@ -19,7 +19,9 @@ class CustomChip extends StatelessWidget {
       child: FilterChip(
         label: Text(label),
         selected: isSelected,
-        onSelected: onSelected,
+        onSelected: (value) {
+          onSelected?.call(value);
+        },
       ),
     );
   }

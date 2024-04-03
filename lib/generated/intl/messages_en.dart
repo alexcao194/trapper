@@ -41,8 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Confirm password does not match"),
         "confirm_password_required": MessageLookupByLibrary.simpleMessage(
             "Confirm password is required"),
-        "connect_button":
-            MessageLookupByLibrary.simpleMessage("Connect with friends"),
+        "connect_button": MessageLookupByLibrary.simpleMessage("Connect"),
         "date_of_birth": MessageLookupByLibrary.simpleMessage("Date of birth"),
         "date_of_birth_example":
             MessageLookupByLibrary.simpleMessage("dd/mm/yyyy"),

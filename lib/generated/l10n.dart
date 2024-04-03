@@ -490,10 +490,10 @@ class S {
     );
   }
 
-  /// `Connect with friends`
+  /// `Connect`
   String get connect_button {
     return Intl.message(
-      'Connect with friends',
+      'Connect',
       name: 'connect_button',
       desc: '',
       args: [],

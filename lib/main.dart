@@ -1,5 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trapper/app/presentation/bloc/settings/settings_bloc.dart';
 import 'package:trapper/config/const/app_colors.dart';
@@ -13,9 +14,10 @@ import 'di.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  usePathUrlStrategy();
   await HiveTools.init();
   await DependencyInjection.init();
-
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   runApp(
     MultiBlocProvider(
       providers: [

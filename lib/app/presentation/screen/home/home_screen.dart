@@ -1,9 +1,12 @@
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:side_navigation/side_navigation.dart';
 import 'package:trapper/app/presentation/bloc/profile/profile_bloc.dart';
 import 'package:trapper/app/presentation/screen/home/home_tabs/widget/keep_alive_page.dart';
+import 'package:trapper/config/const/dimen.dart';
 import 'package:trapper/config/go_router/app_go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../generated/l10n.dart';
@@ -46,69 +49,56 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+          bottomNavigationBar: FlashyTabBar(
+            selectedIndex: index,
+            onItemSelected: _go,
+            items: [
+              FlashyTabBarItem(
+                icon: const Icon(Icons.person),
+                title: Text(S.current.profile_button),
+              ),
+              FlashyTabBarItem(
+                icon: const Icon(Icons.people),
+                title: Text(S.current.friends_button),
+              ),
+              FlashyTabBarItem(
+                icon: const Icon(Icons.connect_without_contact),
+                title: Text(S.current.connect_button),
+              ),
+              FlashyTabBarItem(
+                icon: const Icon(Icons.settings),
+                title: Text(S.current.settings_button),
+              ),
+              FlashyTabBarItem(
+                icon: const Icon(Icons.help),
+                title: Text(S.current.help_button),
+              ),
+            ],
+          ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               context.go(RoutePath.messages);
             },
             child: const Icon(Icons.message),
           ),
-          backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-          body: Row(
-            children: [
-              RotatedBox(
-                quarterTurns: 5,
-                child: FlashyTabBar(
-                  selectedIndex: index,
-                  onItemSelected: _go,
-                  items: [
-                    FlashyTabBarItem(
-                      icon: const Icon(Icons.person),
-                      title: Text(S.current.profile_button),
-                    ),
-                    FlashyTabBarItem(
-                      icon: const Icon(Icons.people),
-                      title: Text(S.current.friends_button),
-                    ),
-                    FlashyTabBarItem(
-                      icon: const Icon(Icons.connect_without_contact),
-                      title: Text(S.current.connect_button),
-                    ),
-                    FlashyTabBarItem(
-                      icon: const Icon(Icons.settings),
-                      title: Text(S.current.settings_button),
-                    ),
-                    FlashyTabBarItem(
-                      icon: const Icon(Icons.help),
-                      title: Text(S.current.help_button),
-                    ),
-                  ],
-                ),
+          body: Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: PageView(
+                controller: _pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: const [
+                  KeepAlivePage(child: Center(child: ProfileTab())),
+                  KeepAlivePage(child: Center(child: FriendsTab())),
+                  KeepAlivePage(child: Center(child: ConnectTab())),
+                  KeepAlivePage(child: Center(child: SettingsTab())),
+                  KeepAlivePage(child: Center(child: HelpTab())),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: PageView(
-                      controller: _pageController,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: const [
-                        KeepAlivePage(child: Center(child: ProfileTab())),
-                        KeepAlivePage(child: Center(child: FriendsTab())),
-                        KeepAlivePage(child: Center(child: ConnectTab())),
-                        KeepAlivePage(child: Center(child: SettingsTab())),
-                        KeepAlivePage(child: Center(child: HelpTab())),
-                      ],
-                    )),
-              ),
-            ],
-          )
-      ),
+            ),
+          )),
     );
   }
 }

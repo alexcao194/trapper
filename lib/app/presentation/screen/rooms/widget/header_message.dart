@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:trapper/app/presentation/screen/rooms/widget/room_avatar.dart';
+import 'package:trapper/config/go_router/app_go_router.dart';
 
 import '../../../../domain/entity/profile.dart';
 import '../../../bloc/profile/profile_bloc.dart';
@@ -35,7 +37,9 @@ class HeaderMessage extends StatelessWidget {
               onPressed: () {},
               icon: const Icon(Icons.notifications_none_outlined),
             ),
-            onTap: () {},
+            onTap: () {
+              context.go(RoutePath.home);
+            },
           ),
         );
       },
