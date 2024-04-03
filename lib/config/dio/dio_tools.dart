@@ -17,9 +17,6 @@ class DioTools {
         baseUrl: baseUrl,
         headers: {
           'Content-Type': 'application/json',
-          'Accept': '*/*',
-          'Connection': 'keep-alive',
-          'Access-Control-Allow-Origin': '*',
         },
       )
     );
