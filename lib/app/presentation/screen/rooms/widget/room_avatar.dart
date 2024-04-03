@@ -27,11 +27,7 @@ class RoomAvatar extends StatelessWidget {
     return CircleAvatar(
       maxRadius: 20,
       minRadius: 20,
-      backgroundImage: CachedNetworkImage(
-        imageUrl: photoUrl!,
-        placeholder: (context, url) => Image.asset(Assets.pngDefaultAvatar),
-        errorWidget: (context, url, error) => Image.asset(Assets.pngDefaultAvatar),
-      ) as ImageProvider<Object>,
+      backgroundImage: NetworkImage(photoUrl!) as ImageProvider<Object>,
     );
   }
 }

@@ -88,9 +88,9 @@ class ProfileTab extends StatelessWidget {
                     Text(
                       '19',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface,
-                        fontWeight: FontWeight.bold,
-                      ),
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                     const SizedBox(height: 10),
                     const Wrap(
@@ -105,13 +105,12 @@ class ProfileTab extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: GridView.builder(
-                          physics: const BouncingScrollPhysics(),
+                            physics: const BouncingScrollPhysics(),
                             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                               maxCrossAxisExtent: 200,
                               childAspectRatio: 0.7,
                               crossAxisSpacing: 20,
-                              mainAxisSpacing: 20
-                              ,
+                              mainAxisSpacing: 20,
                             ),
                             itemCount: 6,
                             // image
@@ -124,20 +123,17 @@ class ProfileTab extends StatelessWidget {
                                   ),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
-                                child: index != 5 ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: CachedNetworkImage(
-                                    imageUrl: 'https://cdnphoto.dantri.com.vn/WFUicZO6-nLHhjBILArp3JjgJmE=/thumb_w/960/2021/05/15/co-gai-noi-nhu-con-vi-anh-can-cuoc-xinh-nhu-mong-nhan-sac-ngoai-doi-con-bat-ngo-hon-3-1621075314074.jpg',
-                                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ) : Icon(
-                                  Icons.add,
-                                  color: Theme.of(context).colorScheme.onSurface,
-                                ),
+                                child: index != 5
+                                    ? ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Image.network('https://cdnphoto.dantri.com.vn/WFUicZO6-nLHhjBILArp3JjgJmE=/thumb_w/960/2021/05/15/co-gai-noi-nhu-con-vi-anh-can-cuoc-xinh-nhu-mong-nhan-sac-ngoai-doi-con-bat-ngo-hon-3-1621075314074.jpg', fit: BoxFit.cover),
+                                      )
+                                    : Icon(
+                                        Icons.add,
+                                        color: Theme.of(context).colorScheme.onSurface,
+                                      ),
                               );
-                            }
-                        ),
+                            }),
                       ),
                     )
                   ],
