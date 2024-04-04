@@ -10,10 +10,16 @@ import 'package:trapper/app/presentation/screen/rooms/widget/text_message.dart';
 import '../../../../config/const/dimen.dart';
 import '../../../domain/entity/profile.dart';
 import '../../bloc/profile/profile_bloc.dart';
+import '../../bloc/rooms/rooms_bloc.dart';
 
-class MessageScreen extends StatelessWidget {
+class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
 
+  @override
+  State<MessageScreen> createState() => _MessageScreenState();
+}
+
+class _MessageScreenState extends State<MessageScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -21,9 +27,11 @@ class MessageScreen extends StatelessWidget {
       builder: (context, state) {
         return SafeArea(
           child: Scaffold(
-            drawer: size.width <= Dimen.mobileWidth ? Drawer(
-              child: SideBar(size: size),
-            ) : null,
+            drawer: size.width <= Dimen.mobileWidth
+                ? Drawer(
+                    child: SideBar(size: size),
+                  )
+                : null,
             floatingActionButton: Padding(
               padding: const EdgeInsets.only(bottom: 80.0),
               child: FloatingActionButton(
@@ -56,18 +64,16 @@ class MessageScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10),
                               color: Theme.of(context).colorScheme.onInverseSurface,
                             ),
-                            child: Builder(
-                              builder: (context) {
-                                return DetailHeaderMessage(
-                                  profile: const Profile(
-                                    name: "User",
-                                  ),
-                                  onBack: () {
-                                    Scaffold.of(context).openDrawer();
-                                  },
-                                );
-                              }
-                            )),
+                            child: Builder(builder: (context) {
+                              return DetailHeaderMessage(
+                                profile: const Profile(
+                                  name: "User",
+                                ),
+                                onBack: () {
+                                  Scaffold.of(context).openDrawer();
+                                },
+                              );
+                            })),
                         Expanded(
                           child: ListView.builder(
                             itemCount: 10,
@@ -90,6 +96,12 @@ class MessageScreen extends StatelessWidget {
       },
     );
   }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<RoomsBloc>().add(RoomsFetchRoomsInfo());
+  }
 }
 
 class SideBar extends StatelessWidget {
@@ -102,52 +114,54 @@ class SideBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 8),
-        if (size.width > Dimen.mobileWidth) const HeaderMessage(),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Theme.of(context).colorScheme.background,
-              ),
-              child: Column(children: [
-                if (size.width > Dimen.mobileWidth)
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-                    child: RoomSearchBar(),
+    return BlocBuilder<RoomsBloc, RoomsState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            const SizedBox(height: 8),
+            if (size.width > Dimen.mobileWidth) const HeaderMessage(),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Theme.of(context).colorScheme.background,
                   ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: 20,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                        child: MaterialButton(
-                          padding: EdgeInsets.zero,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(100)),
-                          ),
-                          onPressed: () {},
-                          child: const RoomCard(
-                            profile: Profile(
-                              name: "User",
+                  child: Column(children: [
+                    if (size.width > Dimen.mobileWidth)
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+                        child: RoomSearchBar(),
+                      ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: state.roomsInfo.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                            child: MaterialButton(
+                              padding: EdgeInsets.zero,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(100)),
+                              ),
+                              onPressed: () {},
+                              child: RoomCard(
+                                profile: state.roomsInfo[index].object!,
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                          );
+                        },
+                      ),
+                    ),
+                  ]),
                 ),
-              ]),
+              ),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }

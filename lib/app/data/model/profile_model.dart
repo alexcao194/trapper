@@ -5,7 +5,7 @@ part 'profile_model.g.dart';
 
 @HiveType(typeId: 10)
 class ProfileModel extends Profile {
-  const ProfileModel({super.name, super.email, super.photoUrl, super.gender, super.birthDate});
+  const ProfileModel({super.name, super.email, super.photoUrl, super.gender, super.birthDate, super.id});
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
@@ -14,6 +14,7 @@ class ProfileModel extends Profile {
       photoUrl: json['photo_url'] as String?,
       gender: json['gender'] as bool?,
       birthDate: json['date_of_birth'] as String?,
+      id: json['id'] as String?,
     );
   }
 
@@ -23,6 +24,7 @@ class ProfileModel extends Profile {
     'photo_url': photoUrl,
     'gender': gender,
     'date_of_birth': birthDate,
+    'id': id,
   };
 
   factory ProfileModel.fromEntity(Profile profile) {
@@ -32,6 +34,7 @@ class ProfileModel extends Profile {
         photoUrl: profile.photoUrl,
         gender: profile.gender,
         birthDate: profile.birthDate,
+        id: profile.id,
     );
   }
 }

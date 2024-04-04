@@ -92,6 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Expanded(
                           flex: 3,
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const SizedBox(height: 20),
                               SizedBox(
@@ -182,11 +183,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ],
                                   ),
                                 ),
-                              ),
-                              Expanded(child: Container()),
-                              Text(
-                                S.current.app_name_annotation,
-                                style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ],
                           ),

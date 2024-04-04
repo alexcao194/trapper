@@ -15,16 +15,18 @@ class Profile extends Equatable {
   final bool? gender;
   @HiveField(4)
   final String? birthDate;
+  @HiveField(5)
+  final String? id;
 
-  const Profile({this.name, this.email, this.photoUrl, this.gender, this.birthDate});
+  const Profile({this.name, this.email, this.photoUrl, this.gender, this.birthDate, this.id});
 
   @override
   String toString() {
-    return "Profile(name: $name, email: $email,photoUrl: $photoUrl, gender: $gender, birthDate: $birthDate)";
+    return "Profile(name: $name, email: $email,photoUrl: $photoUrl, gender: $gender, birthDate: $birthDate, id: $id)";
   }
 
   @override
-  List<Object?> get props => [name, email, photoUrl, gender, birthDate];
+  List<Object?> get props => [name, email, photoUrl, gender, birthDate, id];
 
   Profile copyWith({
     String? name,
@@ -32,6 +34,7 @@ class Profile extends Equatable {
     String? photoUrl,
     bool? gender,
     String? birthDate,
+    String? id,
   }) {
     return Profile(
       name: name ?? this.name,
@@ -39,6 +42,7 @@ class Profile extends Equatable {
       photoUrl: photoUrl ?? this.photoUrl,
       gender: gender ?? this.gender,
       birthDate: birthDate ?? this.birthDate,
+      id: id ?? this.id,
     );
   }
 }

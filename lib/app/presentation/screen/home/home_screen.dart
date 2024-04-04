@@ -3,15 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:side_navigation/side_navigation.dart';
 import 'package:trapper/app/presentation/bloc/profile/profile_bloc.dart';
 import 'package:trapper/app/presentation/screen/home/home_tabs/widget/keep_alive_page.dart';
-import 'package:trapper/config/const/dimen.dart';
 import 'package:trapper/config/go_router/app_go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../generated/l10n.dart';
 
-import '../../../domain/entity/profile.dart';
 import 'home_tabs/connect_tab.dart';
 import 'home_tabs/friends_tab.dart';
 import 'home_tabs/help_tab.dart';
@@ -83,20 +80,18 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: const Icon(Icons.message),
           ),
-          body: Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: PageView(
-                controller: _pageController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: const [
-                  KeepAlivePage(child: Center(child: ProfileTab())),
-                  KeepAlivePage(child: Center(child: FriendsTab())),
-                  KeepAlivePage(child: Center(child: ConnectTab())),
-                  KeepAlivePage(child: Center(child: SettingsTab())),
-                  KeepAlivePage(child: Center(child: HelpTab())),
-                ],
-              ),
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: PageView(
+              controller: _pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: const [
+                KeepAlivePage(child: Center(child: ProfileTab())),
+                KeepAlivePage(child: Center(child: FriendsTab())),
+                KeepAlivePage(child: Center(child: ConnectTab())),
+                KeepAlivePage(child: Center(child: SettingsTab())),
+                KeepAlivePage(child: Center(child: HelpTab())),
+              ],
             ),
           )),
     );
