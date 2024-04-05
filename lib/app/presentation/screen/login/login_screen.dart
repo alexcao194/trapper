@@ -208,7 +208,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    super.initState();
     _email = TextEditingController();
     _password = TextEditingController();
 
@@ -269,6 +268,7 @@ class _LoginScreenState extends State<LoginScreen> {
         updateLoginStatus();
       });
     });
+    super.initState();
   }
 
   void handOn() {
