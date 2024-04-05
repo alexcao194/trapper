@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:trapper/app/data/model/account_model.dart';
 import 'package:trapper/app/data/model/profile_model.dart';
 import 'package:trapper/app/domain/entity/account.dart';
+import 'package:trapper/config/dio/dio_tools.dart';
 
 abstract class RemoteData {
   Future<Map<String, String>> login(AccountModel account);
@@ -16,7 +19,7 @@ abstract class RemoteData {
 
   Future<ProfileModel> getProfile();
 
-  Future<ProfileModel> updateProfile(ProfileModel profile);
+  Future<ProfileModel> updateProfile(ProfileModel profile, Uint8List? image);
 }
 
 class RemoteDataImpl implements RemoteData {
@@ -81,9 +84,34 @@ class RemoteDataImpl implements RemoteData {
   }
 
   @override
-  Future<ProfileModel> updateProfile(ProfileModel profile) async {
+  Future<ProfileModel> updateProfile(ProfileModel profile, Uint8List? image) async {
+    if (image != null) {
+      final partFile = MultipartFile.fromBytes(
+        image,
+        filename: 'photo.jpg',
+      );
+      final data = FormData()..files.add(MapEntry('photo_url', partFile));
+      var response = await dio.post(
+        '/profile/avatar',
+        data: data,
+        options: Options(
+          contentType: 'multipart/form-data',
+        ),
+      );
+      if (response.statusCode == 200) {
+        profile = ProfileModel.fromEntity(profile.copyWith(photoUrl: "${DioTools.baseUrl}/${response.data['photo_url']}"));
+      } else {
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          message: jsonEncode(response.data),
+        );
+      }
+    }
+
     var response = await dio.post('/profile', data: profile.toJson());
     if (response.statusCode == 200) {
+      print("object ${response.data}");
       return ProfileModel.fromJson(response.data);
     } else {
       throw DioException(

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dartz/dartz.dart';
 import 'package:trapper/app/data/data_source/local_data.dart';
 import 'package:trapper/app/data/model/profile_model.dart';
@@ -29,11 +31,11 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<Either<Failure, Profile>> updateProfile(Profile profile) async {
+  Future<Either<Failure, Profile>> updateProfile(Profile profile, Uint8List? image) async {
     try {
-      await _remoteData.updateProfile(ProfileModel.fromEntity(profile));
+      var profileRes = await _remoteData.updateProfile(ProfileModel.fromEntity(profile), image);
       await _localData.saveProfile(ProfileModel.fromEntity(profile));
-      return Right(profile);
+      return Right(profileRes);
     } on Exception catch (e) {
       return Left(Failure(e.toString()));
     }

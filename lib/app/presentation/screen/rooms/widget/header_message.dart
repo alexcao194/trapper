@@ -14,10 +14,7 @@ class HeaderMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
-        Profile profile = const Profile();
-        if (state is ProfileGot) {
-          profile = state.profile;
-        }
+        var profile = state.profile;
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListTile(

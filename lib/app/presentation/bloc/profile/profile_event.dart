@@ -13,9 +13,10 @@ class ProfileEventGet extends ProfileEvent {
 
 class ProfileEventUpdate extends ProfileEvent {
   final Profile profile;
+  final Uint8List? image;
 
-  const ProfileEventUpdate(this.profile);
+  const ProfileEventUpdate(this.profile, {this.image});
 
   @override
-  List<Object> get props => [profile];
+  List<Object> get props => [profile, image ?? Uint8List(0)];
 }

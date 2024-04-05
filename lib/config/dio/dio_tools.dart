@@ -6,8 +6,11 @@ import 'package:trapper/di.dart';
 import '../../app/data/data_source/local_data.dart';
 class DioTools {
   static String get baseUrl {
-    // return 'http://localhost:1904';
     return 'https://trapper-server.onrender.com';
+  }
+
+  static String get localBaseUrl {
+    return 'http://localhost:1904';
   }
 
   static Dio get dio {
@@ -32,6 +35,8 @@ class DioTools {
         return handler.next(options); //continue
       },
       onResponse: (response, handler) async {
+        print(response.statusCode);
+        print(response.data);
         if (response.statusCode == 403) {
           Map<String, String>? newToken = await refreshToken();
           if (newToken == null) {

@@ -58,6 +58,8 @@ dependencies:
   flashy_tab_bar2: ^0.0.10
   side_navigation: ^1.0.4
   socket_io_client: ^2.0.3+1
+  image_picker: ^1.0.7
+  image_picker_for_web: ^3.0.3
 
 
 dev_dependencies:
