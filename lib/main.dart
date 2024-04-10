@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trapper/app/presentation/bloc/settings/settings_bloc.dart';
 import 'package:trapper/config/const/app_colors.dart';
 import 'app/presentation/bloc/auth/auth_bloc.dart';
+import 'app/presentation/bloc/connect/connect_bloc.dart';
 import 'app/presentation/bloc/profile/profile_bloc.dart';
 import 'app/presentation/bloc/rooms/rooms_bloc.dart';
 import 'config/database/hive_tools.dart';
@@ -27,6 +28,7 @@ void main() async {
         BlocProvider<SettingsBloc>(create: (context) => DependencyInjection.sl<SettingsBloc>()),
         BlocProvider<ProfileBloc>(create: (context) => DependencyInjection.sl<ProfileBloc>()),
         BlocProvider<RoomsBloc>(create: (context) => DependencyInjection.sl<RoomsBloc>()),
+        BlocProvider<ConnectBloc>(create: (context) => DependencyInjection.sl<ConnectBloc>()),
       ],
       child: const MyApp(),
     ),

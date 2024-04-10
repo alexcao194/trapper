@@ -30,6 +30,7 @@ import 'app/domain/use_case/login.dart';
 import 'app/domain/use_case/register.dart';
 import 'app/domain/use_case/save_settings.dart';
 import 'app/domain/use_case/update_profile.dart';
+import 'app/presentation/bloc/connect/connect_bloc.dart';
 import 'config/database/hive_tools.dart';
 
 class DependencyInjection {
@@ -62,6 +63,8 @@ class DependencyInjection {
         fetchRoomsInfo: sl(),
       ),
     );
+
+    sl.registerFactory<ConnectBloc>(() => ConnectBloc());
 
     // Use case
     sl.registerLazySingleton<Login>(() => Login(authRepository: sl()));
