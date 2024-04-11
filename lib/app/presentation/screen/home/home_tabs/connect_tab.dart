@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../bloc/connect/connect_bloc.dart';
 import 'widget/custom_chip.dart';
 
-List<String> genders = <String>['Nam', 'Nữ', 'Tất cả'];
+List<String> genders = <String>['Nam', 'Nữ'];
 
 class ConnectTab extends StatelessWidget {
   const ConnectTab({super.key});
@@ -33,40 +33,66 @@ class ConnectTab extends StatelessWidget {
                   ],
                 ),
                 RangeSlider(
-                  min: 18,
-                  max: 50,
+                  min: 16,
+                  max: 100,
                   values: RangeValues(
                     connectData.minAge.toDouble(),
                     connectData.maxAge.toDouble(),
                   ),
-                  onChanged: (values) {},
+                  onChanged: (values) {
+                    context.read<ConnectBloc>().add(ConnectUpdateData(
+                          connectData: connectData.copyWith(
+                            minAge: values.start.toInt(),
+                            maxAge: values.end.toInt(),
+                          ),
+                        ));
+                  },
                 ),
                 const SizedBox(height: 20),
                 const Text('Giới tính: '),
                 Wrap(
-                  children: genders
-                      .map((e) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CustomChip(
-                              label: e,
-                              isSelected: true,
-                              onSelected: (bool selected) {},
-                            ),
-                          ))
-                      .toList(),
-                ),
-                const Text('Sở thatch: '),
-                Wrap(
-                  children: connectData.hobbies.map((hobby) {
+                  children: List.generate(genders.length, (index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CustomChip(
-                        label: hobby.toString(),
-                        isSelected: false,
-                        onSelected: (bool selected) {},
+                        isSelected: connectData.gender == index,
+                        label: genders[index],
+                        onSelected: (bool selected) {
+                          context.read<ConnectBloc>().add(
+                                ConnectUpdateData(
+                                  connectData: connectData.copyWith(
+                                    gender: selected ? index : 0,
+                                  ),
+                                ),
+                              );
+                        },
                       ),
                     );
-                  }).toList(),
+                  }),
+                ),
+                const Text('Sở thatch: '),
+                Wrap(
+                  children: List.generate(state.hobbies.length, (index) {
+                    final hobby = state.hobbies[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomChip(
+                        isSelected: connectData.hobbies.contains(index),
+                        label: hobby.name,
+                        onSelected: (bool selected) {
+                          context.read<ConnectBloc>().add(
+                                ConnectUpdateData(
+                                  connectData: connectData.copyWith(
+                                    hobbies: selected
+                                        ? [...connectData.hobbies, index]
+                                        : connectData.hobbies.where((e) => e != index).toList(),
+                                  ),
+                                ),
+                              );
+                        },
+                      ),
+                    );
+                  }),
                 ),
                 const SizedBox(height: 20),
                 Row(

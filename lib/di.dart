@@ -7,6 +7,7 @@ import 'package:trapper/app/data/data_source/socket_data.dart';
 import 'package:trapper/app/data/model/profile_model.dart';
 import 'package:trapper/app/data/model/settings_snapshot_model.dart';
 import 'package:trapper/app/domain/repository/socket_repository.dart';
+import 'package:trapper/app/domain/use_case/fetch_hobbies.dart';
 import 'package:trapper/app/domain/use_case/fetch_rooms_info.dart';
 import 'package:trapper/app/domain/use_case/validate_token.dart';
 import 'package:trapper/app/presentation/bloc/auth/auth_bloc.dart';
@@ -64,7 +65,9 @@ class DependencyInjection {
       ),
     );
 
-    sl.registerFactory<ConnectBloc>(() => ConnectBloc());
+    sl.registerFactory<ConnectBloc>(() => ConnectBloc(
+      fetchHobbies: sl()
+    ));
 
     // Use case
     sl.registerLazySingleton<Login>(() => Login(authRepository: sl()));
@@ -77,6 +80,7 @@ class DependencyInjection {
     sl.registerLazySingleton<FetchRoomsInfo>(() => FetchRoomsInfo(repository: sl()));
     sl.registerLazySingleton<Connect>(() => Connect(socketRepository: sl()));
     sl.registerLazySingleton<Disconnect>(() => Disconnect(socketRepository: sl()));
+    sl.registerLazySingleton<FetchHobbies>(() => FetchHobbies(profileRepository: sl()));
 
     // Repositories
     sl.registerLazySingleton<AuthRepository>(

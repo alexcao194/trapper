@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:trapper/app/data/model/account_model.dart';
+import 'package:trapper/app/data/model/hobby_model.dart';
 import 'package:trapper/app/data/model/profile_model.dart';
 import 'package:trapper/app/domain/entity/account.dart';
 import 'package:trapper/config/dio/dio_tools.dart';
@@ -20,6 +21,8 @@ abstract class RemoteData {
   Future<ProfileModel> getProfile();
 
   Future<ProfileModel> updateProfile(ProfileModel profile, Uint8List? image);
+
+  Future<List<HobbyModel>> getHobbies();
 }
 
 class RemoteDataImpl implements RemoteData {
@@ -134,5 +137,21 @@ class RemoteDataImpl implements RemoteData {
         message: jsonEncode(response.data),
       );
     }
+  }
+
+  @override
+  Future<List<HobbyModel>> getHobbies() {
+    var response = dio.get('/hobbies');
+    return response.then((value) {
+      if (value.statusCode == 200) {
+        return (value.data as List).map((e) => HobbyModel.fromJson(e)).toList();
+      } else {
+        throw DioException(
+          requestOptions: value.requestOptions,
+          response: value,
+          message: jsonEncode(value.data),
+        );
+      }
+    });
   }
 }

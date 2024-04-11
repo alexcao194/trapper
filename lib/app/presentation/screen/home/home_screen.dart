@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:trapper/app/presentation/bloc/connect/connect_bloc.dart';
 import 'package:trapper/app/presentation/bloc/profile/profile_bloc.dart';
 import 'package:trapper/app/presentation/screen/home/home_tabs/widget/keep_alive_page.dart';
 import 'package:trapper/config/go_router/app_go_router.dart';
@@ -30,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     context.read<ProfileBloc>().add(const ProfileEventGet());
+    context.read<ConnectBloc>().add(const ConnectFetchHobbies());
     _pageController = PageController(
       initialPage: index,
     );

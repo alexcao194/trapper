@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:dartz/dartz.dart';
 import 'package:trapper/app/data/data_source/local_data.dart';
 import 'package:trapper/app/data/model/profile_model.dart';
+import 'package:trapper/app/domain/entity/hobby.dart';
 import 'package:trapper/app/domain/entity/settings_snapshot.dart';
 
 import '../../../core/failure/failure.dart';
@@ -56,6 +57,16 @@ class ProfileRepositoryImpl implements ProfileRepository {
     try {
       await _localData.saveSettingsSnapshot(SettingsSnapshotModel.fromEntity(settings));
       return Right(settings);
+    } on Exception catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Hobby>>> getHobbies() async {
+    try {
+      final hobbies = await _remoteData.getHobbies();
+      return Right(hobbies);
     } on Exception catch (e) {
       return Left(Failure(e.toString()));
     }

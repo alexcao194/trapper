@@ -11,3 +11,10 @@ class ConnectUpdateData extends ConnectEvent {
   @override
   List<Object?> get props => [connectData];
 }
+
+class ConnectFetchHobbies extends ConnectEvent {
+  const ConnectFetchHobbies();
+
+  @override
+  List<Object?> get props => [];
+}
