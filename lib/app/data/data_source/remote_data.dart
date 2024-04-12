@@ -102,7 +102,7 @@ class RemoteDataImpl implements RemoteData {
         ),
       );
       if (response.statusCode == 200) {
-        profile = ProfileModel.fromEntity(profile.copyWith(photoUrl: "${DioTools.baseUrl}/${response.data['photo_url']}"));
+        profile = ProfileModel.fromEntity(profile.copyWith(photoUrl: "${DioTools.currentBaseUrl}/${response.data['photo_url']}"));
       } else {
         throw DioException(
           requestOptions: response.requestOptions,
@@ -114,7 +114,6 @@ class RemoteDataImpl implements RemoteData {
 
     var response = await dio.post('/profile', data: profile.toJson());
     if (response.statusCode == 200) {
-      print("object ${response.data}");
       return ProfileModel.fromJson(response.data);
     } else {
       throw DioException(

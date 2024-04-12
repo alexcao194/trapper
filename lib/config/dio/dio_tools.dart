@@ -13,11 +13,15 @@ class DioTools {
     return 'http://localhost:1904';
   }
 
+  static String get currentBaseUrl {
+    return localBaseUrl;
+}
+
   static Dio get dio {
     Dio dio = Dio(
       BaseOptions(
         validateStatus: (status) => status! < 500,
-        baseUrl: baseUrl,
+        baseUrl: currentBaseUrl,
         headers: {
           'Content-Type': 'application/json',
         },
