@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../generated/l10n.dart';
+
 class InputMessage extends StatelessWidget {
   const InputMessage({super.key});
 
@@ -7,7 +9,7 @@ class InputMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
-        hintText: "Type a message",
+        hintText: S.current.text_message_hint,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50),
           borderSide: BorderSide.none,

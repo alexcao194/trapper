@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:trapper/app/presentation/screen/home/home_tabs/profile_tab.dart';
-import 'package:trapper/config/const/dimen.dart';
 
+import '../../../../../config/const/dimen.dart';
 import '../../../../../config/go_router/app_go_router.dart';
+import 'profile_tab.dart';
 class FriendsTab extends StatelessWidget {
   const FriendsTab({super.key});
 

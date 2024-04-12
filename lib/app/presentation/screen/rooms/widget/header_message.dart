@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:trapper/app/presentation/screen/rooms/widget/room_avatar.dart';
-import 'package:trapper/config/go_router/app_go_router.dart';
 
-import '../../../../domain/entity/profile.dart';
+import '../../../../../config/go_router/app_go_router.dart';
+import '../../../../../generated/l10n.dart';
 import '../../../bloc/profile/profile_bloc.dart';
+import 'room_avatar.dart';
 
 class HeaderMessage extends StatelessWidget {
   const HeaderMessage({super.key});
@@ -25,7 +25,7 @@ class HeaderMessage extends StatelessWidget {
             contentPadding: const EdgeInsets.all(4),
             leading: RoomAvatar(photoUrl: profile.photoUrl),
             title: Text(
-              profile.name ?? "User",
+              profile.name ?? S.current.full_name,
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontWeight: FontWeight.bold,
                   ),

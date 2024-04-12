@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
+import '../../../../../generated/l10n.dart';
 
 class OutlineTextField extends StatefulWidget {
   final String hintText;
@@ -58,7 +59,7 @@ class _OutlineTextFieldState extends State<OutlineTextField> {
                     obscureText = !obscureText;
                   });
                 },
-                child: Text(obscureText ? 'Show' : 'Hide', style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+                child: Text(obscureText ? S.current.show : S.current.hide, style: TextStyle(color: Theme.of(context).colorScheme.primary)),
               )
             : null,
         label: Text(widget.labelText),

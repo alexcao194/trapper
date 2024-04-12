@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../generated/l10n.dart';
 import '../../../bloc/connect/connect_bloc.dart';
 import 'widget/custom_chip.dart';
 
-List<String> genders = <String>['Nam', 'Nữ'];
+List<String> genders = <String>[S.current.male, S.current.female];
 
 class ConnectTab extends StatelessWidget {
   const ConnectTab({super.key});
@@ -20,14 +21,14 @@ class ConnectTab extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text(
-                  'Bạn muốn tìm người như thế nào?',
-                  style: TextStyle(fontSize: 25, fontStyle: FontStyle.italic),
+                Text(
+                  S.current.search_prompt,
+                  style: const TextStyle(fontSize: 25, fontStyle: FontStyle.italic),
                 ),
                 const SizedBox(height: 20),
                 Row(
                   children: <Widget>[
-                    const Text('Tuổi: '),
+                    Text(S.current.age),
                     const Spacer(),
                     Text('${connectData.minAge} - ${connectData.maxAge}'),
                   ],
@@ -49,7 +50,7 @@ class ConnectTab extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 20),
-                const Text('Giới tính: '),
+                Text(S.current.gender),
                 Wrap(
                   children: List.generate(genders.length, (index) {
                     return Padding(
@@ -70,7 +71,7 @@ class ConnectTab extends StatelessWidget {
                     );
                   }),
                 ),
-                const Text('Sở thatch: '),
+                Text(S.current.hobbies),
                 Wrap(
                   children: List.generate(state.hobbies.length, (index) {
                     final hobby = state.hobbies[index];
@@ -105,12 +106,12 @@ class ConnectTab extends StatelessWidget {
                         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
                       ),
                       onPressed: () {},
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Icon(Icons.search),
-                            Text('Tìm kiếm'),
+                            const Icon(Icons.search),
+                            Text(S.current.search),
                           ],
                         ),
                       ),

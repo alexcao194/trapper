@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../generated/l10n.dart';
+
 class RoundedTextField extends StatefulWidget {
   final BorderRadius? borderRadius;
   final String hintText;
@@ -67,7 +69,7 @@ class _RoundedTextFieldState extends State<RoundedTextField> {
                               _obscureText = !_obscureText;
                             });
                           },
-                          child: Text(_obscureText ? 'Show' : 'Hide', style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+                          child: Text(_obscureText ? S.current.show : S.current.hide, style: TextStyle(color: Theme.of(context).colorScheme.primary)),
                         )
                       : null,
                 ),

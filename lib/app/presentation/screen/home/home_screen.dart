@@ -1,20 +1,19 @@
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:trapper/app/presentation/bloc/connect/connect_bloc.dart';
-import 'package:trapper/app/presentation/bloc/profile/profile_bloc.dart';
-import 'package:trapper/app/presentation/screen/home/home_tabs/widget/keep_alive_page.dart';
-import 'package:trapper/config/go_router/app_go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../config/go_router/app_go_router.dart';
 import '../../../../generated/l10n.dart';
 
+import '../../bloc/connect/connect_bloc.dart';
+import '../../bloc/profile/profile_bloc.dart';
 import 'home_tabs/connect_tab.dart';
 import 'home_tabs/friends_tab.dart';
 import 'home_tabs/help_tab.dart';
 import 'home_tabs/profile_tab.dart';
 import 'home_tabs/settings_tab.dart';
+import 'home_tabs/widget/keep_alive_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

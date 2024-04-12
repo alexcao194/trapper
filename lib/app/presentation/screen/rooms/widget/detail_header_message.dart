@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:trapper/app/domain/entity/profile.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../config/const/dimen.dart';
 import '../../../../../config/go_router/app_go_router.dart';
+import '../../../../../generated/l10n.dart';
+import '../../../../domain/entity/profile.dart';
 
 class DetailHeaderMessage extends StatelessWidget {
   final Profile profile;
@@ -22,7 +23,7 @@ class DetailHeaderMessage extends StatelessWidget {
             )
           : null,
       title: Text(
-        profile.name ?? "User",
+        profile.name ?? S.current.full_name,
         style: Theme.of(context).textTheme.titleMedium!.copyWith(
               fontWeight: FontWeight.bold,
             ),

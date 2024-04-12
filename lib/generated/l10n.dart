@@ -190,6 +190,16 @@ class S {
     );
   }
 
+  /// `Bio`
+  String get bio {
+    return Intl.message(
+      'Bio',
+      name: 'bio',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Cancel`
   String get cancel {
     return Intl.message(
@@ -525,6 +535,356 @@ class S {
     return Intl.message(
       'Logout',
       name: 'logout_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update`
+  String get update_button {
+    return Intl.message(
+      'Update',
+      name: 'update_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get delete_button {
+    return Intl.message(
+      'Delete',
+      name: 'delete_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save_button {
+    return Intl.message(
+      'Save',
+      name: 'save_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vietnamese`
+  String get vietnamese {
+    return Intl.message(
+      'Vietnamese',
+      name: 'vietnamese',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message(
+      'English',
+      name: 'english',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show`
+  String get show {
+    return Intl.message(
+      'Show',
+      name: 'show',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hide`
+  String get hide {
+    return Intl.message(
+      'Hide',
+      name: 'hide',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message(
+      'Settings',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Primary color`
+  String get primary_color {
+    return Intl.message(
+      'Primary color',
+      name: 'primary_color',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Red`
+  String get red {
+    return Intl.message(
+      'Red',
+      name: 'red',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Green`
+  String get green {
+    return Intl.message(
+      'Green',
+      name: 'green',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Blue`
+  String get blue {
+    return Intl.message(
+      'Blue',
+      name: 'blue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Online`
+  String get online {
+    return Intl.message(
+      'Online',
+      name: 'online',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Offline`
+  String get offline {
+    return Intl.message(
+      'Offline',
+      name: 'offline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get search {
+    return Intl.message(
+      'Search',
+      name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search...`
+  String get search_hint {
+    return Intl.message(
+      'Search...',
+      name: 'search_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Age`
+  String get age {
+    return Intl.message(
+      'Age',
+      name: 'age',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Which type of person are you looking for?`
+  String get search_prompt {
+    return Intl.message(
+      'Which type of person are you looking for?',
+      name: 'search_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hobbies`
+  String get hobbies {
+    return Intl.message(
+      'Hobbies',
+      name: 'hobbies',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reading`
+  String get reading {
+    return Intl.message(
+      'Reading',
+      name: 'reading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Music`
+  String get music {
+    return Intl.message(
+      'Music',
+      name: 'music',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cooking`
+  String get cooking {
+    return Intl.message(
+      'Cooking',
+      name: 'cooking',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Traveling`
+  String get traveling {
+    return Intl.message(
+      'Traveling',
+      name: 'traveling',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coding`
+  String get coding {
+    return Intl.message(
+      'Coding',
+      name: 'coding',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Game`
+  String get game {
+    return Intl.message(
+      'Game',
+      name: 'game',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sports`
+  String get sports {
+    return Intl.message(
+      'Sports',
+      name: 'sports',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Movies`
+  String get movies {
+    return Intl.message(
+      'Movies',
+      name: 'movies',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fashion`
+  String get fashion {
+    return Intl.message(
+      'Fashion',
+      name: 'fashion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Photography`
+  String get photography {
+    return Intl.message(
+      'Photography',
+      name: 'photography',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Art`
+  String get art {
+    return Intl.message(
+      'Art',
+      name: 'art',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Animals`
+  String get animals {
+    return Intl.message(
+      'Animals',
+      name: 'animals',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chatting`
+  String get chatting {
+    return Intl.message(
+      'Chatting',
+      name: 'chatting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dating`
+  String get dating {
+    return Intl.message(
+      'Dating',
+      name: 'dating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type a message...`
+  String get text_message_hint {
+    return Intl.message(
+      'Type a message...',
+      name: 'text_message_hint',
       desc: '',
       args: [],
     );

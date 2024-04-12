@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../generated/l10n.dart';
+
 class RoomSearchBar extends StatelessWidget {
   const RoomSearchBar({super.key});
 
@@ -15,7 +17,7 @@ class RoomSearchBar extends StatelessWidget {
           icon: const Icon(Icons.search),
         ),
       ],
-      hintText: "Search...",
+      hintText: S.current.search_hint,
     );
   }
 

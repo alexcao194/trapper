@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:trapper/app/presentation/screen/rooms/widget/detail_header_message.dart';
-import 'package:trapper/app/presentation/screen/rooms/widget/header_message.dart';
-import 'package:trapper/app/presentation/screen/rooms/widget/input_message.dart';
-import 'package:trapper/app/presentation/screen/rooms/widget/room_card.dart';
-import 'package:trapper/app/presentation/screen/rooms/widget/room_search_bar.dart';
-import 'package:trapper/app/presentation/screen/rooms/widget/text_message.dart';
+
 
 import '../../../../config/const/dimen.dart';
 import '../../../domain/entity/profile.dart';
 import '../../bloc/profile/profile_bloc.dart';
 import '../../bloc/rooms/rooms_bloc.dart';
+import 'widget/detail_header_message.dart';
+import 'widget/header_message.dart';
+import 'widget/input_message.dart';
+import 'widget/room_card.dart';
+import 'widget/room_search_bar.dart';
+import 'widget/text_message.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});

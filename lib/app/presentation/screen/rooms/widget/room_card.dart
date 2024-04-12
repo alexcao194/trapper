@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:trapper/app/domain/entity/profile.dart';
-import 'package:trapper/app/presentation/screen/rooms/widget/room_avatar.dart';
+
+import '../../../../domain/entity/profile.dart';
+import 'room_avatar.dart';
 
 class RoomCard extends StatelessWidget {
   final Profile profile;

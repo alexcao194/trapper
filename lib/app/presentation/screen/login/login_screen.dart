@@ -1,15 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
-import 'package:trapper/app/presentation/bloc/profile/profile_bloc.dart';
-import 'package:trapper/config/const/dimen.dart';
-import 'package:trapper/config/go_router/app_go_router.dart';
-import 'package:trapper/utils/dialog_tools.dart';
+
+import '../../../../config/const/dimen.dart';
+import '../../../../config/go_router/app_go_router.dart';
+import '../../../../utils/dialog_tools.dart';
 import '../../../../utils/validator.dart';
 import '../../../../generated/assets.dart';
 import '../../../domain/entity/account.dart';
@@ -144,9 +142,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                           onPressed: () {
                                             _onForgotPassword();
                                           },
-                                          child: Text("Forgot password?", style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                                            color: Theme.of(context).colorScheme.primary,
-                                          )),
+                                          child: Text("Forgot password?",
+                                              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                                                    color: Theme.of(context).colorScheme.primary,
+                                                  )),
                                         ),
                                       ),
                                       Row(

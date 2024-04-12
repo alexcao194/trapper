@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:trapper/app/presentation/screen/home/home_tabs/widget/custom_chip.dart';
-import 'package:trapper/generated/assets.dart';
+
+import '../../../../../generated/assets.dart';
+import '../../../../../generated/l10n.dart';
 import '../../../bloc/profile/profile_bloc.dart';
+import 'widget/custom_chip.dart';
 
 class ProfileTab extends StatelessWidget {
   const ProfileTab({super.key});
@@ -73,7 +74,7 @@ class ProfileTab extends StatelessWidget {
                               )),
                         ),
                         Text(
-                          profile.name ?? "user",
+                          profile.name ?? S.current.full_name,
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -91,7 +92,7 @@ class ProfileTab extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: profile.gender != null ? (profile.gender! ? "Male" : "Female") : "Gender",
+                                text: profile.gender != null ? (profile.gender! ? S.current.male : S.current.female) : S.current.gender,
                                 style: TextStyle(
                                   fontSize: 15,
                                   color: Theme.of(context).colorScheme.onSurface,
@@ -108,7 +109,7 @@ class ProfileTab extends StatelessWidget {
                               ),
                         ),
                         const SizedBox(height: 10),
-                        const Wrap(
+                        Wrap(
                           children: [
                             CustomChip(label: "Reading", isSelected: true),
                             CustomChip(label: "Music", isSelected: true),

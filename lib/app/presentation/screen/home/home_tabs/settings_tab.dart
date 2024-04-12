@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:trapper/app/presentation/bloc/settings/settings_bloc.dart';
-import 'package:trapper/app/presentation/screen/login/widget/rounded_text_field.dart';
-import 'package:trapper/config/const/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:trapper/config/const/dimen.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../../config/const/app_colors.dart';
+import '../../../../../config/const/dimen.dart';
 import '../../../../../generated/assets.dart';
+import '../../../../../generated/l10n.dart';
 import '../../../../domain/entity/profile.dart';
 import '../../../bloc/profile/profile_bloc.dart';
+import '../../../bloc/settings/settings_bloc.dart';
+import '../../login/widget/rounded_text_field.dart';
 
 class SettingsTab extends StatefulWidget {
   const SettingsTab({super.key});
@@ -41,10 +42,10 @@ class _SettingsTabState extends State<SettingsTab> {
           return BlocBuilder<SettingsBloc, SettingsState>(
             builder: (context, settingsState) {
               final colorDashboard = <Widget>[
-                const Text("Main color:"),
+                Text(S.current.primary_color),
                 Row(
                   children: [
-                    const Expanded(flex: 1, child: Text('Red')),
+                    Expanded(flex: 1, child: Text(S.current.red)),
                     Expanded(
                       flex: 9,
                       child: Slider(
@@ -64,7 +65,7 @@ class _SettingsTabState extends State<SettingsTab> {
                 ),
                 Row(
                   children: [
-                    const Expanded(flex: 1, child: Text('Green')),
+                    Expanded(flex: 1, child: Text(S.current.green)),
                     Expanded(
                       flex: 9,
                       child: Slider(
@@ -84,7 +85,7 @@ class _SettingsTabState extends State<SettingsTab> {
                 ),
                 Row(
                   children: [
-                    const Expanded(flex: 1, child: Text('Blue')),
+                    Expanded(flex: 1, child: Text(S.current.blue)),
                     Expanded(
                       flex: 9,
                       child: Slider(
@@ -125,24 +126,24 @@ class _SettingsTabState extends State<SettingsTab> {
                     _save();
                   },
                   child: Text(
-                    'Save',
+                    S.current.save_button,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
                   ));
               var updateButton = FilledButton(
                   onPressed: profileState.isLoading ? null : _update,
                   child: Text(
-                    'Update',
+                    S.current.update_button,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
                   ));
 
               final languageSettings = <Widget>[
-                const Text("Language:"),
+                Text(S.current.language),
                 Wrap(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: FilterChip(
-                        label: const Text('English'),
+                        label: Text(S.current.english),
                         selected: settingsState.languageCode == 'en',
                         onSelected: (bool selected) {
                           context.read<SettingsBloc>().add(const SettingsChangeLanguage('en'));
@@ -152,7 +153,7 @@ class _SettingsTabState extends State<SettingsTab> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: FilterChip(
-                        label: const Text('Vietnamese'),
+                        label: Text(S.current.vietnamese),
                         selected: settingsState.languageCode == 'vi',
                         onSelected: (bool selected) {
                           context.read<SettingsBloc>().add(const SettingsChangeLanguage('vi'));
@@ -199,8 +200,8 @@ class _SettingsTabState extends State<SettingsTab> {
 
               final fields = <Widget>[
                 RoundedTextField(
-                  hintText: profile.name ?? "user",
-                  label: "Name",
+                  hintText: profile.name ?? S.current.full_name_example,
+                  label: S.current.full_name,
                   controller: _nameController,
                 ),
                 GestureDetector(
@@ -218,15 +219,15 @@ class _SettingsTabState extends State<SettingsTab> {
                     });
                   },
                   child: RoundedTextField(
-                    hintText: profile.birthDate ?? "birthday",
-                    label: "Birthday",
+                    hintText: profile.birthDate ?? S.current.date_of_birth_example,
+                    label: S.current.date_of_birth,
                     controller: _birthDateController,
                     enabled: false,
                   ),
                 ),
                 RoundedTextField(
                   hintText: profile.bio ?? "",
-                  label: "Bio",
+                  label: S.current.bio,
                   controller: _bioController,
                 ),
               ];
@@ -236,9 +237,9 @@ class _SettingsTabState extends State<SettingsTab> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Settings',
-                      style: TextStyle(fontSize: 25, fontStyle: FontStyle.italic),
+                    Text(
+                      S.current.settings,
+                      style: const TextStyle(fontSize: 25, fontStyle: FontStyle.italic),
                     ),
                     if (size.width > Dimen.mobileWidth)
                       Row(

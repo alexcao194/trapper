@@ -1,16 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:trapper/app/domain/entity/account.dart';
-import 'package:trapper/app/domain/entity/profile.dart';
-import 'package:trapper/app/presentation/screen/login/widget/rounded_text_field.dart';
-import 'package:trapper/utils/dialog_tools.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../utils/dialog_tools.dart';
 import '../../../../../utils/validator.dart';
+import '../../../../domain/entity/account.dart';
+import '../../../../domain/entity/profile.dart';
 import '../../../bloc/auth/auth_bloc.dart';
 import '../../../../../generated/l10n.dart';
+import 'rounded_text_field.dart';
 
 class SignUpBox extends StatefulWidget {
   const SignUpBox({super.key});
