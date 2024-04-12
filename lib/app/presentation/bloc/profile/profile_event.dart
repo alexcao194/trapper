@@ -20,3 +20,13 @@ class ProfileEventUpdate extends ProfileEvent {
   @override
   List<Object> get props => [profile, image ?? Uint8List(0)];
 }
+
+class ProfileEventPostPhoto extends ProfileEvent {
+  final Uint8List image;
+  final int index;
+
+  const ProfileEventPostPhoto({required this.image, required this.index});
+
+  @override
+  List<Object> get props => [image, index];
+}

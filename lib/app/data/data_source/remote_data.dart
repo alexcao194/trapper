@@ -11,18 +11,13 @@ import 'package:trapper/config/dio/dio_tools.dart';
 
 abstract class RemoteData {
   Future<Map<String, String>> login(AccountModel account);
-
   Future<Map<String, String>> register(AccountModel account, ProfileModel profile);
-
   Future<void> logout();
-
   Future<void> validateToken();
-
   Future<ProfileModel> getProfile();
-
   Future<ProfileModel> updateProfile(ProfileModel profile, Uint8List? image);
-
   Future<List<HobbyModel>> getHobbies();
+  Future<List<String?>> postPhoto({required Uint8List image, required int index});
 }
 
 class RemoteDataImpl implements RemoteData {
@@ -152,5 +147,38 @@ class RemoteDataImpl implements RemoteData {
         );
       }
     });
+  }
+
+  @override
+  Future<List<String?>> postPhoto({required Uint8List image, required int index}) async {
+    final partFile = MultipartFile.fromBytes(
+      image,
+      filename: 'photo.jpg',
+    );
+    final data = FormData()
+      ..files.add(MapEntry('photo_url', partFile))
+      ..fields.add(MapEntry('index', index.toString()))
+    ;
+    var response = await dio.post(
+      '/profile/photo',
+      data: data,
+      options: Options(
+        contentType: 'multipart/form-data',
+      ),
+    );
+    if (response.statusCode == 200) {
+      List<String?> photos = List.filled(6, null);
+      response.data['photos'].forEach((v) {
+        var index = int.parse((v as String).split('/').last.split('-').first);
+        photos[index] = "${DioTools.currentBaseUrl}/$v";
+      });
+      return photos;
+    } else {
+      throw DioException(
+        requestOptions: response.requestOptions,
+        response: response,
+        message: jsonEncode(response.data),
+      );
+    }
   }
 }

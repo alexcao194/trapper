@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:trapper/app/domain/entity/profile.dart';
+import 'package:trapper/config/dio/dio_tools.dart';
 
 part 'profile_model.g.dart';
 
@@ -8,10 +9,11 @@ class ProfileModel extends Profile {
   const ProfileModel({super.name, super.email, super.photoUrl, super.gender, super.birthDate, super.id, super.photos, super.bio});
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
-    List<String?> photos = [];
+    List<String?> photos = List.filled(6, null);
     if (json['photos'] != null) {
       json['photos'].forEach((v) {
-        photos.add(v as String?);
+        var index = int.parse((v as String).split('/').last.split('-').first);
+        photos[index] = "${DioTools.currentBaseUrl}/$v";
       });
     }
     return ProfileModel(

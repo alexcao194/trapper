@@ -28,6 +28,7 @@ import 'app/domain/use_case/disconnect.dart';
 import 'app/domain/use_case/fetch_settings.dart';
 import 'app/domain/use_case/get_profile.dart';
 import 'app/domain/use_case/login.dart';
+import 'app/domain/use_case/post_photo.dart';
 import 'app/domain/use_case/register.dart';
 import 'app/domain/use_case/save_settings.dart';
 import 'app/domain/use_case/update_profile.dart';
@@ -57,6 +58,7 @@ class DependencyInjection {
       () => ProfileBloc(
         getProfile: sl(),
         updateProfile: sl(),
+        postPhoto: sl(),
       ),
     );
     sl.registerFactory<RoomsBloc>(
@@ -81,6 +83,7 @@ class DependencyInjection {
     sl.registerLazySingleton<Connect>(() => Connect(socketRepository: sl()));
     sl.registerLazySingleton<Disconnect>(() => Disconnect(socketRepository: sl()));
     sl.registerLazySingleton<FetchHobbies>(() => FetchHobbies(profileRepository: sl()));
+    sl.registerLazySingleton<PostPhoto>(() => PostPhoto(repository: sl()));
 
     // Repositories
     sl.registerLazySingleton<AuthRepository>(

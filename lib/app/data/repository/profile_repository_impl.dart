@@ -71,4 +71,14 @@ class ProfileRepositoryImpl implements ProfileRepository {
       return Left(Failure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, List<String?>>> postPhoto({required Uint8List image, required int index}) async {
+    try {
+      final photos = await _remoteData.postPhoto(image: image, index: index);
+      return Right(photos);
+    } on Exception catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
 }

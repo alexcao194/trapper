@@ -39,8 +39,6 @@ class DioTools {
         return handler.next(options); //continue
       },
       onResponse: (response, handler) async {
-        print(response.statusCode);
-        print(response.data);
         if (response.statusCode == 403) {
           Map<String, String>? newToken = await refreshToken();
           if (newToken == null) {
