@@ -364,9 +364,11 @@ packages:
   flashy_tab_bar2:
     dependency: "direct main"
     description:
-      path: flashy_tab_bar2
-      relative: true
-    source: path
+      path: "."
+      ref: master
+      resolved-ref: b66c1da7e60fea39c1ba31bcb1c558be44d56e33
+      url: "https://github.com/alexcao194/flashy_tab_bar2"
+    source: git
     version: "0.0.10"
   flutter:
     dependency: "direct main"
