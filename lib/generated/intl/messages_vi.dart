@@ -79,6 +79,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "help_button": MessageLookupByLibrary.simpleMessage("Trợ giúp"),
         "hide": MessageLookupByLibrary.simpleMessage("Ẩn"),
         "hobbies": MessageLookupByLibrary.simpleMessage("Sở thích"),
+        "hobbies_limit": MessageLookupByLibrary.simpleMessage(
+            "Chỉ được chọn tối đa 3 sở thích"),
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "logout": MessageLookupByLibrary.simpleMessage("Đăng xuất"),

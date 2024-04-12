@@ -82,5 +82,6 @@
   "animals": "Animals",
   "chatting": "Chatting",
   "dating": "Dating",
-  "text_message_hint": "Type a message..."
+  "text_message_hint": "Type a message...",
+  "hobbies_limit": "You can select up to 3 hobbies"
 }

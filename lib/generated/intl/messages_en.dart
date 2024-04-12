@@ -78,6 +78,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "help_button": MessageLookupByLibrary.simpleMessage("Help"),
         "hide": MessageLookupByLibrary.simpleMessage("Hide"),
         "hobbies": MessageLookupByLibrary.simpleMessage("Hobbies"),
+        "hobbies_limit": MessageLookupByLibrary.simpleMessage(
+            "You can select up to 3 hobbies"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),

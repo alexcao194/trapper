@@ -889,6 +889,16 @@ class S {
       args: [],
     );
   }
+
+  /// `You can select up to 3 hobbies`
+  String get hobbies_limit {
+    return Intl.message(
+      'You can select up to 3 hobbies',
+      name: 'hobbies_limit',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -78,5 +78,6 @@
   "animals": "Động vật",
   "chatting": "Trò chuyện",
   "dating": "Hẹn hò",
-  "text_message_hint": "Nhập tin nhắn..."
+  "text_message_hint": "Nhập tin nhắn...",
+  "hobbies_limit": "Chỉ được chọn tối đa 3 sở thích"
 }

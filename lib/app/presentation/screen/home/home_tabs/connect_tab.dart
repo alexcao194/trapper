@@ -16,7 +16,6 @@ class ConnectTab extends StatelessWidget {
     return BlocBuilder<ConnectBloc, ConnectState>(
       builder: (context, state) {
         final connectData = state.connectData;
-        print('connectData: $connectData');
         return Padding(
           padding: const EdgeInsets.all(30.0),
           child: SingleChildScrollView(
@@ -83,6 +82,14 @@ class ConnectTab extends StatelessWidget {
                         isSelected: connectData.hobbies.contains(index),
                         label: MessageDistribution.fromID(hobby.id),
                         onSelected: (bool selected) {
+                          if (selected && connectData.hobbies.length >= 3) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(S.current.hobbies_limit),
+                              ),
+                            );
+                            return;
+                          }
                           context.read<ConnectBloc>().add(
                                 ConnectUpdateData(
                                   connectData: connectData.copyWith(
