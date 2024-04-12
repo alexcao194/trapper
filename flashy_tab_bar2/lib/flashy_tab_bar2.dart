@@ -93,13 +93,9 @@ class FlashyTabBarItem {
   FlashyTabBarItem({
     required this.icon,
     required this.title,
-    this.activeColor,
-    this.inactiveColor,
   });
 
-  Color? activeColor;
   final Widget icon;
-  Color? inactiveColor;
   final Widget title;
 }
 
@@ -128,8 +124,6 @@ class _FlashTabBarItem extends StatelessWidget {
     /// The title is displayed when the item is selected.
     /// The icon and title are animated together.
     /// The icon and title are animated in opposite directions.
-    item.activeColor ??= Theme.of(context).colorScheme.onPrimaryContainer;
-    item.inactiveColor ??= Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(.5);
     return Container(
         color: backgroundColor,
         height: double.maxFinite,
@@ -144,7 +138,7 @@ class _FlashTabBarItem extends StatelessWidget {
                   opacity: isSelected ? 1.0 : 1.0,
                   duration: animationDuration,
                   child: IconTheme(
-                    data: IconThemeData(size: iconSize, color: isSelected ? item.activeColor!.withOpacity(1) : item.inactiveColor),
+                    data: IconThemeData(size: iconSize, color: isSelected ? Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(1) : Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(.5)),
                     child: item.icon,
                   )),
             ),
@@ -178,7 +172,7 @@ class _FlashTabBarItem extends StatelessWidget {
                     duration: animationDuration,
                     child: DefaultTextStyle.merge(
                       style: TextStyle(
-                        color: item.activeColor,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
                         fontWeight: FontWeight.bold,
                       ),
                       child: item.title,
@@ -205,7 +199,7 @@ class _FlashTabBarItem extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     margin: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
-                      color: item.activeColor,
+                      color: Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(.5),
                       borderRadius: BorderRadius.circular(2.5),
                     ),
                   )),

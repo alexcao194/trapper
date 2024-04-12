@@ -47,11 +47,12 @@ class MyApp extends StatelessWidget {
         var colorScheme = ColorScheme.fromSeed(
           seedColor: state.settingsSnapshot.themeIndex == 0 ? Color.fromARGB(255, state.settingsSnapshot.red, state.settingsSnapshot.green, state.settingsSnapshot.blue) : AppColors.seeks[state.settingsSnapshot.themeIndex - 1],
         );
+        var theme = ThemeData.from(colorScheme: colorScheme).copyWith(brightness: Brightness.light);
         return MaterialApp.router(
           routerConfig: AppGoRouter.router,
           debugShowCheckedModeBanner: false,
-          theme: ThemeData.light().copyWith(colorScheme: colorScheme),
-          darkTheme: ThemeData.dark().copyWith(),
+          theme: ThemeData.from(colorScheme: colorScheme).copyWith(brightness: Brightness.light),
+          darkTheme: ThemeData.dark(),
           localizationsDelegates: [
             S.delegate..load(Locale(state.languageCode)),
             GlobalMaterialLocalizations.delegate,
