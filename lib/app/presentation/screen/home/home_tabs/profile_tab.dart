@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../generated/assets.dart';
 import '../../../../../generated/l10n.dart';
@@ -18,6 +19,14 @@ class ProfileTab extends StatelessWidget {
       builder: (context, state) {
         var profile = state.profile;
         var photos = profile.photos ?? [];
+        int age = 0;
+        print(profile);
+        if (profile.birthDate != null) {
+          DateFormat dateFormat = DateFormat("dd/MM/yyyy");
+          DateTime date = dateFormat.parse(profile.birthDate!);
+          age = DateTime.now().year - date.year;
+          print(age);
+        }
         return Center(
           child: Stack(
             children: [
@@ -102,14 +111,14 @@ class ProfileTab extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '19',
+                          age.toString(),
                           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                 color: Theme.of(context).colorScheme.onSurface,
                                 fontWeight: FontWeight.bold,
                               ),
                         ),
                         const SizedBox(height: 10),
-                        Wrap(
+                        const Wrap(
                           children: [
                             CustomChip(label: "Reading", isSelected: true),
                             CustomChip(label: "Music", isSelected: true),

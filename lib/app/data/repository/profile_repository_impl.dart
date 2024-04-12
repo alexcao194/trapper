@@ -24,9 +24,10 @@ class ProfileRepositoryImpl implements ProfileRepository {
   Future<Either<Failure, Profile>> getProfile() async {
     try {
       final profile = await _remoteData.getProfile();
+      await _localData.saveProfile(ProfileModel.fromEntity(profile));
       return Right(profile);
     } on Exception {
-      var profile = await _remoteData.getProfile();
+      var profile = await _localData.getProfile();
       return Right(profile);
     }
   }

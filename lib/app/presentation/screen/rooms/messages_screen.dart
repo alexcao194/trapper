@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 import '../../../../config/const/dimen.dart';
 import '../../../domain/entity/profile.dart';
 import '../../bloc/profile/profile_bloc.dart';
@@ -33,13 +32,6 @@ class _MessageScreenState extends State<MessageScreen> {
                     child: SideBar(size: size),
                   )
                 : null,
-            floatingActionButton: Padding(
-              padding: const EdgeInsets.only(bottom: 80.0),
-              child: FloatingActionButton(
-                onPressed: () {},
-                child: const Icon(Icons.person_add),
-              ),
-            ),
             backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
             body: Row(
               children: [
@@ -77,7 +69,8 @@ class _MessageScreenState extends State<MessageScreen> {
                             })),
                         Expanded(
                           child: ListView.builder(
-                            itemCount: 10,
+                            reverse: true,
+                            itemCount: 15,
                             itemBuilder: (context, index) {
                               return TextMessage(
                                 isSender: index % 3 == 0,
