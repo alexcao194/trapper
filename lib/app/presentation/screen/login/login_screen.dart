@@ -142,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           onPressed: () {
                                             _onForgotPassword();
                                           },
-                                          child: Text("Forgot password?",
+                                          child: Text( S.current.forgot_password,
                                               style: Theme.of(context).textTheme.labelMedium?.copyWith(
                                                     color: Theme.of(context).colorScheme.primary,
                                                   )),

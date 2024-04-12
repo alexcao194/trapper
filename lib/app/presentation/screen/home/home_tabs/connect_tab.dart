@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:trapper/config/message_distribution/message_distribution.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../bloc/connect/connect_bloc.dart';
@@ -15,6 +16,7 @@ class ConnectTab extends StatelessWidget {
     return BlocBuilder<ConnectBloc, ConnectState>(
       builder: (context, state) {
         final connectData = state.connectData;
+        print('connectData: $connectData');
         return Padding(
           padding: const EdgeInsets.all(30.0),
           child: SingleChildScrollView(
@@ -79,7 +81,7 @@ class ConnectTab extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: CustomChip(
                         isSelected: connectData.hobbies.contains(index),
-                        label: hobby.name,
+                        label: MessageDistribution.fromID(hobby.id),
                         onSelected: (bool selected) {
                           context.read<ConnectBloc>().add(
                                 ConnectUpdateData(
