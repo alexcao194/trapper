@@ -116,7 +116,7 @@ class ProfileTab extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 10),
-                        Text("I only see my goals, I don't believe in failure", style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
+                        Text(profile.bio ?? "", style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
                         const SizedBox(height: 10),
                         Expanded(
                           child: Padding(

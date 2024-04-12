@@ -21,6 +21,7 @@ class SettingsTab extends StatefulWidget {
 class _SettingsTabState extends State<SettingsTab> {
   late TextEditingController _nameController;
   late TextEditingController _birthDateController;
+  late TextEditingController _bioController;
 
   @override
   Widget build(BuildContext context) {
@@ -223,6 +224,11 @@ class _SettingsTabState extends State<SettingsTab> {
                     enabled: false,
                   ),
                 ),
+                RoundedTextField(
+                  hintText: profile.bio ?? "",
+                  label: "Bio",
+                  controller: _bioController,
+                ),
               ];
               var size = MediaQuery.of(context).size;
               return SingleChildScrollView(
@@ -292,12 +298,14 @@ class _SettingsTabState extends State<SettingsTab> {
     super.initState();
     _nameController = TextEditingController();
     _birthDateController = TextEditingController();
+    _bioController = TextEditingController();
   }
 
   @override
   void dispose() {
     _nameController.dispose();
     _birthDateController.dispose();
+    _bioController.dispose();
     super.dispose();
   }
 
@@ -323,6 +331,7 @@ class _SettingsTabState extends State<SettingsTab> {
             Profile(
               name: _nameController.text,
               birthDate: _birthDateController.text,
+              bio: _bioController.text,
             ),
           ),
         );

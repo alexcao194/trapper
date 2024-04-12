@@ -52,7 +52,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       profile = profile.copyWith(name: state.profile.name);
     }
 
-    if (state.profile.name == profile.name && state.profile.birthDate == profile.birthDate && event.image == null) {
+    if (profile.bio == null || profile.bio!.isEmpty) {
+      profile = profile.copyWith(bio: state.profile.bio);
+    }
+
+    if (state.profile.name == profile.name && state.profile.birthDate == profile.birthDate && event.image == null && state.profile.bio == profile.bio) {
       emit(state.copyWith(message: 'Nothing to update', isLoading: false, sendMessage: true));
       return;
     }
