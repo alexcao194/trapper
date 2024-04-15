@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../config/const/dimen.dart';
 import '../../../../../config/go_router/app_go_router.dart';
+import '../../../../../generated/l10n.dart';
 import '../../../bloc/friends/friends_bloc.dart';
 import 'profile_tab.dart';
 
@@ -51,7 +52,11 @@ class _FriendsTabState extends State<FriendsTab> {
                           shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            setState(() {
+                              _selectedIndex = index;
+                            });
+                          },
                           trailing: IconButton(
                             icon: const Icon(Icons.message_outlined),
                             onPressed: () {
@@ -65,7 +70,7 @@ class _FriendsTabState extends State<FriendsTab> {
             ),
             if (MediaQuery.of(context).size.width > Dimen.mobileWidth)
               state.isLoading || state.friends.isEmpty
-                  ? const Expanded(child: Center(child: CircularProgressIndicator()))
+                  ? Expanded(child: Center(child: Text(S.current.no_friends)))
                   : Expanded(
                       flex: 2,
                       child: ProfileTab(

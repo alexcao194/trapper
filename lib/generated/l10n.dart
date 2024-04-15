@@ -1009,6 +1009,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No friends`
+  String get no_friends {
+    return Intl.message(
+      'No friends',
+      name: 'no_friends',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

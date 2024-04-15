@@ -103,5 +103,6 @@
   "hobbies_not_found": "Không tìm thấy sở thích",
   "file_invalid": "File không hợp lệ",
   "nothing_to_update": "Không có gì để cập nhật",
-  "profile_updated": "Hồ sơ đã được cập nhật"
+  "profile_updated": "Hồ sơ đã được cập nhật",
+  "no_friends": "Không có bạn bè"
 }

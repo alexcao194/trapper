@@ -103,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "messages_button": MessageLookupByLibrary.simpleMessage("Tin nhắn"),
         "movies": MessageLookupByLibrary.simpleMessage("Phim ảnh"),
         "music": MessageLookupByLibrary.simpleMessage("Âm nhạc"),
+        "no_friends": MessageLookupByLibrary.simpleMessage("Không có bạn bè"),
         "nothing_to_update":
             MessageLookupByLibrary.simpleMessage("Không có gì để cập nhật"),
         "offline": MessageLookupByLibrary.simpleMessage("Ngoại tuyến"),

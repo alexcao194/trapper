@@ -99,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "messages_button": MessageLookupByLibrary.simpleMessage("Messages"),
         "movies": MessageLookupByLibrary.simpleMessage("Movies"),
         "music": MessageLookupByLibrary.simpleMessage("Music"),
+        "no_friends": MessageLookupByLibrary.simpleMessage("No friends"),
         "nothing_to_update":
             MessageLookupByLibrary.simpleMessage("Nothing to update"),
         "offline": MessageLookupByLibrary.simpleMessage("Offline"),
