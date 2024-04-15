@@ -13,4 +13,5 @@ abstract class ProfileRepository {
   Future<Either<Failure, SettingsSnapshot>> updateSettings(SettingsSnapshot settings);
   Future<Either<Failure, List<Hobby>>> getHobbies();
   Future<Either<Failure, List<String?>>> postPhoto({required Uint8List image, required int index});
+  Future<Either<Failure, List<Profile>>> getFriends();
 }

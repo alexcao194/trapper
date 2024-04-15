@@ -20,7 +20,7 @@ class ProfileModel extends Profile {
       name: json['full_name'] as String?,
       email: json['email'] as String?,
       photoUrl: json['photo_url'] as String?,
-      gender: json['gender'] as bool?,
+      gender: json['gender'] == "true",
       birthDate: json['date_of_birth'] as String?,
       id: json['id'] as String?,
       bio: json['bio'] as String?,

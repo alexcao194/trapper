@@ -82,4 +82,14 @@ class ProfileRepositoryImpl implements ProfileRepository {
       return Left(Failure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, List<Profile>>> getFriends() async {
+    try {
+      final friends = await _remoteData.getFriends();
+      return Right(friends);
+    } on Exception catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
 }

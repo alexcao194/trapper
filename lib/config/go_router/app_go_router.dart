@@ -37,28 +37,6 @@ class AppGoRouter {
           GoRoute(
             path: RoutePath.home,
             pageBuilder: (context, state) => const MaterialPage(child: HomeScreen()),
-            routes: [
-              GoRoute(
-                path: RoutePath.profile,
-                pageBuilder: (context, state) => const MaterialPage(child: ProfileTab()),
-              ),
-              GoRoute(
-                path: RoutePath.friends,
-                pageBuilder: (context, state) => const MaterialPage(child: FriendsTab()),
-              ),
-              GoRoute(
-                path: RoutePath.settings,
-                pageBuilder: (context, state) => const MaterialPage(child: SettingsTab()),
-              ),
-              GoRoute(
-                path: RoutePath.connect,
-                pageBuilder: (context, state) => const MaterialPage(child: ConnectTab()),
-              ),
-              GoRoute(
-                path: RoutePath.help,
-                pageBuilder: (context, state) => const MaterialPage(child: HelpTab()),
-              ),
-            ],
           ),
           GoRoute(
             path: RoutePath.messages,

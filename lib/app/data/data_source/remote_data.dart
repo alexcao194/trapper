@@ -7,6 +7,7 @@ import 'package:trapper/app/data/model/account_model.dart';
 import 'package:trapper/app/data/model/hobby_model.dart';
 import 'package:trapper/app/data/model/profile_model.dart';
 import 'package:trapper/app/domain/entity/account.dart';
+import 'package:trapper/app/domain/entity/profile.dart';
 import 'package:trapper/config/dio/dio_tools.dart';
 
 abstract class RemoteData {
@@ -18,6 +19,7 @@ abstract class RemoteData {
   Future<ProfileModel> updateProfile(ProfileModel profile, Uint8List? image);
   Future<List<HobbyModel>> getHobbies();
   Future<List<String?>> postPhoto({required Uint8List image, required int index});
+  Future<List<Profile>> getFriends();
 }
 
 class RemoteDataImpl implements RemoteData {
@@ -173,6 +175,20 @@ class RemoteDataImpl implements RemoteData {
         photos[index] = "${DioTools.currentBaseUrl}/$v";
       });
       return photos;
+    } else {
+      throw DioException(
+        requestOptions: response.requestOptions,
+        response: response,
+        message: jsonEncode(response.data),
+      );
+    }
+  }
+
+  @override
+  Future<List<Profile>> getFriends() async {
+    var response = await dio.get('/profile/friends');
+    if (response.statusCode == 200) {
+      return (response.data as List).map((e) => ProfileModel.fromJson(e)).toList();
     } else {
       throw DioException(
         requestOptions: response.requestOptions,

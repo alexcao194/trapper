@@ -48,53 +48,57 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-          bottomNavigationBar: FlashyTabBar(
-            selectedIndex: index,
-            onItemSelected: _go,
-            items: [
-              FlashyTabBarItem(
-                icon: const Icon(Icons.person),
-                title: Text(S.current.profile_button),
+      child: BlocBuilder<ProfileBloc, ProfileState>(
+        builder: (context, state) {
+          return Scaffold(
+              bottomNavigationBar: FlashyTabBar(
+                selectedIndex: index,
+                onItemSelected: _go,
+                items: [
+                  FlashyTabBarItem(
+                    icon: const Icon(Icons.person),
+                    title: Text(S.current.profile_button),
+                  ),
+                  FlashyTabBarItem(
+                    icon: const Icon(Icons.people),
+                    title: Text(S.current.friends_button),
+                  ),
+                  FlashyTabBarItem(
+                    icon: const Icon(Icons.connect_without_contact),
+                    title: Text(S.current.connect_button),
+                  ),
+                  FlashyTabBarItem(
+                    icon: const Icon(Icons.settings),
+                    title: Text(S.current.settings_button),
+                  ),
+                  FlashyTabBarItem(
+                    icon: const Icon(Icons.help),
+                    title: Text(S.current.help_button),
+                  ),
+                ],
               ),
-              FlashyTabBarItem(
-                icon: const Icon(Icons.people),
-                title: Text(S.current.friends_button),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  context.go(RoutePath.messages);
+                },
+                child: const Icon(Icons.message),
               ),
-              FlashyTabBarItem(
-                icon: const Icon(Icons.connect_without_contact),
-                title: Text(S.current.connect_button),
-              ),
-              FlashyTabBarItem(
-                icon: const Icon(Icons.settings),
-                title: Text(S.current.settings_button),
-              ),
-              FlashyTabBarItem(
-                icon: const Icon(Icons.help),
-                title: Text(S.current.help_button),
-              ),
-            ],
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              context.go(RoutePath.messages);
-            },
-            child: const Icon(Icons.message),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: PageView(
-              controller: _pageController,
-              physics: const NeverScrollableScrollPhysics(),
-              children: const [
-                KeepAlivePage(child: Center(child: ProfileTab())),
-                KeepAlivePage(child: Center(child: FriendsTab())),
-                KeepAlivePage(child: Center(child: ConnectTab())),
-                KeepAlivePage(child: Center(child: SettingsTab())),
-                KeepAlivePage(child: Center(child: HelpTab())),
-              ],
-            ),
-          )),
+              body: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: PageView(
+                  controller: _pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    KeepAlivePage(child: Center(child: ProfileTab(profile: state.profile))),
+                    const KeepAlivePage(child: Center(child: FriendsTab())),
+                    const KeepAlivePage(child: Center(child: ConnectTab())),
+                    const KeepAlivePage(child: Center(child: SettingsTab())),
+                    const KeepAlivePage(child: Center(child: HelpTab())),
+                  ],
+                ),
+              ));
+        },
+      ),
     );
   }
 }
