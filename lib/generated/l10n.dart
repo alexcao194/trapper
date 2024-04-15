@@ -899,6 +899,116 @@ class S {
       args: [],
     );
   }
+
+  /// `Password changed successfully`
+  String get password_changed {
+    return Intl.message(
+      'Password changed successfully',
+      name: 'password_changed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid data`
+  String get invalid_data {
+    return Intl.message(
+      'Invalid data',
+      name: 'invalid_data',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid {field}`
+  String invalid_field(String field) {
+    return Intl.message(
+      'Invalid $field',
+      name: 'invalid_field',
+      desc: 'Invalid field',
+      args: [field],
+    );
+  }
+
+  /// `Incorrect email or password`
+  String get incorrect_email_or_password {
+    return Intl.message(
+      'Incorrect email or password',
+      name: 'incorrect_email_or_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email already in use`
+  String get email_already_in_use {
+    return Intl.message(
+      'Email already in use',
+      name: 'email_already_in_use',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send message failed`
+  String get send_message_failed {
+    return Intl.message(
+      'Send message failed',
+      name: 'send_message_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile not found`
+  String get profile_not_found {
+    return Intl.message(
+      'Profile not found',
+      name: 'profile_not_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hobbies not found`
+  String get hobbies_not_found {
+    return Intl.message(
+      'Hobbies not found',
+      name: 'hobbies_not_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid file`
+  String get file_invalid {
+    return Intl.message(
+      'Invalid file',
+      name: 'file_invalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nothing to update`
+  String get nothing_to_update {
+    return Intl.message(
+      'Nothing to update',
+      name: 'nothing_to_update',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile updated`
+  String get profile_updated {
+    return Intl.message(
+      'Profile updated',
+      name: 'profile_updated',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

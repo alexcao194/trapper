@@ -56,12 +56,16 @@
   "language": "Ngôn ngữ",
   "show": "Hiện",
   "hide": "Ẩn",
+  "settings": "Cài đặt",
   "primary_color": "Màu chủ đạo",
   "red": "Đỏ",
   "green": "Lục",
   "blue": "Lam",
   "online": "Đang hoạt động",
   "offline": "Ngoại tuyến",
+  "search": "Tìm kiếm",
+  "search_hint": "Tìm kiếm...",
+  "age": "Tuổi",
   "search_prompt": "Bạn đang tìm kiếm người như thế nào?",
   "hobbies": "Sở thích",
   "reading": "Đọc sách",
@@ -79,5 +83,25 @@
   "chatting": "Trò chuyện",
   "dating": "Hẹn hò",
   "text_message_hint": "Nhập tin nhắn...",
-  "hobbies_limit": "Chỉ được chọn tối đa 3 sở thích"
+  "hobbies_limit": "Chỉ được chọn tối đa 3 sở thích",
+  "password_changed": "Mật khẩu đã được thay đổi thành công",
+  "invalid_data": "Dữ liệu không hợp lệ",
+  "invalid_field": "Trường {field} không hợp lệ",
+  "@invalid_field": {
+    "description": "Invalid field",
+    "placeholders": {
+      "field": {
+        "type": "String",
+        "example": "email"
+      }
+    }
+  },
+  "incorrect_email_or_password": "Email hoặc mật khẩu không chính xác",
+  "email_already_in_use": "Email đã được sử dụng",
+  "send_message_failed": "Gửi tin nhắn thất bại",
+  "profile_not_found": "Hồ sơ không tồn tại",
+  "hobbies_not_found": "Không tìm thấy sở thích",
+  "file_invalid": "File không hợp lệ",
+  "nothing_to_update": "Không có gì để cập nhật",
+  "profile_updated": "Hồ sơ đã được cập nhật"
 }

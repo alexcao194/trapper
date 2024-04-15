@@ -83,5 +83,25 @@
   "chatting": "Chatting",
   "dating": "Dating",
   "text_message_hint": "Type a message...",
-  "hobbies_limit": "You can select up to 3 hobbies"
+  "hobbies_limit": "You can select up to 3 hobbies",
+  "password_changed": "Password changed successfully",
+  "invalid_data": "Invalid data",
+  "invalid_field": "Invalid {field}",
+  "@invalid_field": {
+    "description": "Invalid field",
+    "placeholders": {
+      "field": {
+        "type": "String",
+        "example": "email"
+      }
+    }
+  },
+  "incorrect_email_or_password": "Incorrect email or password",
+  "email_already_in_use": "Email already in use",
+  "send_message_failed": "Send message failed",
+  "profile_not_found": "Profile not found",
+  "hobbies_not_found": "Hobbies not found",
+  "file_invalid": "Invalid file",
+  "nothing_to_update": "Nothing to update",
+  "profile_updated": "Profile updated"
 }

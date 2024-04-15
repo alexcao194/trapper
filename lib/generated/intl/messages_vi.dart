@@ -20,8 +20,11 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'vi';
 
+  static String m0(field) => "Trường ${field} không hợp lệ";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "age": MessageLookupByLibrary.simpleMessage("Tuổi"),
         "animals": MessageLookupByLibrary.simpleMessage("Động vật"),
         "app_description":
             MessageLookupByLibrary.simpleMessage("Ứng dụng hẹn hò số 1 PTIT"),
@@ -55,6 +58,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "dating": MessageLookupByLibrary.simpleMessage("Hẹn hò"),
         "delete_button": MessageLookupByLibrary.simpleMessage("Xóa"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "email_already_in_use":
+            MessageLookupByLibrary.simpleMessage("Email đã được sử dụng"),
         "email_example":
             MessageLookupByLibrary.simpleMessage("example@gmail.com"),
         "email_invalid":
@@ -65,6 +70,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "error": MessageLookupByLibrary.simpleMessage("Lỗi"),
         "fashion": MessageLookupByLibrary.simpleMessage("Thời trang"),
         "female": MessageLookupByLibrary.simpleMessage("Nữ"),
+        "file_invalid":
+            MessageLookupByLibrary.simpleMessage("File không hợp lệ"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Quên mật khẩu"),
         "friends_button": MessageLookupByLibrary.simpleMessage("Bạn bè"),
@@ -81,6 +88,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "hobbies": MessageLookupByLibrary.simpleMessage("Sở thích"),
         "hobbies_limit": MessageLookupByLibrary.simpleMessage(
             "Chỉ được chọn tối đa 3 sở thích"),
+        "hobbies_not_found":
+            MessageLookupByLibrary.simpleMessage("Không tìm thấy sở thích"),
+        "incorrect_email_or_password": MessageLookupByLibrary.simpleMessage(
+            "Email hoặc mật khẩu không chính xác"),
+        "invalid_data":
+            MessageLookupByLibrary.simpleMessage("Dữ liệu không hợp lệ"),
+        "invalid_field": m0,
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "logout": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
@@ -89,10 +103,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "messages_button": MessageLookupByLibrary.simpleMessage("Tin nhắn"),
         "movies": MessageLookupByLibrary.simpleMessage("Phim ảnh"),
         "music": MessageLookupByLibrary.simpleMessage("Âm nhạc"),
+        "nothing_to_update":
+            MessageLookupByLibrary.simpleMessage("Không có gì để cập nhật"),
         "offline": MessageLookupByLibrary.simpleMessage("Ngoại tuyến"),
         "ok": MessageLookupByLibrary.simpleMessage("Đồng ý"),
         "online": MessageLookupByLibrary.simpleMessage("Đang hoạt động"),
         "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
+        "password_changed": MessageLookupByLibrary.simpleMessage(
+            "Mật khẩu đã được thay đổi thành công"),
         "password_example": MessageLookupByLibrary.simpleMessage("********"),
         "password_invalid":
             MessageLookupByLibrary.simpleMessage("Mật khẩu không hợp lệ"),
@@ -110,14 +128,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "photography": MessageLookupByLibrary.simpleMessage("Chụp ảnh"),
         "primary_color": MessageLookupByLibrary.simpleMessage("Màu chủ đạo"),
         "profile_button": MessageLookupByLibrary.simpleMessage("Hồ sơ"),
+        "profile_not_found":
+            MessageLookupByLibrary.simpleMessage("Hồ sơ không tồn tại"),
+        "profile_updated":
+            MessageLookupByLibrary.simpleMessage("Hồ sơ đã được cập nhật"),
         "reading": MessageLookupByLibrary.simpleMessage("Đọc sách"),
         "red": MessageLookupByLibrary.simpleMessage("Đỏ"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Đặt lại mật khẩu"),
         "save": MessageLookupByLibrary.simpleMessage("Lưu"),
         "save_button": MessageLookupByLibrary.simpleMessage("Lưu"),
+        "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
+        "search_hint": MessageLookupByLibrary.simpleMessage("Tìm kiếm..."),
         "search_prompt": MessageLookupByLibrary.simpleMessage(
             "Bạn đang tìm kiếm người như thế nào?"),
+        "send_message_failed":
+            MessageLookupByLibrary.simpleMessage("Gửi tin nhắn thất bại"),
+        "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
         "settings_button": MessageLookupByLibrary.simpleMessage("Cài đặt"),
         "show": MessageLookupByLibrary.simpleMessage("Hiện"),
         "signup": MessageLookupByLibrary.simpleMessage("Đăng ký"),

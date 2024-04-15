@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../../domain/entity/profile.dart';
 import '../../../domain/use_case/get_profile.dart';
 import '../../../domain/use_case/post_photo.dart';
@@ -57,7 +58,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
 
     if (state.profile.name == profile.name && state.profile.birthDate == profile.birthDate && event.image == null && state.profile.bio == profile.bio) {
-      emit(state.copyWith(message: 'Nothing to update', isLoading: false, sendMessage: true));
+      emit(state.copyWith(message: S.current.nothing_to_update, isLoading: false, sendMessage: true));
       return;
     }
 
@@ -65,7 +66,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     result.fold(
       (exception) => emit(state.copyWith(message: exception.message, isLoading: false, sendMessage: true)),
       (profile) {
-        emit(state.copyWith(profile: profile, message: 'Profile updated', isLoading: false, sendMessage: true));
+        emit(state.copyWith(profile: profile, message: S.current.profile_updated, isLoading: false, sendMessage: true));
       },
     );
   }

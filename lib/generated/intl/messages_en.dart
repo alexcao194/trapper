@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(field) => "Invalid ${field}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "age": MessageLookupByLibrary.simpleMessage("Age"),
@@ -56,6 +58,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "dating": MessageLookupByLibrary.simpleMessage("Dating"),
         "delete_button": MessageLookupByLibrary.simpleMessage("Delete"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "email_already_in_use":
+            MessageLookupByLibrary.simpleMessage("Email already in use"),
         "email_example":
             MessageLookupByLibrary.simpleMessage("example@gmail.com"),
         "email_invalid": MessageLookupByLibrary.simpleMessage("Invalid email"),
@@ -65,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "error": MessageLookupByLibrary.simpleMessage("Error"),
         "fashion": MessageLookupByLibrary.simpleMessage("Fashion"),
         "female": MessageLookupByLibrary.simpleMessage("Female"),
+        "file_invalid": MessageLookupByLibrary.simpleMessage("Invalid file"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot password?"),
         "friends_button": MessageLookupByLibrary.simpleMessage("Friends"),
@@ -80,6 +85,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "hobbies": MessageLookupByLibrary.simpleMessage("Hobbies"),
         "hobbies_limit": MessageLookupByLibrary.simpleMessage(
             "You can select up to 3 hobbies"),
+        "hobbies_not_found":
+            MessageLookupByLibrary.simpleMessage("Hobbies not found"),
+        "incorrect_email_or_password":
+            MessageLookupByLibrary.simpleMessage("Incorrect email or password"),
+        "invalid_data": MessageLookupByLibrary.simpleMessage("Invalid data"),
+        "invalid_field": m0,
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
@@ -88,10 +99,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "messages_button": MessageLookupByLibrary.simpleMessage("Messages"),
         "movies": MessageLookupByLibrary.simpleMessage("Movies"),
         "music": MessageLookupByLibrary.simpleMessage("Music"),
+        "nothing_to_update":
+            MessageLookupByLibrary.simpleMessage("Nothing to update"),
         "offline": MessageLookupByLibrary.simpleMessage("Offline"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "online": MessageLookupByLibrary.simpleMessage("Online"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "password_changed": MessageLookupByLibrary.simpleMessage(
+            "Password changed successfully"),
         "password_example": MessageLookupByLibrary.simpleMessage("********"),
         "password_invalid":
             MessageLookupByLibrary.simpleMessage("Invalid password"),
@@ -109,6 +124,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "photography": MessageLookupByLibrary.simpleMessage("Photography"),
         "primary_color": MessageLookupByLibrary.simpleMessage("Primary color"),
         "profile_button": MessageLookupByLibrary.simpleMessage("Profile"),
+        "profile_not_found":
+            MessageLookupByLibrary.simpleMessage("Profile not found"),
+        "profile_updated":
+            MessageLookupByLibrary.simpleMessage("Profile updated"),
         "reading": MessageLookupByLibrary.simpleMessage("Reading"),
         "red": MessageLookupByLibrary.simpleMessage("Red"),
         "reset_password":
@@ -119,6 +138,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "search_hint": MessageLookupByLibrary.simpleMessage("Search..."),
         "search_prompt": MessageLookupByLibrary.simpleMessage(
             "Which type of person are you looking for?"),
+        "send_message_failed":
+            MessageLookupByLibrary.simpleMessage("Send message failed"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "settings_button": MessageLookupByLibrary.simpleMessage("Settings"),
         "show": MessageLookupByLibrary.simpleMessage("Show"),
