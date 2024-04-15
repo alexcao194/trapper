@@ -1,4 +1,5 @@
 import 'package:socket_io_client/socket_io_client.dart';
+import 'package:trapper/config/dio/dio_tools.dart';
 
 import '../../app/data/data_source/local_data.dart';
 import '../../di.dart';
@@ -6,19 +7,14 @@ import '../../di.dart';
 class AppSocket {
   const AppSocket._();
 
-  static String get baseUrl {
-    // return 'http://localhost:1904';
-    return 'https://trapper-server.onrender.com';
-  }
-
   static Socket? _socket;
 
   static Socket get socket {
-    _socket ??= io(baseUrl, <String, dynamic>{
-        'transports': ['websocket'],
-        'autoConnect': false,
-        'extraHeaders': {'access_token': DependencyInjection.sl<LocalData>().getToken()},
-      });
+    _socket ??= io(DioTools.currentBaseUrl, OptionBuilder()
+        .setTransports(['websocket'])
+        .disableAutoConnect()
+        .setAuth({'access_token': DependencyInjection.sl<LocalData>().getToken() })
+        .build());
     return _socket!;
   }
 }

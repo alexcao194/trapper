@@ -21,6 +21,7 @@ import 'app/domain/use_case/fetch_friends.dart';
 import 'app/domain/use_case/fetch_hobbies.dart';
 import 'app/domain/use_case/fetch_rooms_info.dart';
 import 'app/domain/use_case/fetch_settings.dart';
+import 'app/domain/use_case/find_friend.dart';
 import 'app/domain/use_case/get_profile.dart';
 import 'app/domain/use_case/login.dart';
 import 'app/domain/use_case/post_photo.dart';
@@ -74,7 +75,8 @@ class DependencyInjection {
     );
 
     sl.registerFactory<ConnectBloc>(() => ConnectBloc(
-      fetchHobbies: sl()
+      fetchHobbies: sl(),
+      findFriend: sl()
     ));
 
     sl.registerFactory<FriendsBloc>(() => FriendsBloc(
@@ -95,6 +97,8 @@ class DependencyInjection {
     sl.registerLazySingleton<FetchHobbies>(() => FetchHobbies(profileRepository: sl()));
     sl.registerLazySingleton<PostPhoto>(() => PostPhoto(repository: sl()));
     sl.registerLazySingleton<FetchFriends>(() => FetchFriends(profileRepository: sl()));
+    sl.registerLazySingleton<FindFriend>(() => FindFriend(socketRepository: sl()));
+    
 
     // Repositories
     sl.registerLazySingleton<AuthRepository>(

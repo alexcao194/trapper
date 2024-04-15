@@ -100,6 +100,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "movies": MessageLookupByLibrary.simpleMessage("Movies"),
         "music": MessageLookupByLibrary.simpleMessage("Music"),
         "no_friends": MessageLookupByLibrary.simpleMessage("No friends"),
+        "no_hobbies_error": MessageLookupByLibrary.simpleMessage(
+            "Please select at least one hobby"),
         "nothing_to_update":
             MessageLookupByLibrary.simpleMessage("Nothing to update"),
         "offline": MessageLookupByLibrary.simpleMessage("Offline"),

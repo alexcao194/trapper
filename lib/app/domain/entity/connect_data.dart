@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 class ConnectData extends Equatable {
   final int minAge;
   final int maxAge;
-  final int gender;
-  final List<int> hobbies;
+  final bool gender;
+  final List<String> hobbies;
 
   const ConnectData({
     required this.minAge,
@@ -16,8 +16,8 @@ class ConnectData extends Equatable {
   ConnectData copyWith({
     int? minAge,
     int? maxAge,
-    int? gender,
-    List<int>? hobbies,
+    bool? gender,
+    List<String>? hobbies,
   }) {
     return ConnectData(
         minAge: minAge ?? this.minAge,

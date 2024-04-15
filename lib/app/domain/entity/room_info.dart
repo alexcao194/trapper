@@ -3,36 +3,24 @@ import 'package:trapper/app/domain/entity/profile.dart';
 
 class RoomInfo {
   final String? id;
-  final String? sender;
-  final Profile? object;
-  final int? timestamp;
-  final String? lastMessage;
-  final MessageType? lastMessageType;
+  final Profile? profile;
+  final MessageDetail? lastMessage;
 
   RoomInfo({
     this.id,
-    this.object,
-    this.timestamp,
+    this.profile,
     this.lastMessage,
-    this.lastMessageType,
-    this.sender
   });
 
   RoomInfo copyWith({
     String? id,
-    Profile? object,
-    int? timestamp,
-    String? lastMessage,
-    MessageType? lastMessageType,
-    String? sender
+    Profile? profile,
+    MessageDetail? lastMessage,
   }) {
     return RoomInfo(
       id: id ?? this.id,
-      object: object ?? this.object,
-      timestamp: timestamp ?? this.timestamp,
+      profile: profile ?? this.profile,
       lastMessage: lastMessage ?? this.lastMessage,
-      lastMessageType: lastMessageType ?? this.lastMessageType,
-      sender: sender ?? this.sender
     );
   }
 }

@@ -104,5 +104,6 @@
   "file_invalid": "File không hợp lệ",
   "nothing_to_update": "Không có gì để cập nhật",
   "profile_updated": "Hồ sơ đã được cập nhật",
-  "no_friends": "Không có bạn bè"
+  "no_friends": "Không có bạn bè",
+  "no_hobbies_error": "Vui lòng chọn ít nhất một sở thích"
 }

@@ -104,5 +104,6 @@
   "file_invalid": "Invalid file",
   "nothing_to_update": "Nothing to update",
   "profile_updated": "Profile updated",
-  "no_friends": "No friends"
+  "no_friends": "No friends",
+  "no_hobbies_error": "Please select at least one hobby"
 }

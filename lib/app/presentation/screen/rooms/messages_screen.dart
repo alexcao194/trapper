@@ -142,7 +142,7 @@ class SideBar extends StatelessWidget {
                               ),
                               onPressed: () {},
                               child: RoomCard(
-                                profile: state.roomsInfo[index].object!,
+                                profile: state.roomsInfo[index].profile!,
                               ),
                             ),
                           );

@@ -29,6 +29,16 @@ class MessageDetailModel extends MessageDetail {
     };
   }
 
+  factory MessageDetailModel.fromEntity(MessageDetail messageDetail) {
+    return MessageDetailModel(
+      id: messageDetail.id,
+      message: messageDetail.message,
+      type: messageDetail.type,
+      timestamp: messageDetail.timestamp,
+      sender: messageDetail.sender,
+    );
+  }
+
   MessageDetailModel copyWith({
     String? id,
     String? message,

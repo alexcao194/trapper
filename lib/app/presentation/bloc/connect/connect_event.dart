@@ -18,3 +18,10 @@ class ConnectFetchHobbies extends ConnectEvent {
   @override
   List<Object?> get props => [];
 }
+
+class ConnectFindFriend extends ConnectEvent {
+  const ConnectFindFriend();
+
+  @override
+  List<Object?> get props => [];
+}

@@ -1019,6 +1019,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Please select at least one hobby`
+  String get no_hobbies_error {
+    return Intl.message(
+      'Please select at least one hobby',
+      name: 'no_hobbies_error',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

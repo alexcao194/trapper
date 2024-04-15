@@ -57,13 +57,13 @@ class ConnectTab extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CustomChip(
-                        isSelected: connectData.gender == index,
+                        isSelected: connectData.gender == (index == 0),
                         label: genders[index],
                         onSelected: (bool selected) {
                           context.read<ConnectBloc>().add(
                                 ConnectUpdateData(
                                   connectData: connectData.copyWith(
-                                    gender: selected ? index : 0,
+                                    gender: selected && index == 0 ? true : false,
                                   ),
                                 ),
                               );
@@ -79,7 +79,7 @@ class ConnectTab extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CustomChip(
-                        isSelected: connectData.hobbies.contains(index),
+                        isSelected: connectData.hobbies.contains(hobby.id),
                         label: MessageDistribution.fromID(hobby.id),
                         onSelected: (bool selected) {
                           if (selected && connectData.hobbies.length >= 3) {
@@ -94,8 +94,8 @@ class ConnectTab extends StatelessWidget {
                                 ConnectUpdateData(
                                   connectData: connectData.copyWith(
                                     hobbies: selected
-                                        ? [...connectData.hobbies, index]
-                                        : connectData.hobbies.where((e) => e != index).toList(),
+                                        ? [...connectData.hobbies, hobby.id]
+                                        : connectData.hobbies.where((element) => element != hobby.id).toList()
                                   ),
                                 ),
                               );
@@ -114,7 +114,9 @@ class ConnectTab extends StatelessWidget {
                             ),
                         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        _search(context);
+                      },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
@@ -133,5 +135,9 @@ class ConnectTab extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _search(BuildContext context) {
+    context.read<ConnectBloc>().add(const ConnectFindFriend());
   }
 }
