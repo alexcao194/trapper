@@ -1,5 +1,8 @@
 import 'package:socket_io_client/socket_io_client.dart';
 
+import '../../app/data/data_source/local_data.dart';
+import '../../di.dart';
+
 class AppSocket {
   const AppSocket._();
 
@@ -14,6 +17,7 @@ class AppSocket {
     _socket ??= io(baseUrl, <String, dynamic>{
         'transports': ['websocket'],
         'autoConnect': false,
+        'extraHeaders': {'access_token': DependencyInjection.sl<LocalData>().getToken()},
       });
     return _socket!;
   }
