@@ -28,6 +28,8 @@ class SocketDataImpl implements SocketData {
     _socket.on('on_received_rooms_info', (data) => null);
     _socket.on('on_received_rooms_messages', (data) => null);
     _socket.on('on_received_message', (data) => null);
+    _socket.on('on_received_friend_request', (data) => null);
+    _socket.on('on_accept_friend_request', (data) => null);
   }
 
   @override
