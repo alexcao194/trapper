@@ -11,4 +11,5 @@ abstract class SocketRepository {
   Stream<RoomInfo> findFriend(ConnectData data);
   Stream<Pair<String, List<MessageDetail>>> listenMessage();
   void fetchMessages(String roomId);
+  void sendMessage({required String roomID, required MessageDetail message});
 }

@@ -29,6 +29,7 @@ class ConnectTab extends StatelessWidget {
 
         if (state.roomInfo != null) {
           context.go(RoutePath.messages);
+          context.read<ConnectBloc>().add(const ConnectReset());
         }
       },
       builder: (context, state) {

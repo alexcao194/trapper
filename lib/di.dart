@@ -29,6 +29,7 @@ import 'app/domain/use_case/login.dart';
 import 'app/domain/use_case/post_photo.dart';
 import 'app/domain/use_case/register.dart';
 import 'app/domain/use_case/save_settings.dart';
+import 'app/domain/use_case/send_message.dart';
 import 'app/domain/use_case/update_profile.dart';
 import 'app/domain/use_case/validate_token.dart';
 import 'app/presentation/bloc/auth/auth_bloc.dart';
@@ -75,6 +76,7 @@ class DependencyInjection {
         fetchRoomsInfo: sl(),
         listenMessage: sl(),
         fetchMessage: sl(),
+        sendMessage: sl(),
       ),
     );
 
@@ -104,6 +106,7 @@ class DependencyInjection {
     sl.registerLazySingleton<FindFriend>(() => FindFriend(socketRepository: sl()));
     sl.registerLazySingleton<ListenMessage>(() => ListenMessage(socketRepository: sl()));
     sl.registerLazySingleton<FetchMessage>(() => FetchMessage(socketRepository: sl()));
+    sl.registerLazySingleton<SendMessage>(() => SendMessage(socketRepository: sl()));
     
 
     // Repositories

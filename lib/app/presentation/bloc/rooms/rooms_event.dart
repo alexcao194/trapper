@@ -30,3 +30,16 @@ final class RoomsPick extends RoomsEvent {
   @override
   List<Object> get props => [id];
 }
+
+final class RoomsSendMessage extends RoomsEvent {
+  final String roomID;
+  final MessageDetail message;
+
+  const RoomsSendMessage({
+    required this.roomID,
+    required this.message,
+  });
+
+  @override
+  List<Object> get props => [roomID, message];
+}

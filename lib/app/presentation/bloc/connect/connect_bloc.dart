@@ -29,6 +29,7 @@ class ConnectBloc extends Bloc<ConnectEvent, ConnectState> {
     on<ConnectFindFriend>(_onFindFriend);
     on<ConnectFound>(_onConnectFound);
     on<ConnectError>(_onConnectError);
+    on<ConnectReset>(_onReset);
   }
 
   FutureOr<void> _onUpdateData(ConnectUpdateData event, Emitter<ConnectState> emit) {
@@ -62,5 +63,9 @@ class ConnectBloc extends Bloc<ConnectEvent, ConnectState> {
 
   FutureOr<void> _onConnectError(ConnectError event, Emitter<ConnectState> emit) {
     emit(state.copyWith(isLoading: false, showError: true, error: event.error));
+  }
+
+  FutureOr<void> _onReset(ConnectReset event, Emitter<ConnectState> emit) {
+    emit(ConnectState.initial());
   }
 }

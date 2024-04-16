@@ -53,8 +53,11 @@ class SocketDataImpl implements SocketData {
       }
       _roomsMessagesController.add(Pair(data['_id'], messages));
     });
-    _socket.on('on_received_friend_request', (data) => null);
-    _socket.on('on_accept_friend_request', (data) => null);
+    _socket.on('on_received_message', (data) {
+      final message = MessageDetailModel.fromJson(data['message']);
+      final room_id = data['room_id'];
+      _roomsMessagesController.add(Pair(room_id, [message]));
+    });
     _socket.on('on_found', (data) {
       print("object");
       _findFriendController.add(RoomInfoModel.fromJson(data));

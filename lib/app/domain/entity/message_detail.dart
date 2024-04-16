@@ -21,18 +21,18 @@ enum MessageType {
 }
 
 class MessageDetail {
-  final String id;
+  final String? id;
   final String message;
   final MessageType type;
-  final int timestamp;
-  final String sender;
+  final int? timestamp;
+  final String? sender;
 
   MessageDetail({
-    required this.id,
+    this.id,
     required this.message,
     required this.type,
-    required this.timestamp,
-    required this.sender,
+    this.timestamp,
+    this.sender,
   });
 
   @override

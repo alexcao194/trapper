@@ -15,7 +15,7 @@ class MessageDetailModel extends MessageDetail {
     return MessageDetailModel(
       id: json['_id'],
       message: json['content'],
-      type: MessageType.fromValue(json['type']),
+      type: MessageType.fromValue(json['type'] ?? 'text'),
       timestamp: json['timestamp'],
       sender: json['sender'],
     );

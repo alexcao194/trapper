@@ -8,6 +8,7 @@ import '../../../domain/entity/room_info.dart';
 import '../../../domain/use_case/fect_message.dart';
 import '../../../domain/use_case/fetch_rooms_info.dart';
 import '../../../domain/use_case/listen_message.dart';
+import '../../../domain/use_case/send_message.dart';
 
 part 'rooms_event.dart';
 
@@ -17,6 +18,7 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
   late FetchRoomsInfo _fetchRoomsInfo;
   late ListenMessage _listenMessage;
   late FetchMessage _fetchMessage;
+  late SendMessage _sendMessage;
 
   StreamSubscription<List<RoomInfo>>? _roomsInfoSubscription;
 
@@ -24,13 +26,16 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
     required FetchRoomsInfo fetchRoomsInfo,
     required ListenMessage listenMessage,
     required FetchMessage fetchMessage,
+    required SendMessage sendMessage,
   }) : super(const RoomsState.initial()) {
     _fetchRoomsInfo = fetchRoomsInfo;
     _listenMessage = listenMessage;
     _fetchMessage = fetchMessage;
+    _sendMessage = sendMessage;
     on<RoomsFetchRoomsInfo>(_onFetchRoomsInfo);
     on<RoomsUpdateRoomsInfo>(_onUpdateRoomsInfo);
     on<RoomsPick>(_onPick);
+    on<RoomsSendMessage>(_onSendMessage);
   }
 
   FutureOr<void> _onFetchRoomsInfo(RoomsFetchRoomsInfo event, Emitter<RoomsState> emit) async {
@@ -38,6 +43,7 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
       return;
     }
     _listenMessage().listen((pair) {
+      print("pair: $pair");
       final newMessages = pair.value;
       final id = pair.key;
       final oldMessages = state.messages[id] ?? [];
@@ -50,7 +56,7 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
             ...messages,
           ]
             ..sort(
-            (a, b) => - a.timestamp.compareTo(b.timestamp),
+            (a, b) => - a.timestamp!.compareTo(b.timestamp!),
           ),
         },
       )));
@@ -80,5 +86,12 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
   FutureOr<void> _onPick(RoomsPick event, Emitter<RoomsState> emit) {
     _fetchMessage(event.id);
     emit(state.copyWith(currentID: event.id));
+  }
+
+  FutureOr<void> _onSendMessage(RoomsSendMessage event, Emitter<RoomsState> emit) {
+    _sendMessage(
+      message: event.message,
+      roomID: event.roomID,
+    );
   }
 }

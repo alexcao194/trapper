@@ -20,21 +20,23 @@ class ListMessage extends StatelessWidget {
         return BlocBuilder<RoomsBloc, RoomsState>(
           builder: (context, roomsState) {
             var currentMessages = roomsState.messages[roomsState.currentID];
-            currentMessages ??= [
-              MessageDetail(
-                id: '',
-                message: S.current.last_message_placeholder,
-                sender: '',
-                timestamp: 1,
-                type: MessageType.text,
-              ),
-            ];
+            if (currentMessages == null || currentMessages.isEmpty) {
+              currentMessages = [
+                MessageDetail(
+                  id: '',
+                  message: S.current.last_message_placeholder,
+                  sender: '',
+                  timestamp: 1,
+                  type: MessageType.text,
+                ),
+              ];
+            }
             return ListView.builder(
               reverse: true,
               itemCount: currentMessages.length,
               itemBuilder: (context, index) {
                 return TextMessage(
-                  isSender: currentMessages![index].id == profileState.profile.id,
+                  isSender: currentMessages![index].sender == profileState.profile.id,
                   message: currentMessages[index].message,
                 );
               },

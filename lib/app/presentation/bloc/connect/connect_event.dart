@@ -41,3 +41,10 @@ class ConnectError extends ConnectEvent {
   @override
   List<Object?> get props => [error];
 }
+
+final class ConnectReset extends ConnectEvent {
+  const ConnectReset();
+
+  @override
+  List<Object?> get props => [];
+}

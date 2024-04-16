@@ -48,4 +48,13 @@ class SocketRepositoryImpl implements SocketRepository {
   void fetchMessages(String roomId) {
     _socketData.sendMessage('on_fetch_rooms_messages', data: {'room_id': roomId});
   }
+
+  @override
+  void sendMessage({required String roomID, required MessageDetail message}) {
+    _socketData.sendMessage('on_send_message', data: {
+      'room_id': roomID,
+      'content': message.message,
+      'type': message.type.value,
+    });
+  }
 }
