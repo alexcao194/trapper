@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../domain/entity/message_detail.dart';
 import '../../../domain/entity/room_info.dart';
 import '../../../domain/use_case/fetch_rooms_info.dart';
 

@@ -6,10 +6,8 @@ import '../../../domain/entity/profile.dart';
 import '../../bloc/profile/profile_bloc.dart';
 import '../../bloc/rooms/rooms_bloc.dart';
 import 'widget/detail_header_message.dart';
-import 'widget/header_message.dart';
 import 'widget/input_message.dart';
-import 'widget/room_card.dart';
-import 'widget/room_search_bar.dart';
+import 'widget/side_bar.dart';
 import 'widget/text_message.dart';
 
 class MessageScreen extends StatefulWidget {
@@ -67,16 +65,8 @@ class _MessageScreenState extends State<MessageScreen> {
                                 },
                               );
                             })),
-                        Expanded(
-                          child: ListView.builder(
-                            reverse: true,
-                            itemCount: 15,
-                            itemBuilder: (context, index) {
-                              return TextMessage(
-                                isSender: index % 3 == 0,
-                              );
-                            },
-                          ),
+                        const Expanded(
+                          child: ListMessage(),
                         ),
                         const InputMessage()
                       ],
@@ -98,65 +88,22 @@ class _MessageScreenState extends State<MessageScreen> {
   }
 }
 
-class SideBar extends StatelessWidget {
-  const SideBar({
+class ListMessage extends StatelessWidget {
+  const ListMessage({
     super.key,
-    required this.size,
   });
-
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RoomsBloc, RoomsState>(
-      builder: (context, state) {
-        return Column(
-          children: [
-            const SizedBox(height: 8),
-            if (size.width > Dimen.mobileWidth) const HeaderMessage(),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                  child: Column(children: [
-                    if (size.width > Dimen.mobileWidth)
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-                        child: RoomSearchBar(),
-                      ),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: state.roomsInfo.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                            child: MaterialButton(
-                              padding: EdgeInsets.zero,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(100)),
-                              ),
-                              onPressed: () {},
-                              child: RoomCard(
-                                profile: state.roomsInfo[index].profile!,
-                                lastMessage: state.roomsInfo[index].lastMessage,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ]),
-                ),
-              ),
-            ),
-          ],
+    return ListView.builder(
+      reverse: true,
+      itemCount: 15,
+      itemBuilder: (context, index) {
+        return TextMessage(
+          isSender: index % 2 == 0,
         );
       },
     );
   }
 }
+
