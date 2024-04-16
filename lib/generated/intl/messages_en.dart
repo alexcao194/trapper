@@ -93,7 +93,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalid_field": m0,
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "last_message_placeholder":
-            MessageLookupByLibrary.simpleMessage("Send a message"),
+            MessageLookupByLibrary.simpleMessage("Send me a message"),
+        "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "logout_button": MessageLookupByLibrary.simpleMessage("Logout"),

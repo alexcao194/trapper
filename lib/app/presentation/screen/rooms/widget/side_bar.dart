@@ -58,12 +58,13 @@ class SideBar extends StatelessWidget {
                             child: MaterialButton(
                               padding: EdgeInsets.zero,
                               shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(100)),
+                                borderRadius: BorderRadius.all(Radius.circular(20)),
                               ),
                               onPressed: () {},
                               child: RoomCard(
                                 profile: state.roomsInfo[index].profile!,
                                 lastMessage: state.roomsInfo[index].lastMessage,
+                                roomID: state.roomsInfo[index].id!,
                               ),
                             ),
                           );
@@ -79,4 +80,5 @@ class SideBar extends StatelessWidget {
       },
     );
   }
+
 }

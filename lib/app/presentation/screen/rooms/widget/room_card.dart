@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:trapper/app/domain/entity/message_detail.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../config/const/dimen.dart';
 import '../../../../../generated/l10n.dart';
+import '../../../../domain/entity/message_detail.dart';
 import '../../../../domain/entity/profile.dart';
+import '../../../bloc/rooms/rooms_bloc.dart';
 import 'room_avatar.dart';
 
 class RoomCard extends StatelessWidget {
   final Profile profile;
   final MessageDetail? lastMessage;
+  final String roomID;
 
-  const RoomCard({super.key, required this.profile, this.lastMessage});
+  const RoomCard({super.key, required this.profile, this.lastMessage, required this.roomID});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,16 @@ class RoomCard extends StatelessWidget {
         maxLines: 1,
         style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
       ),
-      onTap: () {},
+      onTap: () {
+        _onPick(context, roomID);
+      },
     );
+  }
+
+  void _onPick(BuildContext context, String id) {
+    context.read<RoomsBloc>().add(RoomsPick(id: id));
+    if (MediaQuery.of(context).size.width <= Dimen.mobileWidth) {
+      Navigator.of(context).pop();
+    }
   }
 }

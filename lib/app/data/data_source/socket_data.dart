@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:pair/pair.dart';
 import 'package:socket_io_client/socket_io_client.dart';
-import 'package:trapper/app/data/model/room_info_model.dart';
+
+import '../model/message_detail_model.dart';
+import '../model/room_info_model.dart';
 
 abstract class SocketData {
   void connect();
@@ -11,6 +14,7 @@ abstract class SocketData {
 
   Stream<List<RoomInfoModel>> get roomsInfoStream;
   Stream<RoomInfoModel> get findFriendStream;
+  Stream<Pair<String, List<MessageDetailModel>>> get roomsMessagesStream;
 }
 
 class SocketDataImpl implements SocketData {
@@ -18,12 +22,16 @@ class SocketDataImpl implements SocketData {
 
   final StreamController<List<RoomInfoModel>> _roomsInfoController = StreamController<List<RoomInfoModel>>.broadcast();
   final StreamController<RoomInfoModel> _findFriendController = StreamController<RoomInfoModel>.broadcast();
+  final StreamController<Pair<String, List<MessageDetailModel>>> _roomsMessagesController = StreamController<Pair<String, List<MessageDetailModel>>>.broadcast();
 
   @override
   Stream<List<RoomInfoModel>> get roomsInfoStream => _roomsInfoController.stream;
 
   @override
   Stream<RoomInfoModel> get findFriendStream => _findFriendController.stream;
+
+  @override
+  Stream<Pair<String, List<MessageDetailModel>>> get roomsMessagesStream => _roomsMessagesController.stream;
 
   SocketDataImpl({required Socket socket}) : _socket = socket;
 
@@ -38,8 +46,13 @@ class SocketDataImpl implements SocketData {
       final roomsInfo = (data as List).map((e) => RoomInfoModel.fromJson(e)).toList();
       _roomsInfoController.add(roomsInfo);
     });
-    _socket.on('on_received_rooms_messages', (data) => null);
-    _socket.on('on_received_message', (data) => null);
+    _socket.on('on_received_rooms_messages', (data){
+      final List<MessageDetailModel> messages = [];
+      for (var message in data['list_messages']) {
+        messages.add(MessageDetailModel.fromJson(message));
+      }
+      _roomsMessagesController.add(Pair(data['_id'], messages));
+    });
     _socket.on('on_received_friend_request', (data) => null);
     _socket.on('on_accept_friend_request', (data) => null);
     _socket.on('on_found', (data) {

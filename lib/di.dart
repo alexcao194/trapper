@@ -17,12 +17,14 @@ import 'app/domain/repository/profile_repository.dart';
 import 'app/domain/repository/socket_repository.dart';
 import 'app/domain/use_case/connect.dart';
 import 'app/domain/use_case/disconnect.dart';
+import 'app/domain/use_case/fect_message.dart';
 import 'app/domain/use_case/fetch_friends.dart';
 import 'app/domain/use_case/fetch_hobbies.dart';
 import 'app/domain/use_case/fetch_rooms_info.dart';
 import 'app/domain/use_case/fetch_settings.dart';
 import 'app/domain/use_case/find_friend.dart';
 import 'app/domain/use_case/get_profile.dart';
+import 'app/domain/use_case/listen_message.dart';
 import 'app/domain/use_case/login.dart';
 import 'app/domain/use_case/post_photo.dart';
 import 'app/domain/use_case/register.dart';
@@ -71,6 +73,8 @@ class DependencyInjection {
     sl.registerFactory<RoomsBloc>(
       () => RoomsBloc(
         fetchRoomsInfo: sl(),
+        listenMessage: sl(),
+        fetchMessage: sl(),
       ),
     );
 
@@ -98,6 +102,8 @@ class DependencyInjection {
     sl.registerLazySingleton<PostPhoto>(() => PostPhoto(repository: sl()));
     sl.registerLazySingleton<FetchFriends>(() => FetchFriends(profileRepository: sl()));
     sl.registerLazySingleton<FindFriend>(() => FindFriend(socketRepository: sl()));
+    sl.registerLazySingleton<ListenMessage>(() => ListenMessage(socketRepository: sl()));
+    sl.registerLazySingleton<FetchMessage>(() => FetchMessage(socketRepository: sl()));
     
 
     // Repositories

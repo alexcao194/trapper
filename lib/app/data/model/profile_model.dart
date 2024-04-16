@@ -22,7 +22,7 @@ class ProfileModel extends Profile {
       photoUrl: json['photo_url'] as String?,
       gender: json['gender'] == "true",
       birthDate: json['date_of_birth'] as String?,
-      id: json['id'] as String?,
+      id: json['_id'] as String?,
       bio: json['bio'] as String?,
       photos: photos,
     );
@@ -34,7 +34,7 @@ class ProfileModel extends Profile {
     'photo_url': photoUrl,
     'gender': gender,
     'date_of_birth': birthDate,
-    'id': id,
+    '_id': id,
     'bio': bio,
     'photos': photos,
   };

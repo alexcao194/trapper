@@ -10,14 +10,23 @@ final class RoomsFetchRoomsInfo extends RoomsEvent {
 }
 
 final class RoomsUpdateRoomsInfo extends RoomsEvent {
-  final List<RoomInfo>? roomsInfo;
-  final String? error;
+  final RoomsState roomsState;
 
   const RoomsUpdateRoomsInfo({
-    this.roomsInfo,
-    this.error,
+    required this.roomsState,
   });
 
   @override
-  List<Object> get props => [roomsInfo ?? [], error ?? ""];
+  List<Object> get props => [roomsState];
+}
+
+final class RoomsPick extends RoomsEvent {
+  final String id;
+
+  const RoomsPick({
+    required this.id,
+  });
+
+  @override
+  List<Object> get props => [id];
 }

@@ -7,8 +7,8 @@ import '../../bloc/profile/profile_bloc.dart';
 import '../../bloc/rooms/rooms_bloc.dart';
 import 'widget/detail_header_message.dart';
 import 'widget/input_message.dart';
+import 'widget/list_message.dart';
 import 'widget/side_bar.dart';
-import 'widget/text_message.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
@@ -46,7 +46,6 @@ class _MessageScreenState extends State<MessageScreen> {
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.all(16),
-                    //color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.75),
                     child: Column(
                       children: [
                         Container(
@@ -57,9 +56,6 @@ class _MessageScreenState extends State<MessageScreen> {
                             ),
                             child: Builder(builder: (context) {
                               return DetailHeaderMessage(
-                                profile: const Profile(
-                                  name: "User",
-                                ),
                                 onBack: () {
                                   Scaffold.of(context).openDrawer();
                                 },
@@ -85,25 +81,6 @@ class _MessageScreenState extends State<MessageScreen> {
   void initState() {
     super.initState();
     context.read<RoomsBloc>().add(RoomsFetchRoomsInfo());
-  }
-}
-
-class ListMessage extends StatelessWidget {
-  const ListMessage({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      reverse: true,
-      itemCount: 15,
-      itemBuilder: (context, index) {
-        return TextMessage(
-          isSender: index % 2 == 0,
-        );
-      },
-    );
   }
 }
 

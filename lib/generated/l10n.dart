@@ -1030,11 +1030,21 @@ class S {
     );
   }
 
-  /// `Send a message`
+  /// `Send me a message`
   String get last_message_placeholder {
     return Intl.message(
-      'Send a message',
+      'Send me a message',
       name: 'last_message_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading...`
+  String get loading {
+    return Intl.message(
+      'Loading...',
+      name: 'loading',
       desc: '',
       args: [],
     );

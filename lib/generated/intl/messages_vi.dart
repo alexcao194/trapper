@@ -98,6 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
         "last_message_placeholder":
             MessageLookupByLibrary.simpleMessage("Hãy gửi tin nhắn đầu tiên"),
+        "loading": MessageLookupByLibrary.simpleMessage("Đang tải..."),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "logout": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
         "logout_button": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
