@@ -105,5 +105,6 @@
   "nothing_to_update": "Không có gì để cập nhật",
   "profile_updated": "Hồ sơ đã được cập nhật",
   "no_friends": "Không có bạn bè",
-  "no_hobbies_error": "Vui lòng chọn ít nhất một sở thích"
+  "no_hobbies_error": "Vui lòng chọn ít nhất một sở thích",
+  "last_message_placeholder": "Hãy gửi tin nhắn đầu tiên"
 }

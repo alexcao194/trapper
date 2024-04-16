@@ -96,6 +96,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dữ liệu không hợp lệ"),
         "invalid_field": m0,
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
+        "last_message_placeholder":
+            MessageLookupByLibrary.simpleMessage("Hãy gửi tin nhắn đầu tiên"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "logout": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
         "logout_button": MessageLookupByLibrary.simpleMessage("Đăng xuất"),

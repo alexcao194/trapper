@@ -7,14 +7,17 @@ import 'package:trapper/generated/l10n.dart';
 
 import '../../../domain/entity/connect_data.dart';
 import '../../../domain/entity/hobby.dart';
+import '../../../domain/entity/room_info.dart';
 import '../../../domain/use_case/fetch_hobbies.dart';
 
 part 'connect_event.dart';
+
 part 'connect_state.dart';
 
 class ConnectBloc extends Bloc<ConnectEvent, ConnectState> {
   late final FetchHobbies _fetchHobbies;
   late final FindFriend _findFriend;
+
   ConnectBloc({
     required FetchHobbies fetchHobbies,
     required FindFriend findFriend,
@@ -24,6 +27,8 @@ class ConnectBloc extends Bloc<ConnectEvent, ConnectState> {
     on<ConnectFetchHobbies>(_onFetchHobbies);
     on<ConnectUpdateData>(_onUpdateData);
     on<ConnectFindFriend>(_onFindFriend);
+    on<ConnectFound>(_onConnectFound);
+    on<ConnectError>(_onConnectError);
   }
 
   FutureOr<void> _onUpdateData(ConnectUpdateData event, Emitter<ConnectState> emit) {
@@ -43,7 +48,19 @@ class ConnectBloc extends Bloc<ConnectEvent, ConnectState> {
       emit(state.copyWith(showError: true, error: S.current.no_hobbies_error, isLoading: false));
       return;
     }
-    _findFriend(state.connectData);
-    emit(state.copyWith(isLoading: true, showError: false, error: null));
+    emit(state.copyWith(isLoading: true, showError: false, error: null, roomInfo: null));
+    _findFriend(state.connectData).listen((event) {
+      add(ConnectFound(roomInfo: event));
+    }, onError: (error) {
+      add(ConnectError(error: error.toString()));
+    });
+  }
+
+  FutureOr<void> _onConnectFound(ConnectFound event, Emitter<ConnectState> emit) {
+    emit(state.copyWith(isLoading: false, roomInfo: event.roomInfo, showError: false, error: null));
+  }
+
+  FutureOr<void> _onConnectError(ConnectError event, Emitter<ConnectState> emit) {
+    emit(state.copyWith(isLoading: false, showError: true, error: event.error));
   }
 }

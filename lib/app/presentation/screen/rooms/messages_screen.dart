@@ -24,7 +24,7 @@ class _MessageScreenState extends State<MessageScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return BlocBuilder<ProfileBloc, ProfileState>(
-      builder: (context, state) {
+      builder: (context, profileState) {
         return SafeArea(
           child: Scaffold(
             drawer: size.width <= Dimen.mobileWidth
@@ -143,6 +143,7 @@ class SideBar extends StatelessWidget {
                               onPressed: () {},
                               child: RoomCard(
                                 profile: state.roomsInfo[index].profile!,
+                                lastMessage: state.roomsInfo[index].lastMessage,
                               ),
                             ),
                           );

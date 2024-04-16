@@ -1,19 +1,20 @@
-import 'package:trapper/app/domain/entity/message_detail.dart';
+
+import '../../domain/entity/message_detail.dart';
 
 class MessageDetailModel extends MessageDetail {
   MessageDetailModel({
-    super.id,
-    super.message,
-    super.type,
-    super.timestamp,
-    super.sender,
+    required super.id,
+    required super.message,
+    required super.type,
+    required super.timestamp,
+    required super.sender,
   });
 
   factory MessageDetailModel.fromJson(Map<String, dynamic> json) {
     return MessageDetailModel(
-      id: json['id'],
-      message: json['message'],
-      type: json['type'],
+      id: json['_id'],
+      message: json['content'],
+      type: MessageType.fromValue(json['type']),
       timestamp: json['timestamp'],
       sender: json['sender'],
     );
@@ -23,7 +24,7 @@ class MessageDetailModel extends MessageDetail {
     return {
       'id': id,
       'message': message,
-      'type': type,
+      'type': type.value,
       'timestamp': timestamp,
       'sender': sender,
     };

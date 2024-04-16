@@ -25,3 +25,19 @@ class ConnectFindFriend extends ConnectEvent {
   @override
   List<Object?> get props => [];
 }
+
+class ConnectFound extends ConnectEvent {
+  final RoomInfo roomInfo;
+  const ConnectFound({required this.roomInfo});
+
+  @override
+  List<Object?> get props => [roomInfo];
+}
+
+class ConnectError extends ConnectEvent {
+  final String error;
+  const ConnectError({required this.error});
+
+  @override
+  List<Object?> get props => [error];
+}

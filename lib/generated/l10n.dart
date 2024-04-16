@@ -1029,6 +1029,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Send a message`
+  String get last_message_placeholder {
+    return Intl.message(
+      'Send a message',
+      name: 'last_message_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

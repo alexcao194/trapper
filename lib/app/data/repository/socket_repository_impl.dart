@@ -34,6 +34,6 @@ class SocketRepositoryImpl implements SocketRepository {
       'gender': data.gender,
       'hobbies': data.hobbies
     });
-    return _socketData.roomsInfoStream.map((roomsInfo) => roomsInfo.first);
+    return _socketData.findFriendStream.map((roomsInfo) => roomsInfo);
   }
 }

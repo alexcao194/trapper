@@ -11,10 +11,13 @@ class RoomInfoModel extends RoomInfo {
   });
 
   factory RoomInfoModel.fromJson(Map<String, dynamic> json) {
+    var profile = json['profile'] != null ? ProfileModel.fromJson(json['profile']) : null;
+    var lastMessage = json['last_message'] != null ? MessageDetailModel.fromJson(json['last_message']) : null;
+    print(lastMessage);
     return RoomInfoModel(
-      id: json['id'],
-      profile: ProfileModel.fromJson(json['profile']),
-      lastMessage: json['last_message'] != null ? MessageDetailModel.fromJson(json['last_message']) : null,
+      id: json['_id'],
+      profile: profile,
+      lastMessage: lastMessage,
     );
   }
 
