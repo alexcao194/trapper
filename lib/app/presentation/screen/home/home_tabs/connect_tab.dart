@@ -9,8 +9,6 @@ import '../../../../../generated/l10n.dart';
 import '../../../bloc/connect/connect_bloc.dart';
 import 'widget/custom_chip.dart';
 
-List<String> genders = <String>[S.current.male, S.current.female];
-
 class ConnectTab extends StatelessWidget {
   const ConnectTab({super.key});
 
@@ -73,12 +71,12 @@ class ConnectTab extends StatelessWidget {
                     const SizedBox(height: 20),
                     Text(S.current.gender),
                     Wrap(
-                      children: List.generate(genders.length, (index) {
+                      children: List.generate(2, (index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: CustomChip(
                             isSelected: connectData.gender == (index == 0),
-                            label: genders[index],
+                            label: index == 0 ? S.current.male : S.current.female,
                             onSelected: (bool selected) {
                               context.read<ConnectBloc>().add(
                                     ConnectUpdateData(
