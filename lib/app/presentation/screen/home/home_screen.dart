@@ -2,6 +2,7 @@ import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:trapper/app/presentation/bloc/auth/auth_bloc.dart';
 
 import '../../../../config/go_router/app_go_router.dart';
 import '../../../../generated/l10n.dart';
@@ -31,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<RoomsBloc>().add(const RoomsFetchRoomsInfo());
+    context.read<AuthBloc>().add(const AuthEventValidateToken());
     context.read<ProfileBloc>().add(const ProfileEventGet());
     context.read<ConnectBloc>().add(const ConnectFetchHobbies());
     _pageController = PageController(
@@ -51,6 +52,18 @@ class _HomeScreenState extends State<HomeScreen> {
           _showName = false;
         }
       });
+    });
+
+    context.read<AuthBloc>().stream.listen((state) {
+      if (mounted) {
+        if (state is AuthStateUnauthenticated || state is AuthStateFailure) {
+          context.pushReplacement(RoutePath.login);
+        }
+
+        if (state is AuthStateAuthenticated) {
+          context.read<RoomsBloc>().add(const RoomsFetchRoomsInfo());
+        }
+      }
     });
   }
 

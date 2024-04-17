@@ -10,20 +10,6 @@ import '../../app/presentation/screen/rooms/messages_screen.dart';
 class AppGoRouter {
   static get router => GoRouter(
         initialLocation: RoutePath.home,
-        redirect: (context, state) {
-          final authState = context.read<AuthBloc>().state;
-          if (authState is! AuthStateAuthenticated) {
-            if (!RoutePath.publicPaths.contains(state.path)) {
-              return RoutePath.login;
-            }
-            return null;
-          } else {
-            if (RoutePath.publicPaths.contains(state.path)) {
-              return RoutePath.home;
-            }
-            return null;
-          }
-        },
         routes: [
           GoRoute(
             path: RoutePath.login,
