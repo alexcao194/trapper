@@ -5,6 +5,7 @@ sealed class RoomsEvent extends Equatable {
 }
 
 final class RoomsFetchRoomsInfo extends RoomsEvent {
+  const RoomsFetchRoomsInfo();
   @override
   List<Object> get props => [];
 }

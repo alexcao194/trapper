@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../config/const/dimen.dart';
-import '../../../domain/entity/profile.dart';
 import '../../bloc/profile/profile_bloc.dart';
-import '../../bloc/rooms/rooms_bloc.dart';
 import 'widget/detail_header_message.dart';
 import 'widget/input_message.dart';
 import 'widget/list_message.dart';
@@ -75,12 +73,6 @@ class _MessageScreenState extends State<MessageScreen> {
         );
       },
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    context.read<RoomsBloc>().add(RoomsFetchRoomsInfo());
   }
 }
 
