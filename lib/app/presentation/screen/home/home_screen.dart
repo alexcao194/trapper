@@ -39,7 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
     _pageController?.addListener(() {
       setState(() {
-        index = _pageController!.page!.round();
+        if (_pageController?.page?.round() != index && mounted) {
+          index = _pageController!.page!.round();
+        }
       });
     });
 
@@ -94,20 +96,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            if (_showName) Container(
-                              margin: const EdgeInsets.only(right: 10),
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Theme.of(context).colorScheme.primary,
+                            if (_showName)
+                              Container(
+                                margin: const EdgeInsets.only(right: 10),
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                child: Text(
+                                  roomsState.roomsInfo.first.profile!.name ?? S.current.full_name,
+                                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                                        color: Theme.of(context).colorScheme.onPrimary,
+                                      ),
+                                ),
                               ),
-                              child: Text(
-                                roomsState.roomsInfo.first.profile!.name ?? S.current.full_name,
-                                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                      color: Theme.of(context).colorScheme.onPrimary,
-                                    ),
-                              ),
-                            ),
                             Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
@@ -120,16 +123,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(100),
                                 child: FloatingActionButton(
                                   onPressed: () {
-                                    context.go(RoutePath.messages);
+                                    _openMessages(context);
                                   },
-                                  child: Builder(builder: (context) {
-                                    if (roomsState.roomsInfo.first.profile!.photoUrl == null) {
-                                      return const Icon(Icons.person);
-                                    }
-                                    return Image.network(
-                                      roomsState.roomsInfo.first.profile!.photoUrl!,
-                                    );
-                                  }),
+                                  child: (roomsState.roomsInfo.first.profile!.photoUrl == null)
+                                      ? const Icon(Icons.person)
+                                      : Image.network(
+                                          roomsState.roomsInfo.first.profile!.photoUrl!,
+                                        ),
                                 ),
                               ),
                             ),
@@ -155,5 +155,9 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
     );
+  }
+
+  void _openMessages(BuildContext context) {
+    context.push(RoutePath.messages);
   }
 }
