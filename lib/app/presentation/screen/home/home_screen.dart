@@ -165,11 +165,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         controller: _pageController,
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
-                          KeepAlivePage(child: Center(child: ProfileTab(profile: profileState.profile))),
-                          const KeepAlivePage(child: Center(child: FriendsTab())),
-                          const KeepAlivePage(child: Center(child: ConnectTab())),
-                          const KeepAlivePage(child: Center(child: SettingsTab())),
-                          const KeepAlivePage(child: Center(child: HelpTab())),
+                          KeepAlivePage(child: ProfileTab(profile: profileState.profile)),
+                          const KeepAlivePage(child: FriendsTab()),
+                          const KeepAlivePage(child: ConnectTab()),
+                          const KeepAlivePage(child: SettingsTab()),
+                          const KeepAlivePage(child: HelpTab()),
                         ],
                       ),
                     ));
