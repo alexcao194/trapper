@@ -19,3 +19,12 @@ class FriendsAdd extends FriendsEvent {
   @override
   List<Object?> get props => [friendId];
 }
+
+class FriendsSendMessage extends FriendsEvent {
+  final String message;
+
+  const FriendsSendMessage({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}

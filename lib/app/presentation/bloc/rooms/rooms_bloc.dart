@@ -43,7 +43,6 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
       return;
     }
     _listenMessage().listen((pair) {
-      print("pair: $pair");
       final newMessages = pair.value;
       final id = pair.key;
       final oldMessages = state.messages[id] ?? [];
@@ -79,7 +78,6 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
   }
 
   FutureOr<void> _onUpdateRoomsInfo(RoomsUpdateRoomsInfo event, Emitter<RoomsState> emit) {
-    print(event.roomsState.messages);
     emit(event.roomsState);
   }
 

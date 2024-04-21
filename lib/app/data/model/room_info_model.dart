@@ -8,16 +8,17 @@ class RoomInfoModel extends RoomInfo {
     super.id,
     super.profile,
     super.lastMessage,
+    super.isFriend,
   });
 
   factory RoomInfoModel.fromJson(Map<String, dynamic> json) {
     var profile = json['profile'] != null ? ProfileModel.fromJson(json['profile']) : null;
     var lastMessage = json['last_message'] != null ? MessageDetailModel.fromJson(json['last_message']) : null;
-    print(lastMessage);
     return RoomInfoModel(
       id: json['_id'],
       profile: profile,
       lastMessage: lastMessage,
+      isFriend: json['is_friend'] as bool,
     );
   }
 
@@ -27,7 +28,8 @@ class RoomInfoModel extends RoomInfo {
     return {
       'id': id,
       'profile': profileModel?.toJson(),
-      'lastMessage': lastMessageModel?.toJson(),
+      'last_message': lastMessageModel?.toJson(),
+      'isF_friend': isFriend,
     };
   }
 }

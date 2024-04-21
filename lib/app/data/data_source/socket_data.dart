@@ -74,10 +74,12 @@ class SocketDataImpl implements SocketData {
     });
 
     _socket.on('on_received_friend_request', (data) {
+      print("on_received_friend_request");
       _friendRequestController.add(Pair("on_received_friend_request", ProfileModel.fromJson(data['profile'])));
     });
 
     _socket.on('on_accept_friend_request', (data) {
+      print("on_accept_friend_request");
       _friendRequestController.add(Pair("on_accept_friend_request", ProfileModel.fromJson(data['profile'])));
     });
   }

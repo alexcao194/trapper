@@ -19,9 +19,6 @@ class DetailHeaderMessage extends StatefulWidget {
 }
 
 class _DetailHeaderMessageState extends State<DetailHeaderMessage> {
-
-  String friendState = 'none';
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -32,7 +29,9 @@ class _DetailHeaderMessageState extends State<DetailHeaderMessage> {
             child: Text(S.current.loading),
           );
         }
-        final profile = state.roomsInfo.firstWhere((element) => element.id == state.currentID).profile;
+        final room = state.roomsInfo.firstWhere((element) => element.id == state.currentID);
+        final profile = room.profile;
+        final isFriend = room.isFriend;
         return ListTile(
           leading: size.width <= Dimen.mobileWidth
               ? IconButton(
@@ -46,13 +45,16 @@ class _DetailHeaderMessageState extends State<DetailHeaderMessage> {
                   fontWeight: FontWeight.bold,
                 ),
           ),
-          trailing: (friendState != "friend") ? IconButton(
+          trailing: !isFriend ? IconButton(
             onPressed: () {
               _onAddFriend(profile.id!);
             },
-            icon: Icon(friendState == "none" ? Icons.person_add : Icons.check),
+            icon: const Icon(Icons.person_add),
           ) : null,
           onTap: () {
+            if (!isFriend) {
+              return;
+            }
             context.go(RoutePath.home);
           },
         );
@@ -62,8 +64,5 @@ class _DetailHeaderMessageState extends State<DetailHeaderMessage> {
 
   void _onAddFriend(String id) {
     context.read<FriendsBloc>().add(FriendsAdd(friendId: id));
-    setState(() {
-      friendState = "requested";
-    });
   }
 }

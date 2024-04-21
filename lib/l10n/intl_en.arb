@@ -109,5 +109,28 @@
   "last_message_placeholder": "Send me a message",
   "loading": "Loading...",
   "connect_dialog_title": "Connecting with a partner",
-  "connect_dialog_content": "Please wait while we are connecting you with a partner..."
+  "connect_dialog_content": "Please wait while we are connecting you with a partner...",
+  "received_request": "Received friend request from {name}",
+  "@received_request": {
+    "description": "Received friend request",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "John Doe"
+      }
+    }
+  },
+
+  "accept_request": "You and {name} are now friends",
+  "@accept_request": {
+    "description": "Accept friend request",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "John Doe"
+      }
+    }
+  },
+  "accept": "Accept",
+  "sent_request": "Friend request sent successfully"
 }

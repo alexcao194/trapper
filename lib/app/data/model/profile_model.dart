@@ -16,10 +16,14 @@ class ProfileModel extends Profile {
         photos[index] = "${DioTools.currentBaseUrl}/$v";
       });
     }
+    var photo_url = json['photo_url'] as String?;
+    if (photo_url != null) {
+      photo_url = "${DioTools.currentBaseUrl}/$photo_url";
+    }
     return ProfileModel(
       name: json['full_name'] as String?,
       email: json['email'] as String?,
-      photoUrl: json['photo_url'] as String?,
+      photoUrl: photo_url,
       gender: json['gender'] == "true",
       birthDate: json['date_of_birth'] as String?,
       id: json['_id'] as String?,

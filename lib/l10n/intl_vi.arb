@@ -109,5 +109,28 @@
   "last_message_placeholder": "Hãy gửi tin nhắn đầu tiên",
   "loading": "Đang tải...",
   "connect_dialog_title": "Đang kết nối với ngừời thích hợp...",
-  "connect_dialog_content": "Vui lòng đợi trong giây lát"
+  "connect_dialog_content": "Vui lòng đợi trong giây lát",
+  "received_request": "Đã nhận được yêu cầu kết bạn từ {name}",
+  "@received_request": {
+    "description": "Received friend request",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "John Doe"
+      }
+    }
+  },
+
+  "accept_request": "Bạn và {name} đã trở thành bạn bè",
+    "@accept_request": {
+        "description": "Accept friend request",
+        "placeholders": {
+        "name": {
+            "type": "String",
+            "example": "John Doe"
+        }
+        }
+    },
+  "accept": "Chấp nhận",
+  "sent_request": "Đã gửi yêu cầu kết bạn thành công"
 }

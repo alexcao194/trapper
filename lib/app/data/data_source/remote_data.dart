@@ -73,8 +73,6 @@ class RemoteDataImpl implements RemoteData {
   Future<ProfileModel> getProfile() async {
     var response = await dio.get('/profile');
     if (response.statusCode == 200) {
-      print("getProfile");
-      print(response.data);
       return ProfileModel.fromJson(response.data);
     } else {
       throw DioException(
