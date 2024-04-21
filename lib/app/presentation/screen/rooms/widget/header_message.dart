@@ -35,7 +35,7 @@ class HeaderMessage extends StatelessWidget {
               icon: const Icon(Icons.notifications_none_outlined),
             ),
             onTap: () {
-              context.go(RoutePath.home);
+
             },
           ),
         );
