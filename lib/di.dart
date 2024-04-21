@@ -15,6 +15,8 @@ import 'app/data/repository/socket_repository_impl.dart';
 import 'app/domain/repository/auth_repository.dart';
 import 'app/domain/repository/profile_repository.dart';
 import 'app/domain/repository/socket_repository.dart';
+import 'app/domain/use_case/add_friend.dart';
+import 'app/domain/use_case/cancel_find.dart';
 import 'app/domain/use_case/connect.dart';
 import 'app/domain/use_case/disconnect.dart';
 import 'app/domain/use_case/fect_message.dart';
@@ -24,6 +26,7 @@ import 'app/domain/use_case/fetch_rooms_info.dart';
 import 'app/domain/use_case/fetch_settings.dart';
 import 'app/domain/use_case/find_friend.dart';
 import 'app/domain/use_case/get_profile.dart';
+import 'app/domain/use_case/listen_friend.dart';
 import 'app/domain/use_case/listen_message.dart';
 import 'app/domain/use_case/login.dart';
 import 'app/domain/use_case/post_photo.dart';
@@ -82,11 +85,14 @@ class DependencyInjection {
 
     sl.registerFactory<ConnectBloc>(() => ConnectBloc(
       fetchHobbies: sl(),
-      findFriend: sl()
+      findFriend: sl(),
+      cancelFind: sl(),
     ));
 
     sl.registerFactory<FriendsBloc>(() => FriendsBloc(
-      fetchFriends: sl()
+      fetchFriends: sl(),
+      addFriend: sl(),
+      listenFriend: sl(),
     ));
 
     // Use case
@@ -107,6 +113,9 @@ class DependencyInjection {
     sl.registerLazySingleton<ListenMessage>(() => ListenMessage(socketRepository: sl()));
     sl.registerLazySingleton<FetchMessage>(() => FetchMessage(socketRepository: sl()));
     sl.registerLazySingleton<SendMessage>(() => SendMessage(socketRepository: sl()));
+    sl.registerLazySingleton<CancelFind>(() => CancelFind(repository: sl()));
+    sl.registerLazySingleton<AddFriend>(() => AddFriend(socketRepository: sl()));
+    sl.registerLazySingleton<ListenFriend>(() => ListenFriend(socketRepository: sl()));
     
 
     // Repositories

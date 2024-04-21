@@ -1,4 +1,5 @@
 import 'package:pair/pair.dart';
+import 'package:trapper/app/domain/entity/profile.dart';
 
 import '../../domain/entity/connect_data.dart';
 import '../../domain/entity/message_detail.dart';
@@ -56,5 +57,20 @@ class SocketRepositoryImpl implements SocketRepository {
       'content': message.message,
       'type': message.type.value,
     });
+  }
+
+  @override
+  void cancelFindFriend() {
+    _socketData.sendMessage('on_find_cancel');
+  }
+
+  @override
+  void sendFriendRequest(String userID) {
+    _socketData.sendMessage('on_friend_request', data: {'user_id': userID});
+  }
+
+  @override
+  Stream<Pair<String, Profile>> listenFriend() {
+    return _socketData.friendRequestStream;
   }
 }

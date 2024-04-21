@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:trapper/app/presentation/screen/login/widget/sign_up_box.dart';
 import 'package:trapper/config/const/dimen.dart';
 import 'package:trapper/generated/l10n.dart';
@@ -52,6 +53,36 @@ class DialogTools {
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text(S.current.ok),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static void showConnectDialog(BuildContext context, VoidCallback onCancel) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(S.current.connect_dialog_title),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            LoadingAnimationWidget.waveDots(
+              size: 30,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            const SizedBox(height: 10),
+            Text(S.current.connect_dialog_content),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              onCancel();
+              Navigator.of(context).pop();
+            },
+            child: Text(S.current.cancel),
           ),
         ],
       ),

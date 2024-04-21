@@ -48,3 +48,10 @@ final class ConnectReset extends ConnectEvent {
   @override
   List<Object?> get props => [];
 }
+
+final class ConnectCancelFindFriend extends ConnectEvent {
+  const ConnectCancelFindFriend();
+
+  @override
+  List<Object?> get props => [];
+}

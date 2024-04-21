@@ -107,5 +107,7 @@
   "no_friends": "No friends",
   "no_hobbies_error": "Please select at least one hobby",
   "last_message_placeholder": "Send me a message",
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "connect_dialog_title": "Connecting with a partner",
+  "connect_dialog_content": "Please wait while we are connecting you with a partner..."
 }

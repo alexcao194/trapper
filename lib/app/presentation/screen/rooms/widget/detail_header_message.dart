@@ -6,12 +6,21 @@ import '../../../../../config/const/dimen.dart';
 import '../../../../../config/go_router/app_go_router.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../domain/entity/profile.dart';
+import '../../../bloc/friends/friends_bloc.dart';
 import '../../../bloc/rooms/rooms_bloc.dart';
 
-class DetailHeaderMessage extends StatelessWidget {
+class DetailHeaderMessage extends StatefulWidget {
   final VoidCallback onBack;
 
   const DetailHeaderMessage({super.key, required this.onBack});
+
+  @override
+  State<DetailHeaderMessage> createState() => _DetailHeaderMessageState();
+}
+
+class _DetailHeaderMessageState extends State<DetailHeaderMessage> {
+
+  String friendState = 'none';
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +36,7 @@ class DetailHeaderMessage extends StatelessWidget {
         return ListTile(
           leading: size.width <= Dimen.mobileWidth
               ? IconButton(
-                  onPressed: onBack,
+                  onPressed: widget.onBack,
                   icon: const Icon(Icons.arrow_back),
                 )
               : null,
@@ -37,15 +46,24 @@ class DetailHeaderMessage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
           ),
-          trailing: IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_horiz_rounded),
-          ),
+          trailing: (friendState != "friend") ? IconButton(
+            onPressed: () {
+              _onAddFriend(profile.id!);
+            },
+            icon: Icon(friendState == "none" ? Icons.person_add : Icons.check),
+          ) : null,
           onTap: () {
             context.go(RoutePath.home);
           },
         );
       },
     );
+  }
+
+  void _onAddFriend(String id) {
+    context.read<FriendsBloc>().add(FriendsAdd(friendId: id));
+    setState(() {
+      friendState = "requested";
+    });
   }
 }

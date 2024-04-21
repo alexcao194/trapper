@@ -107,5 +107,7 @@
   "no_friends": "Không có bạn bè",
   "no_hobbies_error": "Vui lòng chọn ít nhất một sở thích",
   "last_message_placeholder": "Hãy gửi tin nhắn đầu tiên",
-  "loading": "Đang tải..."
+  "loading": "Đang tải...",
+  "connect_dialog_title": "Đang kết nối với ngừời thích hợp...",
+  "connect_dialog_content": "Vui lòng đợi trong giây lát"
 }
