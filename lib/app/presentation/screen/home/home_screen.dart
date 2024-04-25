@@ -29,7 +29,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   PageController? _pageController;
-  bool _showName = true;
+  bool _showLastMessage = true;
 
   @override
   void initState() {
@@ -41,13 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _pageController = PageController();
     context.read<HomeBloc>().add(HomeInitial(pageController: _pageController!));
 
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        setState(() {
-          _showName = false;
-        });
-      }
-    });
+    _waitHideLastMessage();
 
     context.read<AuthBloc>().stream.listen((state) {
       if (mounted) {
@@ -116,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ? Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  if (_showName)
+                                  if (_showLastMessage)
                                     Container(
                                       margin: const EdgeInsets.only(right: 10),
                                       padding: const EdgeInsets.all(8),
@@ -134,7 +128,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   MaterialButton(
                                     shape: const CircleBorder(),
                                     onPressed: () {
-                                      _openMessages(context);
+                                      if (_showLastMessage) {
+                                        _openMessages(context);
+                                      } else {
+                                        setState(() {
+                                          _showLastMessage = true;
+                                        });
+                                        _waitHideLastMessage();
+                                      }
                                     },
                                     child: Container(
                                       height: 50,
@@ -197,5 +198,15 @@ class _HomeScreenState extends State<HomeScreen> {
       return S.current.send_a_emoji(sender);
     }
     return '$sender${messageDetail.message}';
+  }
+
+  void _waitHideLastMessage() {
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        setState(() {
+          _showLastMessage = false;
+        });
+      }
+    });
   }
 }
