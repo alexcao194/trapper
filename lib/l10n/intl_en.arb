@@ -120,7 +120,6 @@
       }
     }
   },
-
   "accept_request": "You and {name} are now friends",
   "@accept_request": {
     "description": "Accept friend request",
@@ -132,5 +131,26 @@
     }
   },
   "accept": "Accept",
-  "sent_request": "Friend request sent successfully"
+  "sent_request": "Friend request sent successfully",
+  "send_an_image": "{name} sent an image",
+  "@send_an_image": {
+    "description": "Send an image",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "John Doe"
+      }
+    }
+  },
+  "send_a_emoji": "{name} sent a emoji",
+  "@send_a_emoji": {
+    "description": "Send a emoji",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "John Doe"
+      }
+    }
+  },
+  "you": "You"
 }

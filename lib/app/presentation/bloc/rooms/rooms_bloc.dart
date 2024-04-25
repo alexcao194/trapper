@@ -72,20 +72,18 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
     });
     _roomsInfoSubscription = _fetchRoomsInfo().listen(
       (roomsInfo) {
+        var tmpInfo = roomsInfo..sort((a, b) => -a.lastMessage!.timestamp!.compareTo(b.lastMessage!.timestamp!));
         if (roomsInfo.isEmpty) {
           add(RoomsUpdateRoomsInfo(roomsState: state.copyWith(error: 'No rooms found.')));
           return;
         }
         if (state.currentID == null) {
-          _fetchMessage(roomsInfo.first.id!);
+          _fetchMessage(tmpInfo.first.id!);
         }
         add(
           RoomsUpdateRoomsInfo(
             roomsState: state.copyWith(
-              roomsInfo: roomsInfo
-              ..sort(
-                (a, b) => -a.lastMessage!.timestamp!.compareTo(b.lastMessage!.timestamp!),
-              ),
+              roomsInfo: tmpInfo,
               currentID: state.currentID ?? roomsInfo.first.id,
             ),
           ),

@@ -10,11 +10,12 @@ import 'room_avatar.dart';
 
 class RoomCard extends StatelessWidget {
   final Profile profile;
+  final userId;
   final MessageDetail? lastMessage;
   final String roomID;
   final bool isSelecting;
 
-  const RoomCard({super.key, required this.profile, this.lastMessage, required this.roomID, required this.isSelecting});
+  const RoomCard({super.key, required this.profile, this.lastMessage, required this.roomID, required this.isSelecting, required this.userId});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class RoomCard extends StatelessWidget {
       trailing: Text("Date", style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.outline)),
       title: Text(profile.name ?? S.current.full_name_example, style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold)),
       subtitle: Text(
-        (lastMessage == null) ? S.current.last_message_placeholder : lastMessage!.message,
+        (lastMessage == null) ? S.current.last_message_placeholder : _getMessage(lastMessage!, profile.id == userId),
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
         style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
@@ -44,5 +45,16 @@ class RoomCard extends StatelessWidget {
     if (MediaQuery.of(context).size.width <= Dimen.mobileWidth) {
       Navigator.of(context).pop();
     }
+  }
+
+  String _getMessage(MessageDetail messageDetail, bool isSender) {
+    var sender = isSender ? '${S.current.you}: ' : '';
+    if (messageDetail.type == MessageType.image) {
+      return S.current.send_an_image(sender);
+    }
+    if (messageDetail.type == MessageType.emoji) {
+      return S.current.send_a_emoji(sender);
+    }
+    return '$sender${messageDetail.message}';
   }
 }

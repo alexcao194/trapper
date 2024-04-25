@@ -120,17 +120,36 @@
       }
     }
   },
-
   "accept_request": "Bạn và {name} đã trở thành bạn bè",
-    "@accept_request": {
-        "description": "Accept friend request",
-        "placeholders": {
-        "name": {
-            "type": "String",
-            "example": "John Doe"
-        }
-        }
-    },
+  "@accept_request": {
+    "description": "Accept friend request",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "John Doe"
+      }
+    }
+  },
   "accept": "Chấp nhận",
-  "sent_request": "Đã gửi yêu cầu kết bạn thành công"
+  "sent_request": "Đã gửi yêu cầu kết bạn thành công",
+  "@send_an_image": {
+    "description": "Send an image",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "John Doe"
+      }
+    }
+  },
+  "send_a_emoji": "{name} sent a emoji",
+  "@send_a_emoji": {
+    "description": "Send a emoji",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "John Doe"
+      }
+    }
+  },
+  "you": "Bạn"
 }

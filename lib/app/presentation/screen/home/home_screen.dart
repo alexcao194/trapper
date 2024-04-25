@@ -2,6 +2,7 @@ import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:trapper/app/domain/entity/message_detail.dart';
 import 'package:trapper/app/presentation/bloc/auth/auth_bloc.dart';
 
 import '../../../../config/go_router/app_go_router.dart';
@@ -124,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: Theme.of(context).colorScheme.primary,
                                       ),
                                       child: Text(
-                                        roomsState.roomsInfo.first.profile!.name ?? S.current.full_name,
+                                        getMessage(roomsState.roomsInfo.first.lastMessage!, roomsState.roomsInfo.first.lastMessage!.sender == profileState.profile.id),
                                         style: Theme.of(context).textTheme.titleMedium!.copyWith(
                                               color: Theme.of(context).colorScheme.onPrimary,
                                             ),
@@ -185,5 +186,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _openMessages(BuildContext context) {
     context.push(RoutePath.messages);
+  }
+
+  String getMessage(MessageDetail messageDetail, bool isSender) {
+    var sender = isSender ? '${S.current.you}: ' : '';
+    if (messageDetail.type == MessageType.image) {
+      return S.current.send_an_image(sender);
+    }
+    if (messageDetail.type == MessageType.emoji) {
+      return S.current.send_a_emoji(sender);
+    }
+    return '$sender${messageDetail.message}';
   }
 }
