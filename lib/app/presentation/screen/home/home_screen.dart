@@ -130,24 +130,28 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                       ),
                                     ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: Theme.of(context).colorScheme.primary,
-                                        width: 2,
+                                  MaterialButton(
+                                    shape: const CircleBorder(),
+                                    onPressed: () {
+                                      _openMessages(context);
+                                    },
+                                    child: Container(
+                                      height: 50,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: Theme.of(context).colorScheme.primary,
+                                          width: 2,
+                                        ),
                                       ),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(100),
-                                      child: FloatingActionButton(
-                                        onPressed: () {
-                                          _openMessages(context);
-                                        },
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(100),
                                         child: (roomsState.roomsInfo.first.profile!.photoUrl == null)
                                             ? const Icon(Icons.person)
                                             : Image.network(
                                                 roomsState.roomsInfo.first.profile!.photoUrl!,
+                                                fit: BoxFit.cover,
                                               ),
                                       ),
                                     ),
