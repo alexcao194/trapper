@@ -32,6 +32,17 @@ final class RoomsPick extends RoomsEvent {
   List<Object> get props => [id];
 }
 
+final class RoomPickWithUserId extends RoomsEvent {
+  final String userID;
+
+  const RoomPickWithUserId({
+    required this.userID,
+  });
+
+  @override
+  List<Object> get props => [userID];
+}
+
 final class RoomsSendMessage extends RoomsEvent {
   final String roomID;
   final MessageDetail message;

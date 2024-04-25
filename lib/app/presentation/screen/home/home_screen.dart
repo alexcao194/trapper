@@ -70,7 +70,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 ));
               }
             },
-            child: BlocBuilder<RoomsBloc, RoomsState>(
+            child: BlocConsumer<RoomsBloc, RoomsState>(
+              listenWhen: (previous, roomsState) => roomsState.roomsInfo.first.lastMessage != previous.roomsInfo.first.lastMessage,
+              listener: (context, roomsState) {
+                if (roomsState.roomsInfo.isNotEmpty) {
+                  setState(() {
+                    _showLastMessage = true;
+                    _waitHideLastMessage();
+                  });
+                }
+              },
               builder: (context, roomsState) {
                 return BlocBuilder<ProfileBloc, ProfileState>(
                   builder: (context, profileState) {

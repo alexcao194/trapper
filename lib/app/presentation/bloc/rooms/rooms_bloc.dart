@@ -40,6 +40,7 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
     on<RoomsUpdateRoomsInfo>(_onUpdateRoomsInfo);
     on<RoomsPick>(_onPick);
     on<RoomsSendMessage>(_onSendMessage);
+    on<RoomPickWithUserId>(_onPickWithUserId);
 
     _listenConnectStatus().listen((isConnected) {
       if (isConnected) {
@@ -109,5 +110,11 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
       message: event.message,
       roomID: event.roomID,
     );
+  }
+
+  FutureOr<void> _onPickWithUserId(RoomPickWithUserId event, Emitter<RoomsState> emit) {
+    final room = state.roomsInfo.firstWhere((element) => element.profile!.id == event.userID);
+    _fetchMessage(room.id!);
+    emit(state.copyWith(currentID: room.id));
   }
 }

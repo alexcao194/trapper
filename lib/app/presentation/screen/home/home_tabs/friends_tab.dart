@@ -7,6 +7,7 @@ import '../../../../../config/const/dimen.dart';
 import '../../../../../config/go_router/app_go_router.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../bloc/friends/friends_bloc.dart';
+import '../../../bloc/rooms/rooms_bloc.dart';
 import 'profile_tab.dart';
 
 class FriendsTab extends StatefulWidget {
@@ -71,7 +72,8 @@ class _FriendsTabState extends State<FriendsTab> {
                           trailing: IconButton(
                             icon: const Icon(Icons.message_outlined),
                             onPressed: () {
-                              context.go(RoutePath.messages);
+                              context.read<RoomsBloc>().add(RoomPickWithUserId(userID: friend.id!));
+                              context.push(RoutePath.messages);
                             },
                           )),
                     );
