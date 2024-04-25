@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:trapper/app/domain/entity/profile.dart';
 
 import '../../../../../config/const/dimen.dart';
 import '../../../../../config/go_router/app_go_router.dart';
@@ -16,8 +17,6 @@ class FriendsTab extends StatefulWidget {
 }
 
 class _FriendsTabState extends State<FriendsTab> {
-  int _selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<FriendsBloc, FriendsState>(
@@ -55,6 +54,9 @@ class _FriendsTabState extends State<FriendsTab> {
                           ),
                           onTap: () {
                             context.read<FriendsBloc>().add(FriendPick(friendId: friend.id!));
+                            if (MediaQuery.of(context).size.width <= Dimen.mobileWidth) {
+                              _showProfileDialog(state.friends[index]);
+                            }
                           },
                           trailing: IconButton(
                             icon: const Icon(Icons.message_outlined),
@@ -87,5 +89,35 @@ class _FriendsTabState extends State<FriendsTab> {
   void initState() {
     super.initState();
     context.read<FriendsBloc>().add(const FriendsFetch());
+  }
+
+  void _showProfileDialog(Profile profile) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Scaffold(
+              body: Stack(
+                children: [
+                  Center(
+                    child: ProfileTab(
+                      profile: profile,
+                      owner: false,
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: BackButton(),
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
