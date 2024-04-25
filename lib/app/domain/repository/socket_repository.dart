@@ -16,4 +16,5 @@ abstract class SocketRepository {
   Stream<RoomInfo> findFriend(ConnectData data);
   Stream<Pair<String, List<MessageDetail>>> listenMessage();
   Stream<Pair<String, Profile>> listenFriend();
+  Stream<bool> listenConnectStatus();
 }

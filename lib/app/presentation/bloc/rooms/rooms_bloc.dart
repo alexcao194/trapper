@@ -7,6 +7,7 @@ import '../../../domain/entity/message_detail.dart';
 import '../../../domain/entity/room_info.dart';
 import '../../../domain/use_case/fect_message.dart';
 import '../../../domain/use_case/fetch_rooms_info.dart';
+import '../../../domain/use_case/listen_connect_status.dart';
 import '../../../domain/use_case/listen_message.dart';
 import '../../../domain/use_case/send_message.dart';
 
@@ -19,6 +20,7 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
   late ListenMessage _listenMessage;
   late FetchMessage _fetchMessage;
   late SendMessage _sendMessage;
+  late ListenConnectStatus _listenConnectStatus;
 
   StreamSubscription<List<RoomInfo>>? _roomsInfoSubscription;
 
@@ -27,15 +29,24 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
     required ListenMessage listenMessage,
     required FetchMessage fetchMessage,
     required SendMessage sendMessage,
+    required ListenConnectStatus listenConnectStatus,
   }) : super(const RoomsState.initial()) {
     _fetchRoomsInfo = fetchRoomsInfo;
     _listenMessage = listenMessage;
     _fetchMessage = fetchMessage;
     _sendMessage = sendMessage;
+    _listenConnectStatus = listenConnectStatus;
     on<RoomsFetchRoomsInfo>(_onFetchRoomsInfo);
     on<RoomsUpdateRoomsInfo>(_onUpdateRoomsInfo);
     on<RoomsPick>(_onPick);
     on<RoomsSendMessage>(_onSendMessage);
+
+    _listenConnectStatus().listen((isConnected) {
+      print('isConnected--: $isConnected');
+      if (isConnected) {
+        add(const RoomsFetchRoomsInfo());
+      }
+    });
   }
 
   FutureOr<void> _onFetchRoomsInfo(RoomsFetchRoomsInfo event, Emitter<RoomsState> emit) async {

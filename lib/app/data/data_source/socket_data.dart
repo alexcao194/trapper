@@ -17,6 +17,7 @@ abstract class SocketData {
   Stream<RoomInfoModel> get findFriendStream;
   Stream<Pair<String, List<MessageDetailModel>>> get roomsMessagesStream;
   Stream<Pair<String, ProfileModel>> get friendRequestStream;
+  Stream<bool> get connectStatusStream;
 }
 
 class SocketDataImpl implements SocketData {
@@ -26,6 +27,7 @@ class SocketDataImpl implements SocketData {
   final StreamController<RoomInfoModel> _findFriendController = StreamController<RoomInfoModel>.broadcast();
   final StreamController<Pair<String, List<MessageDetailModel>>> _roomsMessagesController = StreamController<Pair<String, List<MessageDetailModel>>>.broadcast();
   final StreamController<Pair<String, ProfileModel>> _friendRequestController = StreamController<Pair<String, ProfileModel>>.broadcast();
+  final StreamController<bool> _connectStatusController = StreamController<bool>.broadcast();
 
   @override
   Stream<List<RoomInfoModel>> get roomsInfoStream => _roomsInfoController.stream;
@@ -39,6 +41,9 @@ class SocketDataImpl implements SocketData {
   @override
   Stream<Pair<String, ProfileModel>> get friendRequestStream => _friendRequestController.stream;
 
+  @override
+  Stream<bool> get connectStatusStream => _connectStatusController.stream;
+
   SocketDataImpl({required Socket socket}) : _socket = socket;
 
   @override
@@ -46,9 +51,16 @@ class SocketDataImpl implements SocketData {
     _socket.connect();
 
     _socket.onAny((event, data) {
-      if (kDebugMode) {
-        print('event: $event, data: $data');
-      }});
+      debugPrint("event: $event, data: $data");
+    });
+
+    _socket.on('connect', (_) {
+      _connectStatusController.add(true);
+    });
+
+    _socket.on('disconnect', (_) {
+      _connectStatusController.add(false);
+    });
 
     _socket.on('on_received_rooms_info', (data) {
       final roomsInfo = (data as List).map((e) => RoomInfoModel.fromJson(e)).toList();

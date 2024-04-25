@@ -26,6 +26,7 @@ import 'app/domain/use_case/fetch_rooms_info.dart';
 import 'app/domain/use_case/fetch_settings.dart';
 import 'app/domain/use_case/find_friend.dart';
 import 'app/domain/use_case/get_profile.dart';
+import 'app/domain/use_case/listen_connect_status.dart';
 import 'app/domain/use_case/listen_friend.dart';
 import 'app/domain/use_case/listen_message.dart';
 import 'app/domain/use_case/login.dart';
@@ -80,6 +81,7 @@ class DependencyInjection {
         listenMessage: sl(),
         fetchMessage: sl(),
         sendMessage: sl(),
+        listenConnectStatus: sl(),
       ),
     );
 
@@ -116,6 +118,7 @@ class DependencyInjection {
     sl.registerLazySingleton<CancelFind>(() => CancelFind(repository: sl()));
     sl.registerLazySingleton<AddFriend>(() => AddFriend(socketRepository: sl()));
     sl.registerLazySingleton<ListenFriend>(() => ListenFriend(socketRepository: sl()));
+    sl.registerLazySingleton<ListenConnectStatus>(() => ListenConnectStatus(socketRepository: sl()));
     
 
     // Repositories

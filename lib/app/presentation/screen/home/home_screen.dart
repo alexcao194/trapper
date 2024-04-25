@@ -60,10 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
         if (state is AuthStateUnauthenticated || state is AuthStateFailure) {
           context.pushReplacement(RoutePath.login);
         }
-
-        if (state is AuthStateAuthenticated) {
-          context.read<RoomsBloc>().add(const RoomsFetchRoomsInfo());
-        }
       }
     });
   }
@@ -91,7 +87,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Scaffold(
                     bottomNavigationBar: FlashyTabBar(
                       selectedIndex: index,
-                      onItemSelected: _go,
+                      onItemSelected: (index) {
+                        if (profileState.profile.name == null) {
+                          return;
+                        }
+                        _go(index);
+                      },
                       items: [
                         FlashyTabBarItem(
                           icon: const Icon(Icons.person),

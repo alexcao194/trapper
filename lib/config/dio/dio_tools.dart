@@ -14,7 +14,7 @@ class DioTools {
   }
 
   static String get currentBaseUrl {
-    return localBaseUrl;
+    return baseUrl;
 }
 
   static Dio get dio {

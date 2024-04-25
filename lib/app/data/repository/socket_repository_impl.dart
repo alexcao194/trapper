@@ -73,4 +73,9 @@ class SocketRepositoryImpl implements SocketRepository {
   Stream<Pair<String, Profile>> listenFriend() {
     return _socketData.friendRequestStream;
   }
+
+  @override
+  Stream<bool> listenConnectStatus() {
+    return _socketData.connectStatusStream;
+  }
 }
