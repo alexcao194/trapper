@@ -13,6 +13,7 @@ class AppSocket {
     _socket ??= io(DioTools.currentBaseUrl, OptionBuilder()
         .setTransports(['websocket'])
         .setAuth({'access_token': DependencyInjection.sl<LocalData>().getToken() })
+        .disableAutoConnect()
         .build());
     return _socket!;
   }

@@ -46,8 +46,15 @@ class SocketDataImpl implements SocketData {
 
   SocketDataImpl({required Socket socket}) : _socket = socket;
 
+  bool _hasConnected = false;
+  
   @override
   void connect() async {
+    if (_hasConnected) {
+      return;
+    }
+    _hasConnected = true;
+    debugPrint("Preparing to connect");
     _socket.connect();
 
     _socket.onAny((event, data) {
@@ -59,6 +66,7 @@ class SocketDataImpl implements SocketData {
     });
 
     _socket.on('disconnect', (_) {
+      _hasConnected = false;
       _connectStatusController.add(false);
     });
 
@@ -86,12 +94,10 @@ class SocketDataImpl implements SocketData {
     });
 
     _socket.on('on_received_friend_request', (data) {
-      print("on_received_friend_request");
       _friendRequestController.add(Pair("on_received_friend_request", ProfileModel.fromJson(data['profile'])));
     });
 
     _socket.on('on_accept_friend_request', (data) {
-      print("on_accept_friend_request");
       _friendRequestController.add(Pair("on_accept_friend_request", ProfileModel.fromJson(data['profile'])));
     });
   }
@@ -103,6 +109,7 @@ class SocketDataImpl implements SocketData {
 
   @override
   void sendMessage(String message, {Map<String, dynamic>? data}) {
+    debugPrint("sendMessage: $message, data: $data");
     _socket.emit(message, data);
   }
 }

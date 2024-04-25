@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:trapper/config/dio/dio_tools.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../../../domain/entity/account.dart';
 import '../../../domain/entity/profile.dart';
@@ -70,11 +70,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final result = await _register(event.account, event.profile);
     result.fold(
       (failure) => emit(AuthStateFailure(error: failure.message)),
-      (_) => emit(const AuthStateAuthenticated()),
+      (_) {
+        _connect();
+        emit(const AuthStateAuthenticated());
+      },
     );
   }
 
   FutureOr<void> _onValidateToken(AuthEventValidateToken event, Emitter<AuthState> emit) async {
+    if (state is AuthStateAuthenticated || state is AuthStateLoading) {
+      return;
+    }
+    debugPrint('Preparing to validate token');
     emit(const AuthStateLoading());
     final result = await _validateToken();
     result.fold(

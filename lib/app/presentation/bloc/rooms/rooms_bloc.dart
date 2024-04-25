@@ -71,6 +71,7 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
         },
       )));
     });
+    print("get rooms info");
     _roomsInfoSubscription = _fetchRoomsInfo().listen(
       (roomsInfo) {
         if (roomsInfo.isEmpty) {

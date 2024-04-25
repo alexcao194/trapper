@@ -25,6 +25,7 @@ class SocketRepositoryImpl implements SocketRepository {
 
   @override
   Stream<List<RoomInfo>> fetchRoomsInfo() {
+    print('fetchRoomsInfo');
     _socketData.sendMessage('on_fetch_rooms_info');
     return _socketData.roomsInfoStream.map((roomsInfo) => roomsInfo);
   }
