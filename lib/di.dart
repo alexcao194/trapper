@@ -39,6 +39,7 @@ import 'app/domain/use_case/validate_token.dart';
 import 'app/presentation/bloc/auth/auth_bloc.dart';
 import 'app/presentation/bloc/connect/connect_bloc.dart';
 import 'app/presentation/bloc/friends/friends_bloc.dart';
+import 'app/presentation/bloc/home/home_bloc.dart';
 import 'app/presentation/bloc/profile/profile_bloc.dart';
 import 'app/presentation/bloc/rooms/rooms_bloc.dart';
 import 'app/presentation/bloc/settings/settings_bloc.dart';
@@ -51,6 +52,8 @@ class DependencyInjection {
 
   static Future<void> init() async {
     // Bloc
+    sl.registerFactory<HomeBloc>(() => HomeBloc());
+
     sl.registerFactory<AuthBloc>(
       () => AuthBloc(
         login: sl(),

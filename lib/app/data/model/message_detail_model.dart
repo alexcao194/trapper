@@ -11,7 +11,6 @@ class MessageDetailModel extends MessageDetail {
   });
 
   factory MessageDetailModel.fromJson(Map<String, dynamic> json) {
-    print(json);
     return MessageDetailModel(
       id: json['_id'],
       message: json['content'],

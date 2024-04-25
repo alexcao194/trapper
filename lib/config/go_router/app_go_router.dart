@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../app/presentation/bloc/auth/auth_bloc.dart';
 import '../../app/presentation/screen/home/home_screen.dart';
 import '../../app/presentation/screen/login/login_screen.dart';
 import '../../app/presentation/screen/rooms/messages_screen.dart';

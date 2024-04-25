@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:trapper/app/presentation/bloc/home/home_bloc.dart';
 
 import '../../../../../config/const/dimen.dart';
 import '../../../../../config/go_router/app_go_router.dart';
 import '../../../../../generated/l10n.dart';
-import '../../../../domain/entity/profile.dart';
 import '../../../bloc/friends/friends_bloc.dart';
 import '../../../bloc/rooms/rooms_bloc.dart';
 
@@ -55,6 +55,8 @@ class _DetailHeaderMessageState extends State<DetailHeaderMessage> {
             if (!isFriend) {
               return;
             }
+            context.read<FriendsBloc>().add(FriendPick(friendId: profile.id!));
+            context.read<HomeBloc>().add(const HomeNavigate(index: 1));
             context.go(RoutePath.home);
           },
         );

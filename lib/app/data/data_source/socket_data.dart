@@ -58,7 +58,7 @@ class SocketDataImpl implements SocketData {
     _socket.connect();
 
     _socket.onAny((event, data) {
-      debugPrint("event: $event, data: $data");
+      debugPrint("event: $event");
     });
 
     _socket.on('connect', (_) {

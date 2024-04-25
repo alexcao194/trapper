@@ -31,6 +31,7 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
     on<FriendsFetch>(_onFetch);
     on<FriendsAdd>(_onAdd);
     on<FriendsSendMessage>(_onSendMessage);
+    on<FriendPick>(_onPick);
 
 
     if (_listenFriendSubscription != null) {
@@ -54,7 +55,7 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
     var result = await _fetchFriends();
     result.fold(
       (exception) => emit(state.copyWith(error: exception.message, isLoading: false, showError: true, showMessages: false)),
-      (friends) => emit(state.copyWith(friends: friends, isLoading: false, showError: false, showMessages: false)),
+      (friends) => emit(state.copyWith(friends: friends, isLoading: false, showError: false, showMessages: false, currentID: state.currentID ?? friends.first.id)),
     );
   }
 
@@ -67,5 +68,9 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
   FutureOr<void> _onSendMessage(FriendsSendMessage event, Emitter<FriendsState> emit) {
     emit(state.copyWith(isLoading: false, showError: false, error: null, message: event.message, showMessages: true));
     emit(state.copyWith(isLoading: false, showError: false, error: null, message: null, showMessages: false));
+  }
+
+  FutureOr<void> _onPick(FriendPick event, Emitter<FriendsState> emit) {
+    emit(state.copyWith(currentID: event.friendId));
   }
 }

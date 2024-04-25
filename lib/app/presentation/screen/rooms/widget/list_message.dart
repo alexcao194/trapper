@@ -16,7 +16,6 @@ class ListMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, profileState) {
-        print('profileState: ${profileState.profile}');
         return BlocBuilder<RoomsBloc, RoomsState>(
           builder: (context, roomsState) {
             var currentMessages = roomsState.messages[roomsState.currentID];

@@ -7,6 +7,7 @@ class FriendsState extends Equatable {
   final List<Profile> friends;
   final String? message;
   final bool showMessages;
+  final String? currentID;
 
   const FriendsState({
     this.isLoading = false,
@@ -15,10 +16,11 @@ class FriendsState extends Equatable {
     this.friends = const [],
     this.message,
     this.showMessages = false,
+    this.currentID,
   });
 
   @override
-  List<Object?> get props => [isLoading, error, showError, friends, message, showMessages];
+  List<Object?> get props => [isLoading, error, showError, friends, message, showMessages, currentID];
 
   FriendsState copyWith({
     bool? isLoading,
@@ -27,6 +29,7 @@ class FriendsState extends Equatable {
     List<Profile>? friends,
     String? message,
     bool? showMessages,
+    String? currentID,
   }) {
     return FriendsState(
       isLoading: isLoading ?? this.isLoading,
@@ -35,6 +38,7 @@ class FriendsState extends Equatable {
       friends: friends ?? this.friends,
       message: message ?? this.message,
       showMessages: showMessages ?? this.showMessages,
+      currentID: currentID ?? this.currentID,
     );
   }
 }

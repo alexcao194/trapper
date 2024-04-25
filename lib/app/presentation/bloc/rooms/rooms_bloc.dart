@@ -42,7 +42,6 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
     on<RoomsSendMessage>(_onSendMessage);
 
     _listenConnectStatus().listen((isConnected) {
-      print('isConnected--: $isConnected');
       if (isConnected) {
         add(const RoomsFetchRoomsInfo());
       }

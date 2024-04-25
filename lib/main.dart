@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trapper/app/presentation/bloc/friends/friends_bloc.dart';
+import 'package:trapper/app/presentation/bloc/home/home_bloc.dart';
 import 'package:trapper/app/presentation/bloc/settings/settings_bloc.dart';
 import 'package:trapper/config/const/app_colors.dart';
 import 'app/presentation/bloc/auth/auth_bloc.dart';
@@ -31,6 +32,7 @@ void main() async {
         BlocProvider<RoomsBloc>(create: (context) => DependencyInjection.sl<RoomsBloc>()),
         BlocProvider<ConnectBloc>(create: (context) => DependencyInjection.sl<ConnectBloc>()),
         BlocProvider<FriendsBloc>(create: (context) => DependencyInjection.sl<FriendsBloc>()),
+        BlocProvider<HomeBloc>(create: (context) => DependencyInjection.sl<HomeBloc>()),
       ],
       child: const MyApp(),
     ),
