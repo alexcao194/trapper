@@ -46,8 +46,18 @@ class _FriendsTabState extends State<FriendsTab> {
                           tileColor: friend.id == state.currentID ? Theme.of(context).colorScheme.primaryContainer : Theme.of(context).colorScheme.background,
                           title: Text(friend.name!),
                           subtitle: const Text('Online'),
-                          leading: CircleAvatar(
-                            child: friend.photoUrl != null ? Image.network(friend.photoUrl!) : const Icon(Icons.person),
+                          leading: SizedBox(
+                            height: 50,
+                            width: 50,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: friend.photoUrl != null
+                                  ? Image.network(
+                                      friend.photoUrl!,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : const Icon(Icons.person),
+                            ),
                           ),
                           shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
