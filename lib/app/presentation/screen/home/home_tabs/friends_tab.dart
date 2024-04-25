@@ -44,6 +44,7 @@ class _FriendsTabState extends State<FriendsTab> {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
+                          tileColor: friend.id == state.currentID ? Theme.of(context).colorScheme.primaryContainer : Theme.of(context).colorScheme.background,
                           title: Text(friend.name!),
                           subtitle: const Text('Online'),
                           leading: CircleAvatar(
@@ -53,9 +54,7 @@ class _FriendsTabState extends State<FriendsTab> {
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
                           onTap: () {
-                            setState(() {
-                              _selectedIndex = index;
-                            });
+                            context.read<FriendsBloc>().add(FriendPick(friendId: friend.id!));
                           },
                           trailing: IconButton(
                             icon: const Icon(Icons.message_outlined),
@@ -74,7 +73,7 @@ class _FriendsTabState extends State<FriendsTab> {
                   : Expanded(
                       flex: 2,
                       child: ProfileTab(
-                        profile: state.friends[_selectedIndex],
+                        profile: state.friends.firstWhere((element) => element.id == state.currentID),
                         owner: false,
                       ),
                     ),
