@@ -58,20 +58,19 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
       final id = pair.key;
       final oldMessages = state.messages[id] ?? [];
       final messages = newMessages.where((newMessage) => !oldMessages.any((oldMessage) => oldMessage.id == newMessage.id)).toList();
-      add(RoomsUpdateRoomsInfo(roomsState: state.copyWith(
+      add(RoomsUpdateRoomsInfo(
+          roomsState: state.copyWith(
         messages: {
           ...state.messages,
           id: [
             ...state.messages[id] ?? [],
             ...messages,
-          ]
-            ..sort(
-            (a, b) => - a.timestamp!.compareTo(b.timestamp!),
-          ),
+          ]..sort(
+              (a, b) => -a.timestamp!.compareTo(b.timestamp!),
+            ),
         },
       )));
     });
-    print("get rooms info");
     _roomsInfoSubscription = _fetchRoomsInfo().listen(
       (roomsInfo) {
         if (roomsInfo.isEmpty) {
@@ -81,7 +80,17 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
         if (state.currentID == null) {
           _fetchMessage(roomsInfo.first.id!);
         }
-        add(RoomsUpdateRoomsInfo(roomsState: state.copyWith(roomsInfo: roomsInfo, currentID: roomsInfo.first.id)));
+        add(
+          RoomsUpdateRoomsInfo(
+            roomsState: state.copyWith(
+              roomsInfo: roomsInfo
+              ..sort(
+                (a, b) => -a.lastMessage!.timestamp!.compareTo(b.lastMessage!.timestamp!),
+              ),
+              currentID: state.currentID ?? roomsInfo.first.id,
+            ),
+          ),
+        );
       },
       onError: (error) {
         add(RoomsUpdateRoomsInfo(roomsState: state.copyWith(error: error.toString())));
