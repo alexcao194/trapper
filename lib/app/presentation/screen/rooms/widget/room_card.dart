@@ -12,12 +12,14 @@ class RoomCard extends StatelessWidget {
   final Profile profile;
   final MessageDetail? lastMessage;
   final String roomID;
+  final bool isSelecting;
 
-  const RoomCard({super.key, required this.profile, this.lastMessage, required this.roomID});
+  const RoomCard({super.key, required this.profile, this.lastMessage, required this.roomID, required this.isSelecting});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      tileColor: isSelecting ? Theme.of(context).colorScheme.primaryContainer : Theme.of(context).colorScheme.background,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),

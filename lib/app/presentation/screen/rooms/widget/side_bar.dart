@@ -62,6 +62,7 @@ class SideBar extends StatelessWidget {
                               ),
                               onPressed: () {},
                               child: RoomCard(
+                                isSelecting: state.currentID == state.roomsInfo[index].id,
                                 profile: state.roomsInfo[index].profile!,
                                 lastMessage: state.roomsInfo[index].lastMessage,
                                 roomID: state.roomsInfo[index].id!,
