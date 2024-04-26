@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'app/presentation/bloc/auth/auth_bloc.dart';
@@ -21,7 +20,6 @@ import 'di.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenvInit();
   await HiveTools.init();
   DioTools.init();
   await DependencyInjection.init();
@@ -42,14 +40,6 @@ void main() async {
       child: const MyApp(),
     ),
   );
-}
-
-dotenvInit() async {
-  if (kIsWeb && kDebugMode) {
-    await dotenv.load(fileName: ".env/.env_dev");
-  } else {
-    await dotenv.load(fileName: ".env/.env_prod");
-  }
 }
 
 class MyApp extends StatelessWidget {
