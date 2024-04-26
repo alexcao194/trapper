@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter/foundation.dart';
 import 'package:trapper/di.dart';
 
 import '../../app/data/data_source/local_data.dart';
@@ -13,7 +12,7 @@ class DioTools {
   static Dio get dio => _dio;
 
   static void init() {
-    _baseUrl = dotenv.env['BASE_URL']!;
+    _baseUrl = _getUrl();
     debugPrint('BASE_URL: $_baseUrl');
     _dio = Dio(
         BaseOptions(
@@ -32,13 +31,13 @@ class DioTools {
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
         options.headers['access_token'] = DependencyInjection.sl<LocalData>().getToken();
-        return handler.next(options); //continue
+        return handler.next(options);
       },
       onResponse: (response, handler) async {
         if (response.statusCode == 401) {
           Map<String, String>? newToken = await refreshToken();
           if (newToken == null) {
-            return handler.reject(DioException(requestOptions: response.requestOptions, response: response));
+            return handler.resolve(response);
           }
           DependencyInjection.sl<LocalData>().saveToken(newToken['access_token']!);
           DependencyInjection.sl<LocalData>().saveRefreshToken(newToken['refresh_token']!);
@@ -79,5 +78,13 @@ class DioTools {
     }
     debugPrint(response.data);
     return null;
+  }
+
+  static String _getUrl() {
+    if (kDebugMode && kIsWeb) {
+      return 'http://localhost:1904';
+    } else {
+      return 'https://trapper-server.onrender.com';
+    }
   }
 }
