@@ -56,7 +56,6 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
     result.fold(
       (exception) => emit(state.copyWith(error: exception.message, isLoading: false, showError: true, showMessages: false)),
       (friends) {
-        print(friends);
         if (friends.isEmpty) {
           emit(state.copyWith(isLoading: false, showError: false, error: null, showMessages: false));
         } else {
