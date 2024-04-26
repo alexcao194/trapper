@@ -149,13 +149,12 @@ class DependencyInjection {
     // Data
     sl.registerLazySingleton<RemoteData>(() => RemoteDataImpl(dio: sl()));
     sl.registerLazySingleton<LocalData>(() => LocalDataImpl(sharedPreferences: sl(), profileBox: sl(), settingsSnapshotBox: sl()));
-    sl.registerLazySingleton<SocketData>(() => SocketDataImpl(socket: sl()));
+    sl.registerLazySingleton<SocketData>(() => SocketDataImpl());
 
     // 3th service
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
     sl.registerLazySingleton<Dio>(() => DioTools.dio);
-    sl.registerLazySingleton<Socket>(() => AppSocket.socket);
 
     // Hive
     sl.registerLazySingleton<Box<ProfileModel>>(() => HiveTools.profileBox);

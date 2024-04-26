@@ -1,8 +1,6 @@
 import 'package:socket_io_client/socket_io_client.dart';
-import 'package:trapper/config/dio/dio_tools.dart';
 
-import '../../app/data/data_source/local_data.dart';
-import '../../di.dart';
+import '../dio/dio_tools.dart';
 
 class AppSocket {
   const AppSocket._();
@@ -10,11 +8,24 @@ class AppSocket {
   static Socket? _socket;
 
   static Socket get socket {
-    _socket ??= io(DioTools.baseUrl, OptionBuilder()
-        .setTransports(['websocket'])
-        .setAuth({'access_token': DependencyInjection.sl<LocalData>().getToken() })
-        .disableAutoConnect()
-        .build());
+    _socket ??= io(
+      DioTools.baseUrl,
+      OptionBuilder()
+          .setTransports(['websocket'])
+          .disableAutoConnect()
+          .build(),
+    );
     return _socket!;
+  }
+
+  static void init(String token) {
+    _socket = io(
+      DioTools.baseUrl,
+      OptionBuilder()
+          .setTransports(['websocket'])
+          .setAuth({'access_token': token})
+          .disableAutoConnect()
+          .build(),
+    );
   }
 }

@@ -5,6 +5,7 @@ import 'package:pair/pair.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:trapper/app/data/model/profile_model.dart';
 
+import '../../../config/socket/app_socket.dart';
 import '../model/message_detail_model.dart';
 import '../model/room_info_model.dart';
 
@@ -21,7 +22,6 @@ abstract class SocketData {
 }
 
 class SocketDataImpl implements SocketData {
-  final Socket _socket;
 
   final StreamController<List<RoomInfoModel>> _roomsInfoController = StreamController<List<RoomInfoModel>>.broadcast();
   final StreamController<RoomInfoModel> _findFriendController = StreamController<RoomInfoModel>.broadcast();
@@ -44,7 +44,7 @@ class SocketDataImpl implements SocketData {
   @override
   Stream<bool> get connectStatusStream => _connectStatusController.stream;
 
-  SocketDataImpl({required Socket socket}) : _socket = socket;
+  SocketDataImpl();
 
   bool _hasConnected = false;
   
@@ -55,27 +55,27 @@ class SocketDataImpl implements SocketData {
     }
     _hasConnected = true;
     debugPrint("Preparing to connect");
-    _socket.connect();
+    AppSocket.socket.connect();
 
-    _socket.onAny((event, data) {
+    AppSocket.socket.onAny((event, data) {
       debugPrint("event: $event");
     });
 
-    _socket.on('connect', (_) {
+    AppSocket.socket.on('connect', (_) {
       _connectStatusController.add(true);
     });
 
-    _socket.on('disconnect', (_) {
+    AppSocket.socket.on('disconnect', (_) {
       _hasConnected = false;
       _connectStatusController.add(false);
     });
 
-    _socket.on('on_received_rooms_info', (data) {
+    AppSocket.socket.on('on_received_rooms_info', (data) {
       final roomsInfo = (data as List).map((e) => RoomInfoModel.fromJson(e)).toList();
       _roomsInfoController.add(roomsInfo);
     });
 
-    _socket.on('on_received_rooms_messages', (data){
+    AppSocket.socket.on('on_received_rooms_messages', (data){
       final List<MessageDetailModel> messages = [];
       for (var message in data['list_messages']) {
         messages.add(MessageDetailModel.fromJson(message));
@@ -83,33 +83,33 @@ class SocketDataImpl implements SocketData {
       _roomsMessagesController.add(Pair(data['_id'], messages));
     });
 
-    _socket.on('on_received_message', (data) {
+    AppSocket.socket.on('on_received_message', (data) {
       final message = MessageDetailModel.fromJson(data['message']);
       final roomId = data['room_id'];
       _roomsMessagesController.add(Pair(roomId, [message]));
     });
 
-    _socket.on('on_found', (data) {
+    AppSocket.socket.on('on_found', (data) {
       _findFriendController.add(RoomInfoModel.fromJson(data));
     });
 
-    _socket.on('on_received_friend_request', (data) {
+    AppSocket.socket.on('on_received_friend_request', (data) {
       _friendRequestController.add(Pair("on_received_friend_request", ProfileModel.fromJson(data['profile'])));
     });
 
-    _socket.on('on_accept_friend_request', (data) {
+    AppSocket.socket.on('on_accept_friend_request', (data) {
       _friendRequestController.add(Pair("on_accept_friend_request", ProfileModel.fromJson(data['profile'])));
     });
   }
 
   @override
   void disconnect() {
-    _socket.disconnect();
+    AppSocket.socket.disconnect();
   }
 
   @override
   void sendMessage(String message, {Map<String, dynamic>? data}) {
     debugPrint("sendMessage: $message, data: $data");
-    _socket.emit(message, data);
+    AppSocket.socket.emit(message, data);
   }
 }

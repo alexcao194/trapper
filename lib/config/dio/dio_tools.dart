@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:trapper/config/socket/app_socket.dart';
 import 'package:trapper/di.dart';
 
 import '../../app/data/data_source/local_data.dart';
@@ -39,6 +40,7 @@ class DioTools {
           if (newToken == null) {
             return handler.resolve(response);
           }
+          AppSocket.init(newToken['access_token']!);
           DependencyInjection.sl<LocalData>().saveToken(newToken['access_token']!);
           DependencyInjection.sl<LocalData>().saveRefreshToken(newToken['refresh_token']!);
           response.requestOptions.headers['access_token'] = newToken['access_token'];
