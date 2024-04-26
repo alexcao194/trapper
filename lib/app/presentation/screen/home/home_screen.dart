@@ -30,7 +30,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   PageController? _pageController;
-  bool _showLastMessage = true;
+  bool _showLastMessage = false;
 
   @override
   void initState() {
@@ -41,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
     context.read<ConnectBloc>().add(const ConnectFetchHobbies());
     context.read<FriendsBloc>().add(const FriendsFetch());
     context.read<HomeBloc>().add(HomeInitial(pageController: _pageController!));
-    _waitHideLastMessage();
   }
 
   _go(int index) {

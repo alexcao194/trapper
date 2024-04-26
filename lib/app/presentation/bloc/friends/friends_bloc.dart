@@ -55,7 +55,14 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
     var result = await _fetchFriends();
     result.fold(
       (exception) => emit(state.copyWith(error: exception.message, isLoading: false, showError: true, showMessages: false)),
-      (friends) => emit(state.copyWith(friends: friends, isLoading: false, showError: false, showMessages: false, currentID: state.currentID ?? friends.first.id)),
+      (friends) {
+        print(friends);
+        if (friends.isEmpty) {
+          emit(state.copyWith(isLoading: false, showError: false, error: null, showMessages: false));
+        } else {
+          emit(state.copyWith(friends: friends, isLoading: false, showError: false, showMessages: false, currentID: state.currentID ?? friends.first.id));
+        }
+      },
     );
   }
 

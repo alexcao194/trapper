@@ -8,6 +8,7 @@ import '../../../../../config/const/dimen.dart';
 import '../../../../../generated/assets.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../domain/entity/profile.dart';
+import '../../../bloc/home/home_bloc.dart';
 import '../../../bloc/profile/profile_bloc.dart';
 import '../../../bloc/settings/settings_bloc.dart';
 import '../../login/widget/rounded_text_field.dart';
@@ -167,7 +168,7 @@ class _SettingsTabState extends State<SettingsTab> {
                 final avatar = GestureDetector(
                   onTap: _showImagePicker,
                   child: Center(
-                    child:                         Container(
+                    child: Container(
                       height: 140,
                       width: 140,
                       padding: const EdgeInsets.all(3),
@@ -187,13 +188,13 @@ class _SettingsTabState extends State<SettingsTab> {
                             borderRadius: BorderRadius.circular(100),
                             child: profile.photoUrl != null
                                 ? Image.network(
-                              profile.photoUrl!,
-                              fit: BoxFit.cover,
-                            )
+                                    profile.photoUrl!,
+                                    fit: BoxFit.cover,
+                                  )
                                 : Image.asset(
-                              Assets.pngDefaultAvatar,
-                              fit: BoxFit.cover,
-                            ),
+                                    Assets.pngDefaultAvatar,
+                                    fit: BoxFit.cover,
+                                  ),
                           )),
                     ),
                   ),
@@ -341,6 +342,7 @@ class _SettingsTabState extends State<SettingsTab> {
   }
 
   void _save() {
+    context.read<HomeBloc>().add(const HomeNavigate(index: 0));
     context.read<SettingsBloc>().add(const SettingsSave());
   }
 }
