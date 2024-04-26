@@ -34,22 +34,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    _pageController = PageController();
     context.read<AuthBloc>().add(const AuthEventValidateToken());
     context.read<ProfileBloc>().add(const ProfileEventGet());
     context.read<ConnectBloc>().add(const ConnectFetchHobbies());
     context.read<FriendsBloc>().add(const FriendsFetch());
-    _pageController = PageController();
     context.read<HomeBloc>().add(HomeInitial(pageController: _pageController!));
-
     _waitHideLastMessage();
-
-    context.read<AuthBloc>().stream.listen((state) {
-      if (mounted) {
-        if (state is AuthStateUnauthenticated || state is AuthStateFailure) {
-          context.pushReplacement(RoutePath.login);
-        }
-      }
-    });
   }
 
   _go(int index) {
@@ -71,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
               }
             },
             child: BlocConsumer<RoomsBloc, RoomsState>(
-              listenWhen: (previous, roomsState) => roomsState.roomsInfo.first.lastMessage != previous.roomsInfo.first.lastMessage,
+              listenWhen: (previous, roomsState) => previous.roomsInfo.isEmpty || roomsState.roomsInfo.first.lastMessage != previous.roomsInfo.first.lastMessage,
               listener: (context, roomsState) {
                 if (roomsState.roomsInfo.isNotEmpty) {
                   setState(() {

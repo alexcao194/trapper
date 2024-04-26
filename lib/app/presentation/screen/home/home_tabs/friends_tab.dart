@@ -73,7 +73,7 @@ class _FriendsTabState extends State<FriendsTab> {
                             icon: const Icon(Icons.message_outlined),
                             onPressed: () {
                               context.read<RoomsBloc>().add(RoomPickWithUserId(userID: friend.id!));
-                              context.push(RoutePath.messages);
+                              context.go(RoutePath.messages);
                             },
                           )),
                     );
