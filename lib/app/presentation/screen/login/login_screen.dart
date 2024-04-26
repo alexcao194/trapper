@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rive/rive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
@@ -52,7 +53,11 @@ class _LoginScreenState extends State<LoginScreen> {
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthStateAuthenticated) {
-              _successTrigger.fire();
+              try {
+                _successTrigger.fire();
+              } catch (e) {
+                debugPrint(e.toString());
+              }
               context.go(RoutePath.home);
             } else if (state is AuthStateFailure) {
               if (state.error != null) {
@@ -193,8 +198,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 if (state is AuthStateLoading)
                   Container(
                     color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.5),
-                    child: const Center(
-                      child: CircularProgressIndicator(),
+                    child: Center(
+                      child: LoadingAnimationWidget.fourRotatingDots(
+                        color: Theme.of(context).colorScheme.primary,
+                        size: 50,
+                      ),
                     ),
                   ),
               ],
