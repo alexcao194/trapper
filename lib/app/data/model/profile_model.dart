@@ -1,12 +1,16 @@
 import 'package:hive/hive.dart';
-import 'package:trapper/app/domain/entity/profile.dart';
-import 'package:trapper/config/dio/dio_tools.dart';
+
+
+import '../../../config/dio/dio_tools.dart';
+import '../../domain/entity/hobby.dart';
+import '../../domain/entity/profile.dart';
+import 'hobby_model.dart';
 
 part 'profile_model.g.dart';
 
 @HiveType(typeId: 10)
 class ProfileModel extends Profile {
-  const ProfileModel({super.name, super.email, super.photoUrl, super.gender, super.birthDate, super.id, super.photos, super.bio});
+  const ProfileModel({super.name, super.email, super.photoUrl, super.gender, super.birthDate, super.id, super.photos, super.bio, super.hobbies = const []});
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     List<String?> photos = List.filled(6, null);
@@ -20,6 +24,12 @@ class ProfileModel extends Profile {
     if (photoUrl != null) {
       photoUrl = "${DioTools.baseUrl}/$photoUrl";
     }
+    List<HobbyModel> hobbies = [];
+    if (json['hobbies'] != null) {
+      json['hobbies'].forEach((v) {
+        hobbies.add(HobbyModel.fromJson(v));
+      });
+    }
     return ProfileModel(
       name: json['full_name'] as String?,
       email: json['email'] as String?,
@@ -29,6 +39,7 @@ class ProfileModel extends Profile {
       id: json['_id'] as String?,
       bio: json['bio'] as String?,
       photos: photos,
+      hobbies: hobbies,
     );
   }
 

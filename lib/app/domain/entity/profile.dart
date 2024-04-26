@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'hobby.dart';
+
 part 'profile.g.dart';
 
 @HiveType(typeId: 0)
@@ -21,16 +23,18 @@ class Profile extends Equatable {
   final List<String?>? photos;
   @HiveField(7)
   final String? bio;
+  @HiveField(8)
+  final List<Hobby> hobbies;
 
-  const Profile({this.name, this.email, this.photoUrl, this.gender, this.birthDate, this.id, this.bio, this.photos});
+  const Profile({this.name, this.email, this.photoUrl, this.gender, this.birthDate, this.id, this.bio, this.photos, this.hobbies = const []});
 
   @override
   String toString() {
-    return "Profile(name: $name, email: $email,photoUrl: $photoUrl, gender: $gender, birthDate: $birthDate, id: $id, bio: $bio, photos: $photos)";
+    return "Profile(name: $name, email: $email,photoUrl: $photoUrl, gender: $gender, birthDate: $birthDate, id: $id, bio: $bio, photos: $photos) hobbies: $hobbies";
   }
 
   @override
-  List<Object?> get props => [name, email, photoUrl, gender, birthDate, id, bio, photos];
+  List<Object?> get props => [name, email, photoUrl, gender, birthDate, id, bio, photos, hobbies];
 
   Profile copyWith({
     String? name,
@@ -41,6 +45,7 @@ class Profile extends Equatable {
     String? id,
     String? bio,
     List<String?>? photos,
+    List<Hobby>? hobbies,
   }) {
     return Profile(
       name: name ?? this.name,
@@ -51,6 +56,7 @@ class Profile extends Equatable {
       id: id ?? this.id,
       bio: bio ?? this.bio,
       photos: photos ?? this.photos,
+      hobbies: hobbies ?? this.hobbies,
     );
   }
 }
