@@ -16,6 +16,7 @@ class ListMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, profileState) {
         return BlocBuilder<RoomsBloc, RoomsState>(
@@ -37,7 +38,6 @@ class ListMessage extends StatelessWidget {
               itemCount: currentMessages.length,
               itemBuilder: (context, index) {
                 var isSender = currentMessages![index].sender == profileState.profile.id;
-                var size = MediaQuery.of(context).size;
                 return Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Row(

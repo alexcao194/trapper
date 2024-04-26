@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../../generated/assets.dart';
+
 import '../../../../../generated/l10n.dart';
 import '../../../../domain/entity/message_detail.dart';
 import '../../../bloc/rooms/rooms_bloc.dart';
+import 'sticker.dart';
 
 class InputMessage extends StatefulWidget {
   const InputMessage({super.key});
@@ -24,6 +25,7 @@ class _InputMessageState extends State<InputMessage> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return BlocBuilder<RoomsBloc, RoomsState>(
       builder: (context, state) {
         return Column(
@@ -34,7 +36,7 @@ class _InputMessageState extends State<InputMessage> {
                 padding: const EdgeInsets.all(8.0),
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.5,
+                    maxWidth: size.width * 0.5,
                   ),
                   child: Stack(
                     children: [
@@ -72,21 +74,42 @@ class _InputMessageState extends State<InputMessage> {
             const SizedBox(height: 8),
             AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                height: _showEmoji ? 200 : 0,
+                height: _showEmoji ? 400 : 0,
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.background,
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                    ),
-                    itemBuilder: (context, index) {
-                      return Image.asset(Assets.assetsBanner);
-                    },
-                    itemCount: 32,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(S.current.search, style: Theme.of(context).textTheme.titleMedium),
+                      SearchBar(
+                        onChanged: (value) {},
+                        hintText: S.current.search_hint,
+                        elevation: MaterialStateProperty.all(0),
+                        backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.background),
+                        leading: const Icon(Icons.search),
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(50), side: BorderSide(color: Theme.of(context).colorScheme.primary))),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(S.current.emoji, style: Theme.of(context).textTheme.titleMedium),
+                      Expanded(
+                        child: GridView.builder(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: size.width ~/ 100,
+                          ),
+                          itemBuilder: (context, index) {
+                            return const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Sticker(),
+                            );
+                          },
+                          itemCount: 1,
+                        ),
+                      ),
+                    ],
                   ),
                 )),
             const SizedBox(height: 8),
