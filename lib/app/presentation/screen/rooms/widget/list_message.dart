@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../config/const/dimen.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../domain/entity/message_detail.dart';
 import '../../../bloc/profile/profile_bloc.dart';
 import '../../../bloc/rooms/rooms_bloc.dart';
+import 'image_message.dart';
 import 'text_message.dart';
 
 class ListMessage extends StatelessWidget {
@@ -34,9 +36,40 @@ class ListMessage extends StatelessWidget {
               reverse: true,
               itemCount: currentMessages.length,
               itemBuilder: (context, index) {
-                return TextMessage(
-                  isSender: currentMessages![index].sender == profileState.profile.id,
-                  message: currentMessages[index].message,
+                var isSender = currentMessages![index].sender == profileState.profile.id;
+                var size = MediaQuery.of(context).size;
+                return Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Row(
+                    children: [
+                      if (isSender) const Spacer(),
+                      ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: (size.width > Dimen.mobileWidth) ? size.width * 0.4 : size.width * 0.6,
+                        ),
+                        child: Builder(
+                          builder: (context) {
+                            switch(currentMessages![index].type) {
+                              case MessageType.image:
+                                return ImageMessage(
+                                  src: currentMessages[index].message!,
+                                );
+                              case MessageType.emoji:
+                                return TextMessage(
+                                  isSender: isSender,
+                                  message: currentMessages[index].message!,
+                                );
+                              default:
+                                return TextMessage(
+                                  isSender: isSender,
+                                  message: currentMessages[index].message!,
+                                );
+                            }
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             );

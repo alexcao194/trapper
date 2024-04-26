@@ -1,12 +1,12 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:trapper/app/domain/entity/message_detail.dart';
-import 'package:trapper/generated/assets.dart';
 
+import '../../../../../generated/assets.dart';
 import '../../../../../generated/l10n.dart';
+import '../../../../domain/entity/message_detail.dart';
 import '../../../bloc/rooms/rooms_bloc.dart';
 
 class InputMessage extends StatefulWidget {
@@ -19,6 +19,7 @@ class InputMessage extends StatefulWidget {
 class _InputMessageState extends State<InputMessage> {
   bool _showEmoji = false;
   Image? _image;
+  Uint8List? _imageBytes;
   late TextEditingController _controller;
 
   @override
@@ -154,9 +155,9 @@ class _InputMessageState extends State<InputMessage> {
   void _pickImage() {
     ImagePicker().pickImage(source: ImageSource.gallery).then((value) async {
       if (value == null) return;
-      var tmp = await value.readAsBytes();
+      _imageBytes = await value.readAsBytes();
       setState(() {
-        _image = Image.memory(tmp);
+        _image = Image.memory(_imageBytes!);
       });
     });
   }
@@ -168,6 +169,18 @@ class _InputMessageState extends State<InputMessage> {
         type: MessageType.text,
       );
       _controller.clear();
+      context.read<RoomsBloc>().add(RoomsSendMessage(roomID: roomID, message: message));
+    }
+
+    if (_imageBytes != null) {
+      var message = MessageDetail(
+        type: MessageType.image,
+        image: _imageBytes,
+      );
+      _imageBytes = null;
+      setState(() {
+        _image = null;
+      });
       context.read<RoomsBloc>().add(RoomsSendMessage(roomID: roomID, message: message));
     }
   }

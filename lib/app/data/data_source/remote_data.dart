@@ -20,6 +20,7 @@ abstract class RemoteData {
   Future<List<HobbyModel>> getHobbies();
   Future<List<String?>> postPhoto({required Uint8List image, required int index});
   Future<List<Profile>> getFriends();
+  Future<String> sendImage({required Uint8List image, required String roomId});
 }
 
 class RemoteDataImpl implements RemoteData {
@@ -196,5 +197,25 @@ class RemoteDataImpl implements RemoteData {
         message: jsonEncode(response.data),
       );
     }
+  }
+
+  @override
+  Future<String> sendImage({required Uint8List image, required String roomId}) {
+    final partFile = MultipartFile.fromBytes(
+      image,
+      filename: '$roomId.jpg',
+    );
+    final data = FormData()..files.add(MapEntry('photo_url', partFile));
+    return dio.post('/message/image', data: data).then((value) {
+      if (value.statusCode == 200) {
+        return value.data['photo_url'];
+      } else {
+        throw DioException(
+          requestOptions: value.requestOptions,
+          response: value,
+          message: jsonEncode(value.data),
+        );
+      }
+    });
   }
 }

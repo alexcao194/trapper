@@ -1,4 +1,4 @@
-
+import '../../../config/dio/dio_tools.dart';
 import '../../domain/entity/message_detail.dart';
 
 class MessageDetailModel extends MessageDetail {
@@ -8,12 +8,22 @@ class MessageDetailModel extends MessageDetail {
     required super.type,
     required super.timestamp,
     required super.sender,
+    super.image,
   });
 
   factory MessageDetailModel.fromJson(Map<String, dynamic> json) {
+    String message = '';
+    switch (json['type']) {
+      case 'image':
+        message = '${DioTools.currentBaseUrl}/${json['content']}';
+      case 'emoji':
+        message = json['content'];
+      default:
+        message = json['content'];
+    }
     return MessageDetailModel(
       id: json['_id'],
-      message: json['content'],
+      message: message,
       type: MessageType.fromValue(json['type'] ?? 'text'),
       timestamp: json['timestamp'],
       sender: json['sender'],
@@ -37,22 +47,6 @@ class MessageDetailModel extends MessageDetail {
       type: messageDetail.type,
       timestamp: messageDetail.timestamp,
       sender: messageDetail.sender,
-    );
-  }
-
-  MessageDetailModel copyWith({
-    String? id,
-    String? message,
-    MessageType? type,
-    int? timestamp,
-    String? sender,
-  }) {
-    return MessageDetailModel(
-      id: id ?? this.id,
-      message: message ?? this.message,
-      type: type ?? this.type,
-      timestamp: timestamp ?? this.timestamp,
-      sender: sender ?? this.sender,
     );
   }
 }

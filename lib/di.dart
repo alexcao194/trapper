@@ -142,6 +142,7 @@ class DependencyInjection {
     sl.registerLazySingleton<SocketRepository>(
       () => SocketRepositoryImpl(
         socketData: sl(),
+        remoteData: sl()
       ),
     );
 

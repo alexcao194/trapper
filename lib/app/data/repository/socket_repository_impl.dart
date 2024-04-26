@@ -5,12 +5,15 @@ import '../../domain/entity/connect_data.dart';
 import '../../domain/entity/message_detail.dart';
 import '../../domain/entity/room_info.dart';
 import '../../domain/repository/socket_repository.dart';
+import '../data_source/remote_data.dart';
 import '../data_source/socket_data.dart';
 
 class SocketRepositoryImpl implements SocketRepository {
   late SocketData _socketData;
-  SocketRepositoryImpl({required SocketData socketData}) {
+  late RemoteData _remoteData;
+  SocketRepositoryImpl({required SocketData socketData, required RemoteData remoteData}) {
     _socketData = socketData;
+    _remoteData = remoteData;
   }
 
   @override
@@ -51,7 +54,11 @@ class SocketRepositoryImpl implements SocketRepository {
   }
 
   @override
-  void sendMessage({required String roomID, required MessageDetail message}) {
+  void sendMessage({required String roomID, required MessageDetail message}) async {
+    if (message.type == MessageType.image) {
+      var content = await _remoteData.sendImage(image: message.image!, roomId: roomID);
+      message = message.copyWith(message: content);
+    }
     _socketData.sendMessage('on_send_message', data: {
       'room_id': roomID,
       'content': message.message,
