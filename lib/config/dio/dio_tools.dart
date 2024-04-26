@@ -1,33 +1,29 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:trapper/di.dart';
 
 import '../../app/data/data_source/local_data.dart';
 class DioTools {
-  static String get baseUrl {
-    return 'https://trapper-server.onrender.com';
-  }
+  static late String _baseUrl;
+  static late Dio _dio;
+  static String get baseUrl => _baseUrl;
+  static Dio get dio => _dio;
 
-  static String get localBaseUrl {
-    return 'http://localhost:1904';
-  }
-
-  static String get currentBaseUrl {
-    return localBaseUrl;
-}
-
-  static Dio get dio {
-    Dio dio = Dio(
-      BaseOptions(
-        validateStatus: (status) => status! < 500,
-        baseUrl: currentBaseUrl,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      )
+  static void init() {
+    _baseUrl = dotenv.env['BASE_URL']!;
+    debugPrint('BASE_URL: $_baseUrl');
+    _dio = Dio(
+        BaseOptions(
+          validateStatus: (status) => status! < 500,
+          baseUrl: _baseUrl,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        )
     );
-    return dio;
   }
 
   static Stream<bool> registerInterceptors(Dio dio) {
@@ -39,7 +35,7 @@ class DioTools {
         return handler.next(options); //continue
       },
       onResponse: (response, handler) async {
-        if (response.statusCode == 403) {
+        if (response.statusCode == 401) {
           Map<String, String>? newToken = await refreshToken();
           if (newToken == null) {
             return handler.reject(DioException(requestOptions: response.requestOptions, response: response));
@@ -61,6 +57,13 @@ class DioTools {
 
   static Future<Map<String, String>?> refreshToken() async {
     String refreshToken = DependencyInjection.sl<LocalData>().getRefreshToken();
+    debugPrint("Access token is expired or not found.");
+    if (refreshToken.isEmpty) {
+      debugPrint('User is not logged in. No refresh token found.');
+      return null;
+    }
+    debugPrint('Refreshing token...');
+    debugPrint('Refresh token: $refreshToken');
     var response = await dio.get(
       '/auth/refresh_token',
       options: Options(headers: {
@@ -68,11 +71,13 @@ class DioTools {
       })
     );
     if (response.statusCode == 200) {
+      debugPrint('Token refreshed successfully.');
       return {
         'access_token': response.data['access_token'],
         'refresh_token': response.data['refresh_token']
       };
     }
+    debugPrint(response.data);
     return null;
   }
 }

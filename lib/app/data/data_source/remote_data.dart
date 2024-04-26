@@ -173,7 +173,7 @@ class RemoteDataImpl implements RemoteData {
       List<String?> photos = List.filled(6, null);
       response.data['photos'].forEach((v) {
         var index = int.parse((v as String).split('/').last.split('-').first);
-        photos[index] = "${DioTools.currentBaseUrl}/$v";
+        photos[index] = "${DioTools.baseUrl}/$v";
       });
       return photos;
     } else {

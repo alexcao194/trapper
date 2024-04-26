@@ -10,7 +10,7 @@ class AppSocket {
   static Socket? _socket;
 
   static Socket get socket {
-    _socket ??= io(DioTools.currentBaseUrl, OptionBuilder()
+    _socket ??= io(DioTools.baseUrl, OptionBuilder()
         .setTransports(['websocket'])
         .setAuth({'access_token': DependencyInjection.sl<LocalData>().getToken() })
         .disableAutoConnect()

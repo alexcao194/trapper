@@ -15,7 +15,7 @@ class MessageDetailModel extends MessageDetail {
     String message = '';
     switch (json['type']) {
       case 'image':
-        message = '${DioTools.currentBaseUrl}/${json['content']}';
+        message = '${DioTools.baseUrl}/${json['content']}';
       case 'emoji':
         message = json['content'];
       default:

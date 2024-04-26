@@ -13,12 +13,12 @@ class ProfileModel extends Profile {
     if (json['photos'] != null) {
       json['photos'].forEach((v) {
         var index = int.parse((v as String).split('/').last.split('-').first);
-        photos[index] = "${DioTools.currentBaseUrl}/$v";
+        photos[index] = "${DioTools.baseUrl}/$v";
       });
     }
     var photoUrl = json['photo_url'] as String?;
     if (photoUrl != null) {
-      photoUrl = "${DioTools.currentBaseUrl}/$photoUrl";
+      photoUrl = "${DioTools.baseUrl}/$photoUrl";
     }
     return ProfileModel(
       name: json['full_name'] as String?,
