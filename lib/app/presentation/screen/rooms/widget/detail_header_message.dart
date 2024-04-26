@@ -45,12 +45,24 @@ class _DetailHeaderMessageState extends State<DetailHeaderMessage> {
                   fontWeight: FontWeight.bold,
                 ),
           ),
-          trailing: !isFriend ? IconButton(
-            onPressed: () {
-              _onAddFriend(profile.id!);
-            },
-            icon: const Icon(Icons.person_add),
-          ) : null,
+          trailing: Wrap(
+            children: [
+              if (size.width <= Dimen.mobileWidth)
+                IconButton(
+                  onPressed: () {
+                    context.go(RoutePath.home);
+                    context.read<HomeBloc>().add(const HomeNavigate(index: 0));
+                  },
+                  icon: const Icon(Icons.home),
+                ),
+              if (!isFriend) IconButton(
+                onPressed: () {
+                  _onAddFriend(profile.id!);
+                },
+                icon: const Icon(Icons.person_add),
+              )
+            ],
+          ),
           onTap: () {
             if (!isFriend) {
               return;
