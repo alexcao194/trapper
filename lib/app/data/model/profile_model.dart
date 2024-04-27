@@ -34,7 +34,7 @@ class ProfileModel extends Profile {
       name: json['full_name'] as String?,
       email: json['email'] as String?,
       photoUrl: photoUrl,
-      gender: json['gender'] == "true",
+      gender: json['gender'] == "true" || json['gender'] as bool == true,
       birthDate: json['date_of_birth'] as String?,
       id: json['_id'] as String?,
       bio: json['bio'] as String?,

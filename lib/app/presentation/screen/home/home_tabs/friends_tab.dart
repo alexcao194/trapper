@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:trapper/app/domain/entity/profile.dart';
+import 'package:trapper/app/presentation/bloc/home/home_bloc.dart';
 
 import '../../../../../config/const/dimen.dart';
 import '../../../../../config/go_router/app_go_router.dart';
@@ -32,6 +34,28 @@ class _FriendsTabState extends State<FriendsTab> {
         }
       },
       builder: (context, state) {
+        if (state.isLoading) {
+          return LoadingAnimationWidget.fourRotatingDots(
+            color: Theme.of(context).colorScheme.primary,
+            size: 50,
+          );
+        }
+        if (state.friends.isEmpty) {
+          return Center(
+            child: AlertDialog(
+              title: Text(S.of(context).no_friends),
+              content: Text(S.of(context).no_friend_detail),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    context.read<HomeBloc>().add(const HomeNavigate(index: 2));
+                  },
+                  child: Text(S.of(context).connect_button),
+                ),
+              ],
+            ),
+          );
+        }
         return Row(
           children: [
             Expanded(
@@ -83,7 +107,7 @@ class _FriendsTabState extends State<FriendsTab> {
             ),
             if (MediaQuery.of(context).size.width > Dimen.mobileWidth)
               state.isLoading || state.friends.isEmpty
-                  ? Expanded(child: Center(child: Text(S.current.no_friends)))
+                  ? const Spacer()
                   : Expanded(
                       flex: 2,
                       child: ProfileTab(
