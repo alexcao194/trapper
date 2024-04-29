@@ -104,7 +104,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   FutureOr<void> _onSendOTP(AuthEventSendOTP event, Emitter<AuthState> emit) async {
-    print('Sending OTP to ${event.email}');
     emit(const AuthStateSentOTP());
   }
 }

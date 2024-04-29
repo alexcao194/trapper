@@ -28,7 +28,6 @@ class _ForgotPasswordBoxState extends State<ForgotPasswordBox> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
-        print(state);
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: AnimatedContainer(
