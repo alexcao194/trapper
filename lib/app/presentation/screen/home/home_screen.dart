@@ -110,59 +110,67 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           floatingActionButton: roomsState.roomsInfo.isNotEmpty
-                              ? Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    if (_showLastMessage)
-                                      Container(
-                                        margin: const EdgeInsets.only(right: 10),
-                                        padding: const EdgeInsets.all(8),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(8),
-                                          color: Theme.of(context).colorScheme.primary,
-                                        ),
-                                        child: Text(
-                                          getMessage(roomsState.roomsInfo.first.lastMessage!, roomsState.roomsInfo.first.lastMessage!.sender == profileState.profile.id),
-                                          style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                                color: Theme.of(context).colorScheme.onPrimary,
+                              ? Builder(
+                                builder: (context) {
+                                  var lastMessage = roomsState.roomsInfo.first.lastMessage ?? MessageDetail(
+                                    type: MessageType.text,
+                                    message: S.current.last_message_placeholder,
+                                  );
+                                  return Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        if (_showLastMessage)
+                                          Container(
+                                            margin: const EdgeInsets.only(right: 10),
+                                            padding: const EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(8),
+                                              color: Theme.of(context).colorScheme.primary,
+                                            ),
+                                            child: Text(
+                                              getMessage(lastMessage, lastMessage.sender == profileState.profile.id),
+                                              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                                                    color: Theme.of(context).colorScheme.onPrimary,
+                                                  ),
+                                            ),
+                                          ),
+                                        MaterialButton(
+                                          shape: const CircleBorder(),
+                                          onPressed: () {
+                                            if (_showLastMessage) {
+                                              _openMessages(context);
+                                            } else {
+                                              setState(() {
+                                                _showLastMessage = true;
+                                              });
+                                              _waitHideLastMessage();
+                                            }
+                                          },
+                                          child: Container(
+                                            height: 50,
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                color: Theme.of(context).colorScheme.primary,
+                                                width: 2,
                                               ),
-                                        ),
-                                      ),
-                                    MaterialButton(
-                                      shape: const CircleBorder(),
-                                      onPressed: () {
-                                        if (_showLastMessage) {
-                                          _openMessages(context);
-                                        } else {
-                                          setState(() {
-                                            _showLastMessage = true;
-                                          });
-                                          _waitHideLastMessage();
-                                        }
-                                      },
-                                      child: Container(
-                                        height: 50,
-                                        width: 50,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                            color: Theme.of(context).colorScheme.primary,
-                                            width: 2,
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(100),
+                                              child: (roomsState.roomsInfo.first.profile!.photoUrl == null)
+                                                  ? const Icon(Icons.person)
+                                                  : Image.network(
+                                                      roomsState.roomsInfo.first.profile!.photoUrl!,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                            ),
                                           ),
                                         ),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(100),
-                                          child: (roomsState.roomsInfo.first.profile!.photoUrl == null)
-                                              ? const Icon(Icons.person)
-                                              : Image.network(
-                                                  roomsState.roomsInfo.first.profile!.photoUrl!,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )
+                                      ],
+                                    );
+                                }
+                              )
                               : null,
                           body: Padding(
                             padding: const EdgeInsets.all(8.0),
