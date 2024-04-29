@@ -19,6 +19,7 @@ abstract class SocketData {
   Stream<Pair<String, List<MessageDetailModel>>> get roomsMessagesStream;
   Stream<Pair<String, ProfileModel>> get friendRequestStream;
   Stream<bool> get connectStatusStream;
+  Stream<Pair<String, bool>> get friendOnlineStream;
 }
 
 class SocketDataImpl implements SocketData {
@@ -28,6 +29,7 @@ class SocketDataImpl implements SocketData {
   final StreamController<Pair<String, List<MessageDetailModel>>> _roomsMessagesController = StreamController<Pair<String, List<MessageDetailModel>>>.broadcast();
   final StreamController<Pair<String, ProfileModel>> _friendRequestController = StreamController<Pair<String, ProfileModel>>.broadcast();
   final StreamController<bool> _connectStatusController = StreamController<bool>.broadcast();
+  final StreamController<Pair<String, bool>> _friendOnlineController = StreamController<Pair<String, bool>>.broadcast();
 
   @override
   Stream<List<RoomInfoModel>> get roomsInfoStream => _roomsInfoController.stream;
@@ -43,6 +45,9 @@ class SocketDataImpl implements SocketData {
 
   @override
   Stream<bool> get connectStatusStream => _connectStatusController.stream;
+
+  @override
+  Stream<Pair<String, bool>> get friendOnlineStream => _friendOnlineController.stream;
 
   SocketDataImpl();
 
@@ -99,6 +104,14 @@ class SocketDataImpl implements SocketData {
 
     AppSocket.socket.on('on_accept_friend_request', (data) {
       _friendRequestController.add(Pair("on_accept_friend_request", ProfileModel.fromJson(data['profile'])));
+    });
+
+    AppSocket.socket.on('on_friend_offline', (data) {
+      _friendOnlineController.add(Pair(data['id'], false));
+    });
+
+    AppSocket.socket.on('on_friend_online', (data) {
+      _friendOnlineController.add(Pair(data['id'], true));
     });
   }
 

@@ -2,7 +2,6 @@ import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
-import 'package:socket_io_client/socket_io_client.dart';
 
 import 'app/data/data_source/local_data.dart';
 import 'app/data/data_source/remote_data.dart';
@@ -30,6 +29,7 @@ import 'app/domain/use_case/get_profile.dart';
 import 'app/domain/use_case/listen_connect_status.dart';
 import 'app/domain/use_case/listen_friend.dart';
 import 'app/domain/use_case/listen_message.dart';
+import 'app/domain/use_case/listen_online_friends.dart';
 import 'app/domain/use_case/login.dart';
 import 'app/domain/use_case/post_photo.dart';
 import 'app/domain/use_case/register.dart';
@@ -102,6 +102,7 @@ class DependencyInjection {
       fetchFriends: sl(),
       addFriend: sl(),
       listenFriend: sl(),
+      listenOnlineFriends: sl(),
     ));
 
     // Use case
@@ -128,6 +129,7 @@ class DependencyInjection {
     sl.registerLazySingleton<ListenConnectStatus>(() => ListenConnectStatus(socketRepository: sl()));
     sl.registerLazySingleton<SendOTP>(() => SendOTP(authRepository: sl()));
     sl.registerLazySingleton<ChangePassword>(() => ChangePassword(authRepository: sl()));
+    sl.registerLazySingleton<ListenOnlineFriends>(() => ListenOnlineFriends(socketRepository: sl()));
     
 
     // Repositories

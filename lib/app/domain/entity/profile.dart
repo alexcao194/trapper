@@ -25,16 +25,18 @@ class Profile extends Equatable {
   final String? bio;
   @HiveField(8)
   final List<Hobby> hobbies;
+  @HiveField(9)
+  final bool? online;
 
-  const Profile({this.name, this.email, this.photoUrl, this.gender, this.birthDate, this.id, this.bio, this.photos, this.hobbies = const []});
+  const Profile({this.name, this.email, this.photoUrl, this.gender, this.birthDate, this.id, this.bio, this.photos, this.hobbies = const [], this.online});
 
   @override
   String toString() {
-    return "Profile(name: $name, email: $email,photoUrl: $photoUrl, gender: $gender, birthDate: $birthDate, id: $id, bio: $bio, photos: $photos) hobbies: $hobbies";
+    return "Profile(name: $name, email: $email,photoUrl: $photoUrl, gender: $gender, birthDate: $birthDate, id: $id, bio: $bio, photos: $photos) hobbies: $hobbies online: $online)";
   }
 
   @override
-  List<Object?> get props => [name, email, photoUrl, gender, birthDate, id, bio, photos, hobbies];
+  List<Object?> get props => [name, email, photoUrl, gender, birthDate, id, bio, photos, hobbies, online];
 
   Profile copyWith({
     String? name,
@@ -46,6 +48,7 @@ class Profile extends Equatable {
     String? bio,
     List<String?>? photos,
     List<Hobby>? hobbies,
+    bool? online,
   }) {
     return Profile(
       name: name ?? this.name,
@@ -57,6 +60,7 @@ class Profile extends Equatable {
       bio: bio ?? this.bio,
       photos: photos ?? this.photos,
       hobbies: hobbies ?? this.hobbies,
+      online: online ?? this.online,
     );
   }
 }

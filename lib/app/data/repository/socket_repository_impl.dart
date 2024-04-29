@@ -85,4 +85,9 @@ class SocketRepositoryImpl implements SocketRepository {
   Stream<bool> listenConnectStatus() {
     return _socketData.connectStatusStream;
   }
+
+  @override
+  Stream<Pair<String, bool>> listenFriendOnline() {
+    return _socketData.friendOnlineStream;
+  }
 }

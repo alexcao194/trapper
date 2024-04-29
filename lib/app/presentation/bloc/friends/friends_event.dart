@@ -37,3 +37,13 @@ class FriendPick extends FriendsEvent {
   @override
   List<Object?> get props => [friendId];
 }
+
+class FriendChangeStatus extends FriendsEvent {
+  final String friendId;
+  final bool status;
+
+  const FriendChangeStatus({required this.friendId, required this.status});
+
+  @override
+  List<Object?> get props => [friendId, status];
+}

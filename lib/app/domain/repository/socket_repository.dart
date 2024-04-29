@@ -17,4 +17,5 @@ abstract class SocketRepository {
   Stream<Pair<String, List<MessageDetail>>> listenMessage();
   Stream<Pair<String, Profile>> listenFriend();
   Stream<bool> listenConnectStatus();
+  Stream<Pair<String, bool>> listenFriendOnline();
 }

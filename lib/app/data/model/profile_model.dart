@@ -10,7 +10,7 @@ part 'profile_model.g.dart';
 
 @HiveType(typeId: 10)
 class ProfileModel extends Profile {
-  const ProfileModel({super.name, super.email, super.photoUrl, super.gender, super.birthDate, super.id, super.photos, super.bio, super.hobbies = const []});
+  const ProfileModel({super.name, super.email, super.photoUrl, super.gender, super.birthDate, super.id, super.photos, super.bio, super.hobbies = const [], super.online});
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     List<String?> photos = List.filled(6, null);
@@ -40,6 +40,7 @@ class ProfileModel extends Profile {
       bio: json['bio'] as String?,
       photos: photos,
       hobbies: hobbies,
+      online: json['isOnline'] as bool?,
     );
   }
 
@@ -63,7 +64,9 @@ class ProfileModel extends Profile {
         birthDate: profile.birthDate,
         id: profile.id,
         bio: profile.bio,
-        photos: profile.photos
+        photos: profile.photos,
+        hobbies: profile.hobbies.map((e) => HobbyModel.fromEntity(e)).toList(),
+        online: profile.online
     );
   }
 }

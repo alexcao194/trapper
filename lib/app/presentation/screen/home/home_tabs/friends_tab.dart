@@ -26,7 +26,8 @@ class _FriendsTabState extends State<FriendsTab> {
     return BlocConsumer<FriendsBloc, FriendsState>(
       listener: (context, state) {
         if (state.showError && state.error != null) {
-          NotificationTools.showErrorNotification(context: context, message: state.error!);
+          NotificationTools.showErrorNotification(
+              context: context, message: state.error!);
         }
       },
       builder: (context, state) {
@@ -65,14 +66,22 @@ class _FriendsTabState extends State<FriendsTab> {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
-                          tileColor: friend.id == state.currentID ? Theme.of(context).colorScheme.primaryContainer : Theme.of(context).colorScheme.background,
+                          tileColor: friend.id == state.currentID
+                              ? Theme.of(context).colorScheme.primaryContainer
+                              : Theme.of(context).colorScheme.background,
                           title: Text(friend.name!),
                           subtitle: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Icon(Icons.circle, color: Colors.green, size: 10),
+                              Icon(Icons.circle,
+                                  color: friend.online!
+                                      ? Colors.green
+                                      : Colors.grey,
+                                  size: 10),
                               const SizedBox(width: 5),
-                              Text(S.current.online),
+                              Text(friend.online!
+                                  ? S.current.online
+                                  : S.current.offline),
                             ],
                           ),
                           leading: SizedBox(
@@ -92,15 +101,20 @@ class _FriendsTabState extends State<FriendsTab> {
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
                           onTap: () {
-                            context.read<FriendsBloc>().add(FriendPick(friendId: friend.id!));
-                            if (MediaQuery.of(context).size.width <= Dimen.mobileWidth) {
+                            context
+                                .read<FriendsBloc>()
+                                .add(FriendPick(friendId: friend.id!));
+                            if (MediaQuery.of(context).size.width <=
+                                Dimen.mobileWidth) {
                               _showProfileDialog(state.friends[index]);
                             }
                           },
                           trailing: IconButton(
                             icon: const Icon(Icons.message_outlined),
                             onPressed: () {
-                              context.read<RoomsBloc>().add(RoomPickWithUserId(userID: friend.id!));
+                              context
+                                  .read<RoomsBloc>()
+                                  .add(RoomPickWithUserId(userID: friend.id!));
                               context.go(RoutePath.messages);
                             },
                           )),
@@ -115,7 +129,8 @@ class _FriendsTabState extends State<FriendsTab> {
                   : Expanded(
                       flex: 2,
                       child: ProfileTab(
-                        profile: state.friends.firstWhere((element) => element.id == state.currentID),
+                        profile: state.friends.firstWhere(
+                            (element) => element.id == state.currentID),
                         owner: false,
                       ),
                     ),

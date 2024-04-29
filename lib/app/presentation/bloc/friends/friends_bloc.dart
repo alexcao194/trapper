@@ -8,6 +8,7 @@ import '../../../domain/entity/profile.dart';
 import '../../../domain/use_case/add_friend.dart';
 import '../../../domain/use_case/fetch_friends.dart';
 import '../../../domain/use_case/listen_friend.dart';
+import '../../../domain/use_case/listen_online_friends.dart';
 
 part 'friends_event.dart';
 
@@ -17,6 +18,7 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
   late FetchFriends _fetchFriends;
   late AddFriend _addFriend;
   late ListenFriend _listenFriend;
+  late ListenOnlineFriends _listenOnlineFriends;
 
   StreamSubscription? _listenFriendSubscription;
 
@@ -24,6 +26,7 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
     required FetchFriends fetchFriends,
     required AddFriend addFriend,
     required ListenFriend listenFriend,
+    required ListenOnlineFriends listenOnlineFriends,
   }) : super(const FriendsState()) {
     _fetchFriends = fetchFriends;
     _addFriend = addFriend;
@@ -32,6 +35,7 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
     on<FriendsAdd>(_onAdd);
     on<FriendsSendMessage>(_onSendMessage);
     on<FriendPick>(_onPick);
+    on<FriendChangeStatus>(_onFriendChangeStatus);
 
 
     if (_listenFriendSubscription != null) {
@@ -47,6 +51,10 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
       // if (event.key == 'on_received_friend_request') {
       //   add(FriendsSendMessage(message: S.current.received_request(event.value.name!)));
       // }
+    });
+
+    listenOnlineFriends().listen((event) {
+      add(FriendChangeStatus(friendId: event.key, status: event.value));
     });
   }
 
@@ -78,5 +86,15 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
 
   FutureOr<void> _onPick(FriendPick event, Emitter<FriendsState> emit) {
     emit(state.copyWith(currentID: event.friendId));
+  }
+
+  FutureOr<void> _onFriendChangeStatus(FriendChangeStatus event, Emitter<FriendsState> emit) {
+    var friends = state.friends.map((e) {
+      if (e.id == event.friendId) {
+        return e.copyWith(online: event.status);
+      }
+      return e;
+    }).toList();
+    emit(state.copyWith(friends: friends));
   }
 }
