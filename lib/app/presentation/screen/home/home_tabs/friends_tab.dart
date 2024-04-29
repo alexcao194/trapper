@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:trapper/app/domain/entity/profile.dart';
-import 'package:trapper/app/presentation/bloc/home/home_bloc.dart';
 
 import '../../../../../config/const/dimen.dart';
 import '../../../../../config/go_router/app_go_router.dart';
 import '../../../../../generated/l10n.dart';
+import '../../../../domain/entity/profile.dart';
 import '../../../bloc/friends/friends_bloc.dart';
+import '../../../bloc/home/home_bloc.dart';
 import '../../../bloc/rooms/rooms_bloc.dart';
 import 'profile_tab.dart';
 
@@ -70,7 +70,14 @@ class _FriendsTabState extends State<FriendsTab> {
                       child: ListTile(
                           tileColor: friend.id == state.currentID ? Theme.of(context).colorScheme.primaryContainer : Theme.of(context).colorScheme.background,
                           title: Text(friend.name!),
-                          subtitle: const Text('Online'),
+                          subtitle: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.circle, color: Colors.green, size: 10),
+                              const SizedBox(width: 5),
+                              Text(S.current.online),
+                            ],
+                          ),
                           leading: SizedBox(
                             height: 50,
                             width: 50,
