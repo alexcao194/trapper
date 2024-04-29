@@ -6,10 +6,12 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../domain/entity/account.dart';
 import '../../../domain/entity/profile.dart';
+import '../../../domain/use_case/change_password.dart';
 import '../../../domain/use_case/connect.dart';
 import '../../../domain/use_case/disconnect.dart';
 import '../../../domain/use_case/login.dart';
 import '../../../domain/use_case/register.dart';
+import '../../../domain/use_case/send_otp.dart';
 import '../../../domain/use_case/validate_token.dart';
 
 part 'auth_event.dart';
@@ -23,6 +25,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   late Stream<bool> _authSubscription;
   late Connect _connect;
   late Disconnect _disconnect;
+  late SendOTP _sendOTP;
+  late ChangePassword _changePassword;
 
   AuthBloc({
     required Login login,
@@ -31,6 +35,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required Stream<bool> authSubscription,
     required Connect connect,
     required Disconnect disconnect,
+    required SendOTP sendOTP,
+    required ChangePassword changePassword,
   }) : super(const AuthStateUnauthenticated()) {
     _login = login;
     _register = register;
@@ -38,12 +44,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     _authSubscription = authSubscription;
     _connect = connect;
     _disconnect = disconnect;
+    _sendOTP = sendOTP;
+    _changePassword = changePassword;
     on<AuthEventLogin>(_onLogin);
     on<AuthEventRegister>(_onRegister);
     on<AuthEventValidateToken>(_onValidateToken);
     on<AuthEventLogout>(_onLogout);
     on<AuthEventSendOTP>(_onSendOTP);
     on<AuthEventChangePassword>(_onChangePassword);
+    on<AuthEventReset>(_onReset);
 
     add(const AuthEventValidateToken());
 
@@ -100,10 +109,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   FutureOr<void> _onChangePassword(AuthEventChangePassword event, Emitter<AuthState> emit) async {
-    emit(const AuthStateResetPasswordSuccessful());
+    emit(const AuthStateLoading());
+    var result = await _changePassword(email: event.email, otp: event.otp, password: event.password);
+    result.fold(
+      (failure) => emit(AuthStateFailure(error: failure.message)),
+      (_) => emit(const AuthStateResetPasswordSuccessful()),
+    );
   }
 
   FutureOr<void> _onSendOTP(AuthEventSendOTP event, Emitter<AuthState> emit) async {
-    emit(const AuthStateSentOTP());
+    emit(const AuthStateLoading());
+    var result = await _sendOTP(event.email);
+    result.fold(
+      (failure) => emit(AuthStateFailure(error: failure.message)),
+      (_) => emit(const AuthStateSentOTP()),
+    );
+  }
+
+  FutureOr<void> _onReset(AuthEventReset event, Emitter<AuthState> emit) {
+    emit(const AuthStateUnauthenticated());
   }
 }

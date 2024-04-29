@@ -50,167 +50,177 @@ class _LoginScreenState extends State<LoginScreen> {
     var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        body: BlocConsumer<AuthBloc, AuthState>(
-          listener: (context, state) {
-            if (state is AuthStateAuthenticated) {
-              try {
-                _successTrigger.fire();
-              } catch (e) {
-                debugPrint(e.toString());
-              }
-              context.go(RoutePath.home);
-            } else if (state is AuthStateFailure) {
-              if (state.error != null) {
-                _failTrigger.fire();
-                DialogTools.showFailureDialog(context, message: state.error!);
-              }
-            }
-          },
-          builder: (context, state) {
-            return SingleChildScrollView(
-              primary: true,
-              child: Stack(
-                children: [
-                  SizedBox(
-                    height: size.height,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        if (size.width > Dimen.mobileWidth)
-                          Expanded(
-                            flex: 5,
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.primaryContainer,
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    bottomLeft: Radius.circular(20),
+        body: Builder(
+          builder: (context) {
+            return BlocConsumer<AuthBloc, AuthState>(
+              listener: (context, state) {
+                if (state is AuthStateAuthenticated) {
+                  try {
+                    _successTrigger.fire();
+                  } catch (e) {
+                    debugPrint(e.toString());
+                  }
+                  context.go(RoutePath.home);
+                } else if (state is AuthStateFailure) {
+                  if (state.error != null) {
+                    _failTrigger.fire();
+                    DialogTools.showFailureDialog(context, message: state.error!);
+                  }
+                } else if (state is AuthStateResetPasswordSuccessful) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(S.current.reset_password_successful),
+                    duration: const Duration(seconds: 3),
+                  ));
+                  context.pop();
+                }
+              },
+              builder: (context, state) {
+                return SingleChildScrollView(
+                  primary: true,
+                  child: Stack(
+                    children: [
+                      SizedBox(
+                        height: size.height,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            if (size.width > Dimen.mobileWidth)
+                              Expanded(
+                                flex: 5,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).colorScheme.primaryContainer,
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        bottomLeft: Radius.circular(20),
+                                      ),
+                                    ),
+                                    child: Center(child: SlideBanner(size: size)),
                                   ),
                                 ),
-                                child: Center(child: SlideBanner(size: size)),
                               ),
-                            ),
-                          ),
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const SizedBox(height: 20),
-                              SizedBox(
-                                width: 300,
-                                height: size.width > Dimen.mobileWidth ? 300 : null,
-                                child: Center(child: getChar()),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                                child: Container(
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primaryContainer, width: 2), borderRadius: BorderRadius.circular(5)),
-                                  child: Column(
-                                    children: [
-                                      OutlineTextField(
-                                        textInputAction: TextInputAction.next,
-                                        inputType: TextInputType.emailAddress,
-                                        focusNode: _emailFocusNode,
-                                        labelText: S.current.email,
-                                        hintText: S.current.email_example,
-                                        errorText: emailError,
-                                        controller: _email,
-                                        prefixIcon: const Icon(Icons.email_outlined, size: 18),
-                                        onTap: lookOn,
-                                        onChanged: lookFollow,
-                                        onTapOutside: (event) => stopLooking(),
-                                      ),
-                                      const SizedBox(height: 16),
-                                      OutlineTextField(
-                                        textInputAction: TextInputAction.done,
-                                        inputType: TextInputType.visiblePassword,
-                                        focusNode: _passwordFocusNode,
-                                        labelText: S.current.password,
-                                        hintText: S.current.password_example,
-                                        prefixIcon: const Icon(Icons.lock_outline, size: 18),
-                                        errorText: passwordError,
-                                        obscureText: true,
-                                        controller: _password,
-                                        onTap: handOn,
-                                        onTapOutside: (event) => stopLooking(),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.centerRight,
-                                        child: MaterialButton(
-                                          padding: const EdgeInsets.symmetric(vertical: 18),
-                                          hoverColor: Colors.transparent,
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onPressed: () {
-                                            _onForgotPassword();
-                                          },
-                                          child: Text(S.current.forgot_password,
-                                              style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                                                    color: Theme.of(context).colorScheme.primary,
-                                                  )),
-                                        ),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            Expanded(
+                              flex: 3,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const SizedBox(height: 20),
+                                  SizedBox(
+                                    width: 300,
+                                    height: size.width > Dimen.mobileWidth ? 300 : null,
+                                    child: Center(child: getChar()),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(16),
+                                      decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primaryContainer, width: 2), borderRadius: BorderRadius.circular(5)),
+                                      child: Column(
                                         children: [
-                                          TextButton(
-                                            style: TextButton.styleFrom(
-                                              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                                            ),
-                                            onPressed: () {
-                                              if (canLogin) {
-                                                login();
-                                              } else {
-                                                DialogTools.showFailureDialog(context, message: S.current.common_fields_error);
-                                              }
-                                            },
-                                            child: Container(
-                                              padding: const EdgeInsets.all(16),
-                                              child: Text(S.current.login),
+                                          OutlineTextField(
+                                            textInputAction: TextInputAction.next,
+                                            inputType: TextInputType.emailAddress,
+                                            focusNode: _emailFocusNode,
+                                            labelText: S.current.email,
+                                            hintText: S.current.email_example,
+                                            errorText: emailError,
+                                            controller: _email,
+                                            prefixIcon: const Icon(Icons.email_outlined, size: 18),
+                                            onTap: lookOn,
+                                            onChanged: lookFollow,
+                                            onTapOutside: (event) => stopLooking(),
+                                          ),
+                                          const SizedBox(height: 16),
+                                          OutlineTextField(
+                                            textInputAction: TextInputAction.done,
+                                            inputType: TextInputType.visiblePassword,
+                                            focusNode: _passwordFocusNode,
+                                            labelText: S.current.password,
+                                            hintText: S.current.password_example,
+                                            prefixIcon: const Icon(Icons.lock_outline, size: 18),
+                                            errorText: passwordError,
+                                            obscureText: true,
+                                            controller: _password,
+                                            onTap: handOn,
+                                            onTapOutside: (event) => stopLooking(),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.centerRight,
+                                            child: MaterialButton(
+                                              padding: const EdgeInsets.symmetric(vertical: 18),
+                                              hoverColor: Colors.transparent,
+                                              splashColor: Colors.transparent,
+                                              highlightColor: Colors.transparent,
+                                              onPressed: () {
+                                                _onForgotPassword();
+                                              },
+                                              child: Text(S.current.forgot_password,
+                                                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                                                        color: Theme.of(context).colorScheme.primary,
+                                                      )),
                                             ),
                                           ),
-                                          TextButton(
-                                            style: TextButton.styleFrom(
-                                              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                                            ),
-                                            onPressed: signup,
-                                            child: Container(
-                                              padding: const EdgeInsets.all(16),
-                                              child: Text(S.current.signup),
-                                            ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              TextButton(
+                                                style: TextButton.styleFrom(
+                                                  backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                                                ),
+                                                onPressed: () {
+                                                  if (canLogin) {
+                                                    login();
+                                                  } else {
+                                                    DialogTools.showFailureDialog(context, message: S.current.common_fields_error);
+                                                  }
+                                                },
+                                                child: Container(
+                                                  padding: const EdgeInsets.all(16),
+                                                  child: Text(S.current.login),
+                                                ),
+                                              ),
+                                              TextButton(
+                                                style: TextButton.styleFrom(
+                                                  backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                                                ),
+                                                onPressed: signup,
+                                                child: Container(
+                                                  padding: const EdgeInsets.all(16),
+                                                  child: Text(S.current.signup),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  if (state is AuthStateLoading)
-                    Container(
-                      height: size.height,
-                      width: size.width,
-                      color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.5),
-                      child: Center(
-                        child: LoadingAnimationWidget.fourRotatingDots(
-                          color: Theme.of(context).colorScheme.primary,
-                          size: 50,
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                ],
-              ),
+                      if (state is AuthStateLoading)
+                        Container(
+                          height: size.height,
+                          width: size.width,
+                          color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.5),
+                          child: Center(
+                            child: LoadingAnimationWidget.fourRotatingDots(
+                              color: Theme.of(context).colorScheme.primary,
+                              size: 50,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                );
+              },
             );
-          },
+          }
         ),
       ),
     );

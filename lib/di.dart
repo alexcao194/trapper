@@ -17,6 +17,7 @@ import 'app/domain/repository/profile_repository.dart';
 import 'app/domain/repository/socket_repository.dart';
 import 'app/domain/use_case/add_friend.dart';
 import 'app/domain/use_case/cancel_find.dart';
+import 'app/domain/use_case/change_password.dart';
 import 'app/domain/use_case/connect.dart';
 import 'app/domain/use_case/disconnect.dart';
 import 'app/domain/use_case/fect_message.dart';
@@ -34,6 +35,7 @@ import 'app/domain/use_case/post_photo.dart';
 import 'app/domain/use_case/register.dart';
 import 'app/domain/use_case/save_settings.dart';
 import 'app/domain/use_case/send_message.dart';
+import 'app/domain/use_case/send_otp.dart';
 import 'app/domain/use_case/update_profile.dart';
 import 'app/domain/use_case/validate_token.dart';
 import 'app/presentation/bloc/auth/auth_bloc.dart';
@@ -62,6 +64,8 @@ class DependencyInjection {
         authSubscription: DioTools.registerInterceptors(sl<Dio>()),
         connect: sl(),
         disconnect: sl(),
+        changePassword: sl(),
+        sendOTP: sl(),
       ),
     );
 
@@ -122,6 +126,8 @@ class DependencyInjection {
     sl.registerLazySingleton<AddFriend>(() => AddFriend(socketRepository: sl()));
     sl.registerLazySingleton<ListenFriend>(() => ListenFriend(socketRepository: sl()));
     sl.registerLazySingleton<ListenConnectStatus>(() => ListenConnectStatus(socketRepository: sl()));
+    sl.registerLazySingleton<SendOTP>(() => SendOTP(authRepository: sl()));
+    sl.registerLazySingleton<ChangePassword>(() => ChangePassword(authRepository: sl()));
     
 
     // Repositories

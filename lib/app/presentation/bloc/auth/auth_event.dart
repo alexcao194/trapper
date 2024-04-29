@@ -44,11 +44,18 @@ class AuthEventSendOTP extends AuthEvent {
 }
 
 class AuthEventChangePassword extends AuthEvent {
-  final String confirmPassword;
   final String password;
   final String otp;
-  const AuthEventChangePassword({required this.confirmPassword, required this.password, required this.otp});
+  final String email;
+  const AuthEventChangePassword({required this.password, required this.otp, required this.email});
 
   @override
-  List<Object?> get props => [confirmPassword, password, otp];
+  List<Object?> get props => [password, otp, email];
+}
+
+class AuthEventReset extends AuthEvent {
+  const AuthEventReset();
+
+  @override
+  List<Object?> get props => [];
 }

@@ -76,4 +76,24 @@ class AuthRepositoryImpl implements AuthRepository {
       await _localData.saveRefreshToken(token['refresh_token']!);
     }
   }
+
+  @override
+  Future<Either<Failure, void>> changePassword({required String email, required String otp, required String password}) async {
+    try {
+      await _remoteData.changePassword(email: email, otp: otp, password: password);
+      return const Right(null);
+    } on DioException catch (e) {
+      return Left(Failure(e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> sendOTP(String email) async {
+    try {
+      await _remoteData.sendOTP(email);
+      return const Right(null);
+    } on DioException catch (e) {
+      return Left(Failure(e.message));
+    }
+  }
 }
