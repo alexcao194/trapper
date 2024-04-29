@@ -33,16 +33,16 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   FutureOr<void> _onGet(ProfileEventGet event, Emitter<ProfileState> emit) async {
-    emit(state.copyWith(isLoading: true, sendMessage: false));
+    emit(state.copyWith(isLoading: true, sendMessage: false, sendError: false));
     final result = await _getProfile();
     result.fold(
-      (exception) => emit(state.copyWith(message: exception.message, isLoading: false, sendMessage: true)),
+      (exception) => emit(state.copyWith(error: exception.message, isLoading: false, sendError: true)),
       (profile) => emit(state.copyWith(profile: profile, isLoading: false, sendMessage: false)),
     );
   }
 
   FutureOr<void> _onUpdate(ProfileEventUpdate event, Emitter<ProfileState> emit) async {
-    emit(state.copyWith(isLoading: true, sendMessage: false));
+    emit(state.copyWith(isLoading: true, sendMessage: false, sendError: false));
     var profile = event.profile;
 
     if (profile.birthDate == null || profile.birthDate!.isEmpty) {
@@ -58,13 +58,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
 
     if (state.profile.name == profile.name && state.profile.birthDate == profile.birthDate && event.image == null && state.profile.bio == profile.bio) {
-      emit(state.copyWith(message: S.current.nothing_to_update, isLoading: false, sendMessage: true));
+      emit(state.copyWith(error: S.current.nothing_to_update, isLoading: false, sendError: true, sendMessage: false));
       return;
     }
 
     final result = await _updateProfile(profile, event.image);
     result.fold(
-      (exception) => emit(state.copyWith(message: exception.message, isLoading: false, sendMessage: true)),
+      (exception) => emit(state.copyWith(error: exception.message, isLoading: false, sendError: true)),
       (profile) {
         emit(state.copyWith(profile: profile, message: S.current.profile_updated, isLoading: false, sendMessage: true));
       },

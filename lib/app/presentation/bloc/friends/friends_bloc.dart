@@ -44,9 +44,9 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
         add(FriendsSendMessage(message: S.current.accept_request(event.value.name!)));
       }
 
-      if (event.key == 'on_received_friend_request') {
-        add(FriendsSendMessage(message: S.current.received_request(event.value.name!)));
-      }
+      // if (event.key == 'on_received_friend_request') {
+      //   add(FriendsSendMessage(message: S.current.received_request(event.value.name!)));
+      // }
     });
   }
 

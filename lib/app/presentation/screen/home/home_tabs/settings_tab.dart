@@ -34,7 +34,11 @@ class _SettingsTabState extends State<SettingsTab> {
         child: BlocConsumer<ProfileBloc, ProfileState>(
           listener: (context, profileState) {
             if (profileState.sendMessage) {
-              NotificationTools.showErrorNotification(context: context, message: profileState.message!);
+              NotificationTools.showNotification(context: context, message: profileState.message!);
+            }
+
+            if (profileState.sendError) {
+              NotificationTools.showErrorNotification(context: context, message: profileState.error!);
             }
           },
           builder: (context, profileState) {
@@ -320,6 +324,7 @@ class _SettingsTabState extends State<SettingsTab> {
               Profile(
                 name: _nameController.text,
                 birthDate: _birthDateController.text,
+                bio: _bioController.text.isNotEmpty ? _bioController.text : null,
               ),
               image: await value.readAsBytes(),
             ),
@@ -333,7 +338,7 @@ class _SettingsTabState extends State<SettingsTab> {
             Profile(
               name: _nameController.text,
               birthDate: _birthDateController.text,
-              bio: _bioController.text,
+              bio: _bioController.text.isNotEmpty ? _bioController.text : null,
             ),
           ),
         );
