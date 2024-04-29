@@ -141,12 +141,14 @@ class ConnectTab extends StatelessWidget {
                                       ),
                                 ),
                                 const SizedBox(height: 10),
-                                const Wrap(
-                                  children: [
-                                    CustomChip(label: "Reading", isSelected: true),
-                                    CustomChip(label: "Music", isSelected: true),
-                                    CustomChip(label: "Travel", isSelected: true),
-                                  ],
+                                Wrap(
+                                    children: List.generate(
+                                      profile.hobbies.length,
+                                          (index) => CustomChip(
+                                        label: profile.hobbies[index].name,
+                                        isSelected: true,
+                                      ),
+                                    )
                                 ),
                               ],
                             ),
