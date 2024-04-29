@@ -11,6 +11,7 @@ import '../../../../../utils/dialog_tools.dart';
 import '../../../../../utils/notification_tools.dart';
 import '../../../bloc/connect/connect_bloc.dart';
 import '../../../bloc/profile/profile_bloc.dart';
+import '../../../bloc/rooms/rooms_bloc.dart';
 import 'widget/custom_chip.dart';
 
 class ConnectTab extends StatelessWidget {
@@ -28,6 +29,7 @@ class ConnectTab extends StatelessWidget {
 
         if (connectState.roomInfo != null) {
           context.go(RoutePath.messages);
+          context.read<RoomsBloc>().add(RoomsPick(id: connectState.roomInfo!.id!));
           context.read<ConnectBloc>().add(const ConnectReset());
         }
       },
@@ -54,7 +56,7 @@ class ConnectTab extends StatelessWidget {
                             width: double.infinity,
                             height: size.height * 0.2,
                             decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.surfaceVariant,
+                              color: Theme.of(context).colorScheme.primaryContainer,
                               borderRadius: const BorderRadius.only(
                                 bottomLeft: Radius.circular(20),
                                 bottomRight: Radius.circular(20),

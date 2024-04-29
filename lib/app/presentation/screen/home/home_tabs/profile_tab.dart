@@ -35,7 +35,7 @@ class ProfileTab extends StatelessWidget {
                 width: double.infinity,
                 height: size.height * 0.2,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20),

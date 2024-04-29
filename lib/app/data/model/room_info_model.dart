@@ -9,6 +9,7 @@ class RoomInfoModel extends RoomInfo {
     super.profile,
     super.lastMessage,
     super.isFriend,
+    super.timestamp
   });
 
   factory RoomInfoModel.fromJson(Map<String, dynamic> json) {
@@ -19,6 +20,7 @@ class RoomInfoModel extends RoomInfo {
       profile: profile,
       lastMessage: lastMessage,
       isFriend: json['is_friend'] as bool,
+      timestamp: json['create_at'] as int?,
     );
   }
 
@@ -30,6 +32,7 @@ class RoomInfoModel extends RoomInfo {
       'profile': profileModel?.toJson(),
       'last_message': lastMessageModel?.toJson(),
       'isF_friend': isFriend,
+      'create_at': timestamp,
     };
   }
 }

@@ -67,6 +67,7 @@ dependencies:
   loading_animation_widget: ^1.2.1
   gif: ^2.3.0
   toastification: ^1.2.1
+  easy_sidemenu: ^0.6.0
 
 
 dev_dependencies:

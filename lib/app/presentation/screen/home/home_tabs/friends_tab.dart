@@ -39,6 +39,7 @@ class _FriendsTabState extends State<FriendsTab> {
         if (state.friends.isEmpty) {
           return Center(
             child: AlertDialog(
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
               title: Text(S.of(context).no_friends),
               content: Text(S.of(context).no_friend_detail),
               actions: [

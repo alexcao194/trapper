@@ -1,10 +1,12 @@
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:trapper/app/domain/entity/message_detail.dart';
 import 'package:trapper/app/presentation/bloc/auth/auth_bloc.dart';
+import 'package:trapper/config/const/dimen.dart';
 
 import '../../../../config/go_router/app_go_router.dart';
 import '../../../../generated/l10n.dart';
@@ -15,6 +17,7 @@ import '../../bloc/friends/friends_bloc.dart';
 import '../../bloc/home/home_bloc.dart';
 import '../../bloc/profile/profile_bloc.dart';
 import '../../bloc/rooms/rooms_bloc.dart';
+import '../widgets/side_navigation.dart';
 import 'home_tabs/connect_tab.dart';
 import 'home_tabs/friends_tab.dart';
 import 'home_tabs/help_tab.dart';
@@ -73,11 +76,12 @@ class _HomeScreenState extends State<HomeScreen> {
               builder: (context, roomsState) {
                 return BlocBuilder<ProfileBloc, ProfileState>(
                   builder: (context, profileState) {
+                    var size = MediaQuery.of(context).size;
                     return Stack(
                       children: [
                         Scaffold(
-                          backgroundColor: Theme.of(context).colorScheme.surface,
-                          bottomNavigationBar: FlashyTabBar(
+                          backgroundColor: Theme.of(context).colorScheme.background,
+                          bottomNavigationBar: (size.width <= Dimen.mobileWidth) ? FlashyTabBar(
                             selectedIndex: homeState.index,
                             onItemSelected: (index) {
                               if (profileState.profile.name == null) {
@@ -107,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 title: Text(S.current.help_button),
                               ),
                             ],
-                          ),
+                          ) : null,
                           floatingActionButton: roomsState.roomsInfo.isNotEmpty
                               ? Builder(
                                 builder: (context) {
@@ -171,19 +175,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }
                               )
                               : null,
-                          body: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: PageView(
-                              controller: _pageController,
-                              physics: const NeverScrollableScrollPhysics(),
-                              children: [
-                                KeepAlivePage(child: ProfileTab(profile: profileState.profile)),
-                                const KeepAlivePage(child: FriendsTab()),
-                                const KeepAlivePage(child: ConnectTab()),
-                                const KeepAlivePage(child: SettingsTab()),
-                                const KeepAlivePage(child: HelpTab()),
-                              ],
-                            ),
+                          body: Row(
+                            children: [
+                              if (size.width > Dimen.mobileWidth) SideNavigation(
+                                onItemSelected: _go,
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: PageView(
+                                    scrollDirection: size.width > Dimen.mobileWidth ? Axis.vertical : Axis.horizontal,
+                                    controller: _pageController,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    children: [
+                                      KeepAlivePage(child: ProfileTab(profile: profileState.profile)),
+                                      const KeepAlivePage(child: FriendsTab()),
+                                      const KeepAlivePage(child: ConnectTab()),
+                                      const KeepAlivePage(child: SettingsTab()),
+                                      const KeepAlivePage(child: HelpTab()),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         if (profileState.profile.name == null)

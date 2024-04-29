@@ -15,10 +15,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   FutureOr<void> _onNavigate(HomeNavigate event, Emitter<HomeState> emit) async {
-    if (state.pageController == null || state.index == event.index) {
-      return;
+    if (state.pageController == null) {
+      state.pageController!.jumpToPage(event.index);
     }
-    state.pageController!.jumpToPage(event.index);
     emit(state.copyWith(index: event.index));
   }
 

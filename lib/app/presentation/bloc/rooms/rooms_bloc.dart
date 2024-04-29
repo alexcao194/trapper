@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../../domain/entity/message_detail.dart';
 import '../../../domain/entity/room_info.dart';
 import '../../../domain/use_case/fect_message.dart';
@@ -73,11 +74,16 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
     });
     _roomsInfoSubscription = _fetchRoomsInfo().listen(
       (roomsInfo) {
-        var tmpInfo = roomsInfo..sort((a, b) => -a.lastMessage!.timestamp!.compareTo(b.lastMessage!.timestamp!));
         if (roomsInfo.isEmpty) {
           add(RoomsUpdateRoomsInfo(roomsState: state.copyWith(error: 'No rooms found.')));
           return;
         }
+        var tmpInfo = roomsInfo..sort((a, b) {
+          final aTime = a.lastMessage?.timestamp ?? a.timestamp!;
+          final bTime = b.lastMessage?.timestamp ?? b.timestamp!;
+          return -aTime.compareTo(bTime);
+
+        });
         if (state.currentID == null) {
           _fetchMessage(tmpInfo.first.id!);
         }
