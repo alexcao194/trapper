@@ -11,12 +11,15 @@ class Validator {
     return null;
   }
 
-  static String? password(String value) {
-    if (value.isEmpty) {
+  static String? password(String password, {String? checker}) {
+    if (password.isEmpty) {
       return null;
     }
-    if (value.length < 6) {
+    if (password.length < 6) {
       return S.current.password_length_error;
+    }
+    if (checker != null && password != checker) {
+      return S.current.confirm_password_not_match;
     }
     return null;
   }
@@ -34,6 +37,16 @@ class Validator {
   static String? name(String value) {
     if (value.isEmpty) {
       return S.current.full_name_required;
+    }
+    return null;
+  }
+
+  static String? otp(String value) {
+    if (value.isEmpty) {
+      return S.current.otp_required;
+    }
+    if (value.length < 6) {
+      return S.current.otp_length_error;
     }
     return null;
   }

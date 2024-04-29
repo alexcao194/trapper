@@ -76,6 +76,11 @@ class _RoundedTextFieldState extends State<RoundedTextField> {
               ),
             ),
           ),
+          if (widget.errorText != null)
+            Padding(
+              padding: const EdgeInsets.only(left: 4, top: 4),
+              child: Text(widget.errorText!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+            ),
         ],
       ),
     );

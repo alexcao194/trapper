@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../config/const/dimen.dart';
 import '../../../../../utils/dialog_tools.dart';
 import '../../../../../utils/validator.dart';
 import '../../../../domain/entity/account.dart';
@@ -43,6 +44,7 @@ class _SignUpBoxState extends State<SignUpBox> {
         }
       },
       builder: (context, state) {
+        var size = MediaQuery.of(context).size;
         return Stack(
           children: [
             Padding(
@@ -58,29 +60,48 @@ class _SignUpBoxState extends State<SignUpBox> {
                       controller: _email,
                       errorText: _emailErrorText,
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: RoundedTextField(
-                            controller: _password,
-                            label: S.current.password,
-                            hintText: S.current.password_example,
-                            errorText: _passwordErrorText,
-                            obscureText: true,
+                    if (size.width > Dimen.mobileWidth)
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: RoundedTextField(
+                              controller: _password,
+                              label: S.current.password,
+                              hintText: S.current.password_example,
+                              errorText: _passwordErrorText,
+                              obscureText: true,
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: RoundedTextField(
-                            controller: _confirmPassword,
-                            label: S.current.confirm_password,
-                            hintText: S.current.confirm_password_example,
-                            errorText: _confirmPasswordErrorText,
-                            obscureText: true,
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: RoundedTextField(
+                              controller: _confirmPassword,
+                              label: S.current.confirm_password,
+                              hintText: S.current.confirm_password_example,
+                              errorText: _confirmPasswordErrorText,
+                              obscureText: true,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                    if (size.width <= Dimen.mobileWidth) ...[
+                      RoundedTextField(
+                        controller: _password,
+                        label: S.current.password,
+                        hintText: S.current.password_example,
+                        errorText: _passwordErrorText,
+                        obscureText: true,
+                      ),
+                      const SizedBox(width: 8),
+                      RoundedTextField(
+                        controller: _confirmPassword,
+                        label: S.current.confirm_password,
+                        hintText: S.current.confirm_password_example,
+                        errorText: _confirmPasswordErrorText,
+                        obscureText: true,
+                      ),
+                    ],
                     RoundedTextField(
                       controller: _name,
                       label: S.current.full_name,
@@ -211,14 +232,16 @@ class _SignUpBoxState extends State<SignUpBox> {
     );
     _password.addListener(
       () => setState(() {
-        _passwordErrorText = Validator.password(_password.text);
+        _passwordErrorText = Validator.password(_password.text, checker: _confirmPassword.text);
+        _confirmPasswordErrorText = Validator.password(_confirmPassword.text, checker: _password.text);
         checkCanSignup();
       }),
     );
 
     _confirmPassword.addListener(
       () => setState(() {
-        _confirmPasswordErrorText = Validator.confirmPassword(_confirmPassword.text, _password.text);
+        _confirmPasswordErrorText = Validator.password(_confirmPassword.text, checker: _password.text);
+        _passwordErrorText = Validator.password(_password.text, checker: _confirmPassword.text);
         checkCanSignup();
       }),
     );

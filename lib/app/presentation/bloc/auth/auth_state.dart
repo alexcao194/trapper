@@ -32,3 +32,31 @@ class AuthStateFailure extends AuthState {
   @override
   List<Object?> get props => [error];
 }
+
+class AuthStateForgotPassword extends AuthState {
+  const AuthStateForgotPassword();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class AuthStateSentOTP extends AuthState {
+  const AuthStateSentOTP();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class AuthStateConfirmedOTP extends AuthState {
+  const AuthStateConfirmedOTP();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class AuthStateResetPasswordSuccessful extends AuthState {
+  const AuthStateResetPasswordSuccessful();
+
+  @override
+  List<Object?> get props => [];
+}

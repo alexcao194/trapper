@@ -71,125 +71,129 @@ class _LoginScreenState extends State<LoginScreen> {
               primary: true,
               child: Stack(
                 children: [
-                  Row(
-                    children: [
-                      if (size.width > Dimen.mobileWidth)
-                        Expanded(
-                          flex: 5,
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.primaryContainer,
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  bottomLeft: Radius.circular(20),
+                  SizedBox(
+                    height: size.height,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        if (size.width > Dimen.mobileWidth)
+                          Expanded(
+                            flex: 5,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.primaryContainer,
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    bottomLeft: Radius.circular(20),
+                                  ),
                                 ),
+                                child: Center(child: SlideBanner(size: size)),
                               ),
-                              child: Center(child: SlideBanner(size: size)),
                             ),
                           ),
-                        ),
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const SizedBox(height: 20),
-                            SizedBox(
-                              width: 300,
-                              height: size.width > Dimen.mobileWidth ? 300 : null,
-                              child: Center(child: getChar()),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: Container(
-                                padding: const EdgeInsets.all(16),
-                                decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primaryContainer, width: 2), borderRadius: BorderRadius.circular(5)),
-                                child: Column(
-                                  children: [
-                                    OutlineTextField(
-                                      textInputAction: TextInputAction.next,
-                                      inputType: TextInputType.emailAddress,
-                                      focusNode: _emailFocusNode,
-                                      labelText: S.current.email,
-                                      hintText: S.current.email_example,
-                                      errorText: emailError,
-                                      controller: _email,
-                                      prefixIcon: const Icon(Icons.email_outlined, size: 18),
-                                      onTap: lookOn,
-                                      onChanged: lookFollow,
-                                      onTapOutside: (event) => stopLooking(),
-                                    ),
-                                    const SizedBox(height: 16),
-                                    OutlineTextField(
-                                      textInputAction: TextInputAction.done,
-                                      inputType: TextInputType.visiblePassword,
-                                      focusNode: _passwordFocusNode,
-                                      labelText: S.current.password,
-                                      hintText: S.current.password_example,
-                                      prefixIcon: const Icon(Icons.lock_outline, size: 18),
-                                      errorText: passwordError,
-                                      obscureText: true,
-                                      controller: _password,
-                                      onTap: handOn,
-                                      onTapOutside: (event) => stopLooking(),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: MaterialButton(
-                                        padding: const EdgeInsets.symmetric(vertical: 18),
-                                        hoverColor: Colors.transparent,
-                                        splashColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onPressed: () {
-                                          _onForgotPassword();
-                                        },
-                                        child: Text(S.current.forgot_password,
-                                            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                                                  color: Theme.of(context).colorScheme.primary,
-                                                )),
+                        Expanded(
+                          flex: 3,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(height: 20),
+                              SizedBox(
+                                width: 300,
+                                height: size.width > Dimen.mobileWidth ? 300 : null,
+                                child: Center(child: getChar()),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                child: Container(
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primaryContainer, width: 2), borderRadius: BorderRadius.circular(5)),
+                                  child: Column(
+                                    children: [
+                                      OutlineTextField(
+                                        textInputAction: TextInputAction.next,
+                                        inputType: TextInputType.emailAddress,
+                                        focusNode: _emailFocusNode,
+                                        labelText: S.current.email,
+                                        hintText: S.current.email_example,
+                                        errorText: emailError,
+                                        controller: _email,
+                                        prefixIcon: const Icon(Icons.email_outlined, size: 18),
+                                        onTap: lookOn,
+                                        onChanged: lookFollow,
+                                        onTapOutside: (event) => stopLooking(),
                                       ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        TextButton(
-                                          style: TextButton.styleFrom(
-                                            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                                          ),
+                                      const SizedBox(height: 16),
+                                      OutlineTextField(
+                                        textInputAction: TextInputAction.done,
+                                        inputType: TextInputType.visiblePassword,
+                                        focusNode: _passwordFocusNode,
+                                        labelText: S.current.password,
+                                        hintText: S.current.password_example,
+                                        prefixIcon: const Icon(Icons.lock_outline, size: 18),
+                                        errorText: passwordError,
+                                        obscureText: true,
+                                        controller: _password,
+                                        onTap: handOn,
+                                        onTapOutside: (event) => stopLooking(),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: MaterialButton(
+                                          padding: const EdgeInsets.symmetric(vertical: 18),
+                                          hoverColor: Colors.transparent,
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
                                           onPressed: () {
-                                            if (canLogin) {
-                                              login();
-                                            } else {
-                                              DialogTools.showFailureDialog(context, message: S.current.common_fields_error);
-                                            }
+                                            _onForgotPassword();
                                           },
-                                          child: Container(
-                                            padding: const EdgeInsets.all(16),
-                                            child: Text(S.current.login),
-                                          ),
+                                          child: Text(S.current.forgot_password,
+                                              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                                                    color: Theme.of(context).colorScheme.primary,
+                                                  )),
                                         ),
-                                        TextButton(
-                                          style: TextButton.styleFrom(
-                                            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          TextButton(
+                                            style: TextButton.styleFrom(
+                                              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                                            ),
+                                            onPressed: () {
+                                              if (canLogin) {
+                                                login();
+                                              } else {
+                                                DialogTools.showFailureDialog(context, message: S.current.common_fields_error);
+                                              }
+                                            },
+                                            child: Container(
+                                              padding: const EdgeInsets.all(16),
+                                              child: Text(S.current.login),
+                                            ),
                                           ),
-                                          onPressed: signup,
-                                          child: Container(
-                                            padding: const EdgeInsets.all(16),
-                                            child: Text(S.current.signup),
+                                          TextButton(
+                                            style: TextButton.styleFrom(
+                                              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                                            ),
+                                            onPressed: signup,
+                                            child: Container(
+                                              padding: const EdgeInsets.all(16),
+                                              child: Text(S.current.signup),
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   if (state is AuthStateLoading)
                     Container(
@@ -336,6 +340,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onForgotPassword() {
+    context.read<AuthBloc>().add(const AuthEventForgotPassword());
     DialogTools.showForgotPasswordDialog(context);
   }
 }

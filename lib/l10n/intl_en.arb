@@ -154,5 +154,12 @@
     }
   },
   "you": "You",
-  "emoji": "Emoji"
+  "emoji": "Emoji",
+  "otp_required": "OTP is required",
+  "otp_length_error": "OTP must be 6 characters",
+  "send_otp": "Send OTP",
+  "confirm": "Confirm",
+  "otp": "OTP",
+  "otp_example": "123456",
+  "change_password": "Change password"
 }

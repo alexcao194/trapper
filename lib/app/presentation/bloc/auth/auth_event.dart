@@ -34,3 +34,35 @@ class AuthEventValidateToken extends AuthEvent {
   @override
   List<Object?> get props => [];
 }
+
+class AuthEventForgotPassword extends AuthEvent {
+  const AuthEventForgotPassword();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class AuthEventSendOTP extends AuthEvent {
+  final String email;
+  const AuthEventSendOTP({required this.email});
+
+  @override
+  List<Object?> get props => [email];
+}
+
+class AuthEventConfirmOTP extends AuthEvent {
+  final String otp;
+  const AuthEventConfirmOTP({required this.otp});
+
+  @override
+  List<Object?> get props => [otp];
+}
+
+class AuthEventChangePassword extends AuthEvent {
+  final String confirmPassword;
+  final String password;
+  const AuthEventChangePassword({required this.confirmPassword, required this.password});
+
+  @override
+  List<Object?> get props => [confirmPassword, password];
+}

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:trapper/app/presentation/screen/login/widget/sign_up_box.dart';
-import 'package:trapper/config/const/dimen.dart';
-import 'package:trapper/generated/l10n.dart';
+
+import '../app/presentation/screen/login/widget/forgot_password_box.dart';
+import '../app/presentation/screen/login/widget/sign_up_box.dart';
+import '../config/const/dimen.dart';
+import '../generated/l10n.dart';
 
 class DialogTools {
   static void showFailureDialog(
@@ -42,17 +44,12 @@ class DialogTools {
   static void showForgotPasswordDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Forgot Password"),
-        content: const Text("Please enter your email address to reset your password"),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(S.current.cancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(S.current.ok),
+      builder: (context) => SimpleDialog(
+        title: Text(S.current.forgot_password),
+        children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: Dimen.mobileWidth),
+            child: const ForgotPasswordBox(),
           ),
         ],
       ),

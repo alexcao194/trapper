@@ -153,5 +153,12 @@
     }
   },
   "you": "Bạn",
-  "emoji": "Nhãn dán"
+  "emoji": "Nhãn dán",
+  "otp_required": "Mã OTP không được để trống",
+  "otp_length_error": "Mã OTP phải có 6 ký tự",
+  "send_otp": "Gửi mã OTP",
+  "confirm": "Xác nhận",
+  "otp": "OTP",
+  "otp_example": "123456",
+  "change_password": "Đổi mật khẩu"
 }
