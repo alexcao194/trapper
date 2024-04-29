@@ -161,5 +161,6 @@
   "confirm": "Confirm",
   "otp": "OTP",
   "otp_example": "123456",
-  "change_password": "Change password"
+  "change_password": "Change password",
+  "otp_must_be_number": "OTP must be a number"
 }

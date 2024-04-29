@@ -38,7 +38,7 @@ class _ForgotPasswordBoxState extends State<ForgotPasswordBox> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 RoundedTextField(
-                  enabled: state is AuthStateForgotPassword,
+                  enabled: state is! AuthStateSentOTP,
                   hintText: S.current.email_example,
                   label: S.current.email,
                   controller: _email,
@@ -50,15 +50,16 @@ class _ForgotPasswordBoxState extends State<ForgotPasswordBox> {
                     label: S.current.otp,
                     controller: _otp,
                     errorText: _otpErrorText,
+                    inputType: TextInputType.number,
                   ),
-                if (state is AuthStateConfirmedOTP) RoundedTextField(
+                if (state is AuthStateSentOTP) RoundedTextField(
                   controller: _password,
                   label: S.current.password,
                   hintText: S.current.password_example,
                   errorText: _passwordErrorText,
                   obscureText: true,
                 ),
-                if (state is AuthStateConfirmedOTP) RoundedTextField(
+                if (state is AuthStateSentOTP) RoundedTextField(
                   controller: _confirmPassword,
                   label: S.current.confirm_password,
                   hintText: S.current.confirm_password_example,
@@ -78,18 +79,11 @@ class _ForgotPasswordBoxState extends State<ForgotPasswordBox> {
                     ),
                     TextButton(
                       onPressed: () {
-                        print(state);
-                        print(_emailErrorText);
-                        print(_otpErrorText);
-                        if (state is AuthStateForgotPassword && _emailErrorText == null && _email.text.isNotEmpty) {
+                        if (state is! AuthStateSentOTP && _emailErrorText == null && _email.text.isNotEmpty) {
                           _sendOTP();
                         }
 
-                        if (state is AuthStateSentOTP && _otpErrorText == null && _otp.text.isNotEmpty) {
-                          _confirmOTP();
-                        }
-
-                        if (state is AuthStateConfirmedOTP && _passwordErrorText == null && _confirmPasswordErrorText != null && _password.text.isNotEmpty && _confirmPassword.text.isNotEmpty) {
+                        if (state is AuthStateSentOTP && _passwordErrorText == null && _confirmPasswordErrorText != null && _password.text.isNotEmpty && _confirmPassword.text.isNotEmpty) {
                           _changePassword();
                         }
                       },
@@ -148,29 +142,17 @@ class _ForgotPasswordBoxState extends State<ForgotPasswordBox> {
   void _sendOTP() {
     context.read<AuthBloc>().add(AuthEventSendOTP(email: _email.text));
   }
-
-  void _confirmOTP() {
-    context.read<AuthBloc>().add(AuthEventConfirmOTP(otp: _otp.text));
-  }
   
   void _changePassword() {
-    context.read<AuthBloc>().add(AuthEventChangePassword(password: _password.text, confirmPassword: _confirmPassword.text));
+    context.read<AuthBloc>().add(AuthEventChangePassword(password: _password.text, confirmPassword: _confirmPassword.text, otp: _otp.text));
   }
 
   String _buildButtonText(AuthState state) {
-    if (state is AuthStateForgotPassword) {
+    if (state is! AuthStateSentOTP) {
       return S.current.send_otp;
     }
 
-    if (state is AuthStateSentOTP) {
-      return S.current.confirm;
-    }
-
-    if (state is AuthStateConfirmedOTP) {
-      return S.current.change_password;
-    }
-
-    return S.current.ok;
+    return S.current.change_password;
   }
 
   @override

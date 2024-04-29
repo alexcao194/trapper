@@ -42,9 +42,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthEventRegister>(_onRegister);
     on<AuthEventValidateToken>(_onValidateToken);
     on<AuthEventLogout>(_onLogout);
-    on<AuthEventForgotPassword>(_onForgotPassword);
     on<AuthEventSendOTP>(_onSendOTP);
-    on<AuthEventConfirmOTP>(_onConfirmOTP);
     on<AuthEventChangePassword>(_onChangePassword);
 
     add(const AuthEventValidateToken());
@@ -99,14 +97,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> _onLogout(AuthEventLogout event, Emitter<AuthState> emit) async {
     emit(const AuthStateUnauthenticated());
-  }
-
-  FutureOr<void> _onForgotPassword(AuthEventForgotPassword event, Emitter<AuthState> emit) async {
-    emit(const AuthStateForgotPassword());
-  }
-
-  FutureOr<void> _onConfirmOTP(AuthEventConfirmOTP event, Emitter<AuthState> emit) async {
-    emit(const AuthStateConfirmedOTP());
   }
 
   FutureOr<void> _onChangePassword(AuthEventChangePassword event, Emitter<AuthState> emit) async {

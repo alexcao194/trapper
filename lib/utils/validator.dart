@@ -45,7 +45,10 @@ class Validator {
     if (value.isEmpty) {
       return S.current.otp_required;
     }
-    if (value.length < 6) {
+    if (int.tryParse(value) == null) {
+      return S.current.otp_must_be_number;
+    }
+    if (value.length != 6) {
       return S.current.otp_length_error;
     }
     return null;

@@ -160,5 +160,6 @@
   "confirm": "Xác nhận",
   "otp": "OTP",
   "otp_example": "123456",
-  "change_password": "Đổi mật khẩu"
+  "change_password": "Đổi mật khẩu",
+  "otp_must_be_number": "Mã OTP phải là số"
 }

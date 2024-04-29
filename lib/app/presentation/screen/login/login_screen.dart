@@ -340,7 +340,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onForgotPassword() {
-    context.read<AuthBloc>().add(const AuthEventForgotPassword());
     DialogTools.showForgotPasswordDialog(context);
   }
 }
