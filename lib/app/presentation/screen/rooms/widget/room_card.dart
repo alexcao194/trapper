@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../config/const/dimen.dart';
 import '../../../../../generated/l10n.dart';
@@ -10,7 +11,7 @@ import 'room_avatar.dart';
 
 class RoomCard extends StatelessWidget {
   final Profile profile;
-  final userId;
+  final String userId;
   final MessageDetail? lastMessage;
   final String roomID;
   final bool isSelecting;
@@ -19,6 +20,16 @@ class RoomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String time = '';
+    if (lastMessage != null) {
+      var dateTime = DateTime.fromMillisecondsSinceEpoch(lastMessage!.timestamp!);
+      if (DateTime.now().difference(dateTime).inDays < 1) {
+        time = DateFormat('HH:mm').format(dateTime);
+      } else {
+        time = DateFormat('dd/MM/yyyy').format(dateTime);
+      }
+    }
+
     return ListTile(
       tileColor: isSelecting ? Theme.of(context).colorScheme.primaryContainer : Theme.of(context).colorScheme.background,
       shape: const RoundedRectangleBorder(
@@ -26,7 +37,7 @@ class RoomCard extends StatelessWidget {
       ),
       splashColor: Theme.of(context).colorScheme.surfaceVariant,
       leading: RoomAvatar(photoUrl: profile.photoUrl),
-      trailing: Text("Date", style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.outline)),
+      trailing: Text(time, style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.outline)),
       title: Text(profile.name ?? S.current.full_name_example, style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold)),
       subtitle: Text(
         (lastMessage == null) ? S.current.last_message_placeholder : _getMessage(lastMessage!, profile.id == userId),
