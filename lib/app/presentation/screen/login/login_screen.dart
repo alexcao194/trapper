@@ -5,10 +5,12 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rive/rive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../../../config/const/dimen.dart';
 import '../../../../config/go_router/app_go_router.dart';
 import '../../../../utils/dialog_tools.dart';
+import '../../../../utils/notification_tools.dart';
 import '../../../../utils/validator.dart';
 import '../../../../generated/assets.dart';
 import '../../../domain/entity/account.dart';
@@ -56,6 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
               listener: (context, state) {
                 if (state is AuthStateAuthenticated) {
                   try {
+                    NotificationTools.showSuccessNotification(context: context, message: S.current.login_successful);
                     _successTrigger.fire();
                   } catch (e) {
                     debugPrint(e.toString());
@@ -67,10 +70,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     DialogTools.showFailureDialog(context, message: state.error!);
                   }
                 } else if (state is AuthStateResetPasswordSuccessful) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(S.current.reset_password_successful),
-                    duration: const Duration(seconds: 3),
-                  ));
+                  toastification.show(
+                    context: context,
+                    style: ToastificationStyle.flatColored
+                  );
                   context.pop();
                 }
               },

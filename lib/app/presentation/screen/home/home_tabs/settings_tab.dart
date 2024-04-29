@@ -7,6 +7,7 @@ import '../../../../../config/const/app_colors.dart';
 import '../../../../../config/const/dimen.dart';
 import '../../../../../generated/assets.dart';
 import '../../../../../generated/l10n.dart';
+import '../../../../../utils/notification_tools.dart';
 import '../../../../domain/entity/profile.dart';
 import '../../../bloc/home/home_bloc.dart';
 import '../../../bloc/profile/profile_bloc.dart';
@@ -33,10 +34,7 @@ class _SettingsTabState extends State<SettingsTab> {
         child: BlocConsumer<ProfileBloc, ProfileState>(
           listener: (context, profileState) {
             if (profileState.sendMessage) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(profileState.message!),
-                duration: const Duration(seconds: 2),
-              ));
+              NotificationTools.showErrorNotification(context: context, message: profileState.message!);
             }
           },
           builder: (context, profileState) {

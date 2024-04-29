@@ -8,6 +8,7 @@ import '../../../../../config/message_distribution/message_distribution.dart';
 import '../../../../../generated/assets.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../utils/dialog_tools.dart';
+import '../../../../../utils/notification_tools.dart';
 import '../../../bloc/connect/connect_bloc.dart';
 import '../../../bloc/profile/profile_bloc.dart';
 import 'widget/custom_chip.dart';
@@ -22,12 +23,7 @@ class ConnectTab extends StatelessWidget {
     return BlocConsumer<ConnectBloc, ConnectState>(
       listener: (context, connectState) {
         if (connectState.showError && connectState.error != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(connectState.error!),
-              duration: const Duration(seconds: 3),
-            ),
-          );
+          NotificationTools.showErrorNotification(context: context, message: connectState.error!);
         }
 
         if (connectState.roomInfo != null) {
@@ -224,11 +220,7 @@ class ConnectTab extends StatelessWidget {
                                 label: MessageDistribution.fromID(hobby.id),
                                 onSelected: (bool selected) {
                                   if (selected && connectData.hobbies.length >= 3) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(S.current.hobbies_limit),
-                                      ),
-                                    );
+                                    NotificationTools.showErrorNotification(context: context, message: S.current.hobbies_limit);
                                     return;
                                   }
                                   context.read<ConnectBloc>().add(

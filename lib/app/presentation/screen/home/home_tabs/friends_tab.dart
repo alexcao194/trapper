@@ -6,6 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../../config/const/dimen.dart';
 import '../../../../../config/go_router/app_go_router.dart';
 import '../../../../../generated/l10n.dart';
+import '../../../../../utils/notification_tools.dart';
 import '../../../../domain/entity/profile.dart';
 import '../../../bloc/friends/friends_bloc.dart';
 import '../../../bloc/home/home_bloc.dart';
@@ -25,12 +26,7 @@ class _FriendsTabState extends State<FriendsTab> {
     return BlocConsumer<FriendsBloc, FriendsState>(
       listener: (context, state) {
         if (state.showError && state.error != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.error!),
-              duration: const Duration(seconds: 3),
-            ),
-          );
+          NotificationTools.showErrorNotification(context: context, message: state.error!);
         }
       },
       builder: (context, state) {

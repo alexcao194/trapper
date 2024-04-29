@@ -9,6 +9,7 @@ import 'package:trapper/app/presentation/bloc/auth/auth_bloc.dart';
 import '../../../../config/go_router/app_go_router.dart';
 import '../../../../generated/l10n.dart';
 
+import '../../../../utils/notification_tools.dart';
 import '../../bloc/connect/connect_bloc.dart';
 import '../../bloc/friends/friends_bloc.dart';
 import '../../bloc/home/home_bloc.dart';
@@ -56,9 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
             listenWhen: (previous, current) => current.showMessages == true && current.message != previous.message,
             listener: (context, state) {
               if (state.showMessages) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(state.message!),
-                ));
+                NotificationTools.showNotification(context: context, message: state.message!);
               }
             },
             child: BlocConsumer<RoomsBloc, RoomsState>(
