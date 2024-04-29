@@ -129,6 +129,6 @@ flutter:
     - assets/
     - assets/rive/
     - assets/png/
-    - .env/
+
 flutter_intl:
   enabled: true

@@ -23,9 +23,6 @@ void main() async {
   await HiveTools.init();
   DioTools.init();
   await DependencyInjection.init();
-  if (!kIsWeb) {
-    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-  }
   runApp(
     MultiBlocProvider(
       providers: [
