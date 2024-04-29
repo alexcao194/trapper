@@ -107,11 +107,11 @@ class SocketDataImpl implements SocketData {
     });
 
     AppSocket.socket.on('on_friend_offline', (data) {
-      _friendOnlineController.add(Pair(data['id'], false));
+      _friendOnlineController.add(Pair(data['userId'], false));
     });
 
     AppSocket.socket.on('on_friend_online', (data) {
-      _friendOnlineController.add(Pair(data['id'], true));
+      _friendOnlineController.add(Pair(data['userId'], true));
     });
   }
 
