@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/auth/auth_bloc.dart';
 
-class HelpTab extends StatelessWidget {
-  const HelpTab({super.key});
+class AboutTab extends StatelessWidget {
+  const AboutTab({super.key});
 
   @override
   Widget build(BuildContext context) {

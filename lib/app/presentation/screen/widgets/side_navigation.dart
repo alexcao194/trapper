@@ -25,7 +25,7 @@ class _SideNavigationState extends State<SideNavigation> {
       const Icon(Icons.people),
       const Icon(Icons.connect_without_contact),
       const Icon(Icons.settings),
-      const Icon(Icons.help),
+      const Icon(Icons.info),
     ];
 
     List<String> labels = [
@@ -33,7 +33,7 @@ class _SideNavigationState extends State<SideNavigation> {
       S.current.friends_button,
       S.current.connect_button,
       S.current.settings_button,
-      S.current.help_button,
+      S.current.about_button,
     ];
 
     return BlocConsumer<HomeBloc, HomeState>(

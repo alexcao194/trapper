@@ -46,7 +46,7 @@
   "messages_button": "Messages",
   "connect_button": "Connect",
   "settings_button": "Settings",
-  "help_button": "Help",
+  "about_button": "About",
   "logout_button": "Logout",
   "update_button": "Update",
   "delete_button": "Delete",

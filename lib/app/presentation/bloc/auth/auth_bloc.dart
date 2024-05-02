@@ -63,7 +63,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     _authSubscription.listen((isAuthenticated) {
       if (!isAuthenticated) {
-        _disconnect();
         add(const AuthEventLogout());
       }
     });

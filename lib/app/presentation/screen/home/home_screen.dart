@@ -20,7 +20,7 @@ import '../../bloc/rooms/rooms_bloc.dart';
 import '../widgets/side_navigation.dart';
 import 'home_tabs/connect_tab.dart';
 import 'home_tabs/friends_tab.dart';
-import 'home_tabs/help_tab.dart';
+import 'home_tabs/about_tab.dart';
 import 'home_tabs/profile_tab.dart';
 import 'home_tabs/settings_tab.dart';
 import 'home_tabs/widget/keep_alive_page.dart';
@@ -113,8 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     title: Text(S.current.settings_button),
                                   ),
                                   FlashyTabBarItem(
-                                    icon: const Icon(Icons.help),
-                                    title: Text(S.current.help_button),
+                                    icon: const Icon(Icons.info),
+                                    title: Text(S.current.about_button),
                                   ),
                                 ],
                               ) : null,
@@ -198,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           const KeepAlivePage(child: FriendsTab()),
                                           const KeepAlivePage(child: ConnectTab()),
                                           const KeepAlivePage(child: SettingsTab()),
-                                          const KeepAlivePage(child: HelpTab()),
+                                          const KeepAlivePage(child: AboutTab()),
                                         ],
                                       ),
                                     ),
