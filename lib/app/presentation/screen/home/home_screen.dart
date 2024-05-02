@@ -64,7 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
           return BlocBuilder<HomeBloc, HomeState>(
             builder: (context, homeState) {
               return BlocListener<FriendsBloc, FriendsState>(
-                listenWhen: (previous, current) => current.showMessages == true && current.message != previous.message,
                 listener: (context, state) {
                   if (state.showMessages) {
                     NotificationTools.showNotification(context: context, message: state.message!);
