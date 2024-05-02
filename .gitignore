@@ -45,4 +45,4 @@ app.*.map.json
 # ignore generated files
 *.g.dart
 *.freezed.dart
-generated/
+lib/generated/

@@ -1,7 +1,11 @@
+import 'package:hive/hive.dart';
 import 'package:trapper/app/domain/entity/hobby.dart';
 
+part 'hobby_model.g.dart';
+
+@HiveType(typeId: 12)
 class HobbyModel extends Hobby {
-  HobbyModel({required super.id, required super.name});
+  const HobbyModel({required super.id, required super.name});
 
   factory HobbyModel.fromJson(Map<String, dynamic> json) {
     return HobbyModel(
