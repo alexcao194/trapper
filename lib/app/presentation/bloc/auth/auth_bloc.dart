@@ -9,6 +9,7 @@ import '../../../domain/entity/profile.dart';
 import '../../../domain/use_case/change_password.dart';
 import '../../../domain/use_case/connect.dart';
 import '../../../domain/use_case/disconnect.dart';
+import '../../../domain/use_case/log_out.dart';
 import '../../../domain/use_case/login.dart';
 import '../../../domain/use_case/register.dart';
 import '../../../domain/use_case/send_otp.dart';
@@ -21,6 +22,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   late Login _login;
   late Register _register;
+  late Logout _logout;
   late ValidateToken _validateToken;
   late Stream<bool> _authSubscription;
   late Connect _connect;
@@ -37,6 +39,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required Disconnect disconnect,
     required SendOTP sendOTP,
     required ChangePassword changePassword,
+    required Logout logout,
   }) : super(const AuthStateUnauthenticated()) {
     _login = login;
     _register = register;
@@ -46,6 +49,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     _disconnect = disconnect;
     _sendOTP = sendOTP;
     _changePassword = changePassword;
+    _logout = logout;
     on<AuthEventLogin>(_onLogin);
     on<AuthEventRegister>(_onRegister);
     on<AuthEventValidateToken>(_onValidateToken);
@@ -53,6 +57,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthEventSendOTP>(_onSendOTP);
     on<AuthEventChangePassword>(_onChangePassword);
     on<AuthEventReset>(_onReset);
+    
 
     add(const AuthEventValidateToken());
 
@@ -105,7 +110,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   FutureOr<void> _onLogout(AuthEventLogout event, Emitter<AuthState> emit) async {
-    emit(const AuthStateUnauthenticated());
+    debugPrint('logout');
+    emit(const AuthStateLoading());
+    var result = await _logout();
+    result.fold(
+      (failure) => emit(AuthStateFailure(error: failure.message)),
+      (_) {
+        debugPrint("logout successful");
+        _disconnect();
+        emit(const AuthStateUnauthenticated());
+      },
+    );
   }
 
   FutureOr<void> _onChangePassword(AuthEventChangePassword event, Emitter<AuthState> emit) async {

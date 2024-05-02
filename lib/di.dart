@@ -30,6 +30,7 @@ import 'app/domain/use_case/listen_connect_status.dart';
 import 'app/domain/use_case/listen_friend.dart';
 import 'app/domain/use_case/listen_message.dart';
 import 'app/domain/use_case/listen_online_friends.dart';
+import 'app/domain/use_case/log_out.dart';
 import 'app/domain/use_case/login.dart';
 import 'app/domain/use_case/post_photo.dart';
 import 'app/domain/use_case/register.dart';
@@ -66,6 +67,7 @@ class DependencyInjection {
         disconnect: sl(),
         changePassword: sl(),
         sendOTP: sl(),
+        logout: sl(),
       ),
     );
 
@@ -130,7 +132,7 @@ class DependencyInjection {
     sl.registerLazySingleton<SendOTP>(() => SendOTP(authRepository: sl()));
     sl.registerLazySingleton<ChangePassword>(() => ChangePassword(authRepository: sl()));
     sl.registerLazySingleton<ListenOnlineFriends>(() => ListenOnlineFriends(socketRepository: sl()));
-    
+    sl.registerLazySingleton<Logout>(() => Logout(authRepository: sl()));
 
     // Repositories
     sl.registerLazySingleton<AuthRepository>(

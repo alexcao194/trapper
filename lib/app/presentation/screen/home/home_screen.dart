@@ -54,72 +54,79 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, homeState) {
-          return BlocListener<FriendsBloc, FriendsState>(
-            listenWhen: (previous, current) => current.showMessages == true && current.message != previous.message,
-            listener: (context, state) {
-              if (state.showMessages) {
-                NotificationTools.showNotification(context: context, message: state.message!);
-              }
-            },
-            child: BlocConsumer<RoomsBloc, RoomsState>(
-              listenWhen: (previous, roomsState) => previous.roomsInfo.isEmpty || roomsState.roomsInfo.first.lastMessage != previous.roomsInfo.first.lastMessage,
-              listener: (context, roomsState) {
-                if (roomsState.roomsInfo.isNotEmpty) {
-                  setState(() {
-                    _showLastMessage = true;
-                    _waitHideLastMessage();
-                  });
-                }
-              },
-              builder: (context, roomsState) {
-                return BlocBuilder<ProfileBloc, ProfileState>(
-                  builder: (context, profileState) {
-                    var size = MediaQuery.of(context).size;
-                    return Stack(
-                      children: [
-                        Scaffold(
-                          backgroundColor: Theme.of(context).colorScheme.background,
-                          bottomNavigationBar: (size.width <= Dimen.mobileWidth) ? FlashyTabBar(
-                            selectedIndex: homeState.index,
-                            onItemSelected: (index) {
-                              if (profileState.profile.name == null) {
-                                return;
-                              }
-                              _go(index);
-                            },
-                            items: [
-                              FlashyTabBarItem(
-                                icon: const Icon(Icons.person),
-                                title: Text(S.current.profile_button),
-                              ),
-                              FlashyTabBarItem(
-                                icon: const Icon(Icons.people),
-                                title: Text(S.current.friends_button),
-                              ),
-                              FlashyTabBarItem(
-                                icon: const Icon(Icons.connect_without_contact),
-                                title: Text(S.current.connect_button),
-                              ),
-                              FlashyTabBarItem(
-                                icon: const Icon(Icons.settings),
-                                title: Text(S.current.settings_button),
-                              ),
-                              FlashyTabBarItem(
-                                icon: const Icon(Icons.help),
-                                title: Text(S.current.help_button),
-                              ),
-                            ],
-                          ) : null,
-                          floatingActionButton: roomsState.roomsInfo.isNotEmpty
-                              ? Builder(
-                                builder: (context) {
-                                  var lastMessage = roomsState.roomsInfo.first.lastMessage ?? MessageDetail(
-                                    type: MessageType.text,
-                                    message: S.current.last_message_placeholder,
-                                  );
-                                  return Row(
+      child: BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthStateUnauthenticated) {
+            context.go(RoutePath.login);
+          }
+        },
+        builder: (context, authState) {
+          return BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, homeState) {
+              return BlocListener<FriendsBloc, FriendsState>(
+                listenWhen: (previous, current) => current.showMessages == true && current.message != previous.message,
+                listener: (context, state) {
+                  if (state.showMessages) {
+                    NotificationTools.showNotification(context: context, message: state.message!);
+                  }
+                },
+                child: BlocConsumer<RoomsBloc, RoomsState>(
+                  listenWhen: (previous, roomsState) => previous.roomsInfo.isEmpty || roomsState.roomsInfo.first.lastMessage != previous.roomsInfo.first.lastMessage,
+                  listener: (context, roomsState) {
+                    if (roomsState.roomsInfo.isNotEmpty) {
+                      setState(() {
+                        _showLastMessage = true;
+                        _waitHideLastMessage();
+                      });
+                    }
+                  },
+                  builder: (context, roomsState) {
+                    return BlocBuilder<ProfileBloc, ProfileState>(
+                      builder: (context, profileState) {
+                        var size = MediaQuery.of(context).size;
+                        return Stack(
+                          children: [
+                            Scaffold(
+                              backgroundColor: Theme.of(context).colorScheme.background,
+                              bottomNavigationBar: (size.width <= Dimen.mobileWidth) ? FlashyTabBar(
+                                selectedIndex: homeState.index,
+                                onItemSelected: (index) {
+                                  if (profileState.profile.name == null) {
+                                    return;
+                                  }
+                                  _go(index);
+                                },
+                                items: [
+                                  FlashyTabBarItem(
+                                    icon: const Icon(Icons.person),
+                                    title: Text(S.current.profile_button),
+                                  ),
+                                  FlashyTabBarItem(
+                                    icon: const Icon(Icons.people),
+                                    title: Text(S.current.friends_button),
+                                  ),
+                                  FlashyTabBarItem(
+                                    icon: const Icon(Icons.connect_without_contact),
+                                    title: Text(S.current.connect_button),
+                                  ),
+                                  FlashyTabBarItem(
+                                    icon: const Icon(Icons.settings),
+                                    title: Text(S.current.settings_button),
+                                  ),
+                                  FlashyTabBarItem(
+                                    icon: const Icon(Icons.help),
+                                    title: Text(S.current.help_button),
+                                  ),
+                                ],
+                              ) : null,
+                              floatingActionButton: roomsState.roomsInfo.isNotEmpty
+                                  ? Builder(
+                                  builder: (context) {
+                                    var lastMessage = roomsState.roomsInfo.first.lastMessage ?? MessageDetail(
+                                      type: MessageType.text,
+                                      message: S.current.last_message_placeholder,
+                                    );
+                                    return Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         if (_showLastMessage)
@@ -133,8 +140,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             child: Text(
                                               getMessage(lastMessage, lastMessage.sender == profileState.profile.id),
                                               style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                                    color: Theme.of(context).colorScheme.onPrimary,
-                                                  ),
+                                                color: Theme.of(context).colorScheme.onPrimary,
+                                              ),
                                             ),
                                           ),
                                         MaterialButton(
@@ -164,58 +171,60 @@ class _HomeScreenState extends State<HomeScreen> {
                                               child: (roomsState.roomsInfo.first.profile!.photoUrl == null)
                                                   ? const Icon(Icons.person)
                                                   : Image.network(
-                                                      roomsState.roomsInfo.first.profile!.photoUrl!,
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                                roomsState.roomsInfo.first.profile!.photoUrl!,
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ],
                                     );
-                                }
+                                  }
                               )
-                              : null,
-                          body: Row(
-                            children: [
-                              if (size.width > Dimen.mobileWidth) SideNavigation(
-                                onItemSelected: _go,
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: PageView(
-                                    scrollDirection: size.width > Dimen.mobileWidth ? Axis.vertical : Axis.horizontal,
-                                    controller: _pageController,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    children: [
-                                      KeepAlivePage(child: ProfileTab(profile: profileState.profile)),
-                                      const KeepAlivePage(child: FriendsTab()),
-                                      const KeepAlivePage(child: ConnectTab()),
-                                      const KeepAlivePage(child: SettingsTab()),
-                                      const KeepAlivePage(child: HelpTab()),
-                                    ],
+                                  : null,
+                              body: Row(
+                                children: [
+                                  if (size.width > Dimen.mobileWidth) SideNavigation(
+                                    onItemSelected: _go,
                                   ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        if (profileState.profile.name == null)
-                          Container(
-                            color: Theme.of(context).colorScheme.background.withOpacity(0.5),
-                            child: Center(
-                              child: LoadingAnimationWidget.fourRotatingDots(
-                                color: Theme.of(context).colorScheme.primary,
-                                size: 50,
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: PageView(
+                                        scrollDirection: size.width > Dimen.mobileWidth ? Axis.vertical : Axis.horizontal,
+                                        controller: _pageController,
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        children: [
+                                          KeepAlivePage(child: ProfileTab(profile: profileState.profile)),
+                                          const KeepAlivePage(child: FriendsTab()),
+                                          const KeepAlivePage(child: ConnectTab()),
+                                          const KeepAlivePage(child: SettingsTab()),
+                                          const KeepAlivePage(child: HelpTab()),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          )
-                      ],
+                            if (profileState.profile.name == null || authState is AuthStateLoading)
+                              Container(
+                                color: Theme.of(context).colorScheme.background.withOpacity(0.5),
+                                child: Center(
+                                  child: LoadingAnimationWidget.fourRotatingDots(
+                                    color: Theme.of(context).colorScheme.primary,
+                                    size: 50,
+                                  ),
+                                ),
+                              )
+                          ],
+                        );
+                      },
                     );
                   },
-                );
-              },
-            ),
+                ),
+              );
+            },
           );
         },
       ),

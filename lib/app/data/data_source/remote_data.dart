@@ -46,9 +46,8 @@ class RemoteDataImpl implements RemoteData {
   }
 
   @override
-  Future<void> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<void> logout() async {
+    return;
   }
 
   @override

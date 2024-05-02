@@ -34,9 +34,15 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, void>> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<Either<Failure, void>> logout() async {
+    try {
+      await _remoteData.logout();
+      await _localData.deleteToken();
+      await _localData.deleteRefreshToken();
+      return const Right(null);
+    } on DioException catch (e) {
+      return Left(Failure(e.message));
+    }
   }
 
   @override
