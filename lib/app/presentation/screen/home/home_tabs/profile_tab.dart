@@ -127,7 +127,7 @@ class ProfileTab extends StatelessWidget {
                       )
                     ),
                     const SizedBox(height: 10),
-                    Text(profile.bio ?? "", style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
+                    Text(profile.bio ?? "", style: TextStyle(color: Theme.of(context).colorScheme.onSurface), textAlign: TextAlign.center),
                     const SizedBox(height: 10),
                     Expanded(
                       child: Padding(
