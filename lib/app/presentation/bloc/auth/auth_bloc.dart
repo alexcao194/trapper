@@ -61,10 +61,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     add(const AuthEventValidateToken());
 
-    _authSubscription.listen((isAuthenticated) {
-      if (!isAuthenticated) {
-        add(const AuthEventLogout());
-      }
+    Future.delayed(const Duration(seconds: 10), () {
+      _authSubscription.listen((isAuthenticated) {
+        if (!isAuthenticated) {
+          add(const AuthEventLogout());
+        }
+      });
     });
   }
 
