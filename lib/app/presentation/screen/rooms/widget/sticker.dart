@@ -3,7 +3,8 @@ import 'package:gif/gif.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class Sticker extends StatefulWidget {
-  const Sticker({super.key});
+  final String src;
+  const Sticker({super.key, required this.src});
 
   @override
   State<Sticker> createState() => _StickerState();
@@ -16,9 +17,7 @@ class _StickerState extends State<Sticker> with TickerProviderStateMixin, Automa
   Widget build(BuildContext context) {
     super.build(context);
     return Gif(
-      image: const NetworkImage(
-        'https://cors.sh/?https://cdn-stickers.mojilala.com/convert/4Yc/0W97kX5hyNZkT4vc21DnDN+2faE1Bk8Mt+qlLGDkARqwL/LYFQ8uRJF8RYmIlgOQb9krCurfbMU9JMD4LSI93UUFpQ8b5kMTJjH5tLaAN47zedWKuNt05n52XGuiastllgVXMd8s1Zq8l1RZfQ==.webp?v=1549878757',
-      ),
+      image: AssetImage(widget.src),
       controller: _controller,
       autostart: Autostart.no,
       placeholder: (context) => Center(

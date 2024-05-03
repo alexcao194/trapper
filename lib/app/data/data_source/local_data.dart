@@ -3,6 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trapper/app/data/model/profile_model.dart';
 import 'package:trapper/app/data/model/settings_snapshot_model.dart';
 
+import '../../../generated/assets.dart';
+import '../model/sticker_model.dart';
+
 abstract class LocalData {
   Future<void> saveToken(String token);
   Future<void> deleteToken();
@@ -17,6 +20,8 @@ abstract class LocalData {
 
   Future<void> saveSettingsSnapshot(SettingsSnapshotModel settingsSnapshot);
   Future<SettingsSnapshotModel> getSettingsSnapshot();
+
+  List<StickerModel> getStickers();
 }
 
 class LocalDataImpl implements LocalData {
@@ -80,5 +85,25 @@ class LocalDataImpl implements LocalData {
   @override
   Future<void> saveSettingsSnapshot(SettingsSnapshotModel settingsSnapshot ) async {
     await _settingsSnapshotBox.put('settingsSnapshot', settingsSnapshot);
+  }
+
+  @override
+  List<StickerModel> getStickers() {
+    return <StickerModel>[
+      StickerModel(url: Assets.stickerCat, slug: "cat meo mèo"),
+      StickerModel(url: Assets.stickerCatGoodNight, slug: "cat good night meo chúc ngủ ngon chuc ngu ngon"),
+      StickerModel(url: Assets.stickerCatHaha, slug: "cat haha meo cười cuoi"),
+      StickerModel(url: Assets.stickerCatHug, slug: "cat hug meo ôm om"),
+      StickerModel(url: Assets.stickerCatMucsic, slug: "cat music meo nhạc nhac"),
+      StickerModel(url: Assets.stickerCatWithBox, slug: "cat with box meo hộp hop"),
+      StickerModel(url: Assets.stickerCatWithHeart, slug: "cat with heart meo trái tim trai tim"),
+      StickerModel(url: Assets.stickerDogAngry, slug: "dog angry chó giận gian tuc gian"),
+      StickerModel(url: Assets.stickerDogDash, slug: "dog dash chó chạy chay"),
+      StickerModel(url: Assets.stickerDogHello, slug: "dog hello chó xin chào xin chao"),
+      StickerModel(url: Assets.stickerDogIMissYou, slug: "dog i miss you chó nhớ nhung nho"),
+      StickerModel(url: Assets.stickerDogWhoa, slug: "dog whoa chó whoa"),
+      StickerModel(url: Assets.stickerPersonHmm, slug: "person hmm người hmm"),
+      StickerModel(url: Assets.stickerPersonRelax, slug: "person relax người thư giãn thu gian"),
+    ];
   }
 }

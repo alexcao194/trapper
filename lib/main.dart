@@ -11,6 +11,7 @@ import 'app/presentation/bloc/home/home_bloc.dart';
 import 'app/presentation/bloc/profile/profile_bloc.dart';
 import 'app/presentation/bloc/rooms/rooms_bloc.dart';
 import 'app/presentation/bloc/settings/settings_bloc.dart';
+import 'app/presentation/bloc/sticker/sticker_bloc.dart';
 import 'config/const/app_colors.dart';
 import 'config/database/hive_tools.dart';
 import 'config/dio/dio_tools.dart';
@@ -33,6 +34,7 @@ void main() async {
         BlocProvider<ConnectBloc>(create: (context) => DependencyInjection.sl<ConnectBloc>()),
         BlocProvider<FriendsBloc>(create: (context) => DependencyInjection.sl<FriendsBloc>()),
         BlocProvider<HomeBloc>(create: (context) => DependencyInjection.sl<HomeBloc>()),
+        BlocProvider<StickerBloc>(create: (context) => DependencyInjection.sl<StickerBloc>()),
       ],
       child: const MyApp(),
     ),

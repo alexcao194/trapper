@@ -11,9 +11,11 @@ import 'app/data/model/settings_snapshot_model.dart';
 import 'app/data/repository/auth_repository_impl.dart';
 import 'app/data/repository/profile_repository_impl.dart';
 import 'app/data/repository/socket_repository_impl.dart';
+import 'app/data/repository/static_repository_impl.dart';
 import 'app/domain/repository/auth_repository.dart';
 import 'app/domain/repository/profile_repository.dart';
 import 'app/domain/repository/socket_repository.dart';
+import 'app/domain/repository/static_repository.dart';
 import 'app/domain/use_case/add_friend.dart';
 import 'app/domain/use_case/cancel_find.dart';
 import 'app/domain/use_case/change_password.dart';
@@ -26,6 +28,7 @@ import 'app/domain/use_case/fetch_rooms_info.dart';
 import 'app/domain/use_case/fetch_settings.dart';
 import 'app/domain/use_case/find_friend.dart';
 import 'app/domain/use_case/get_profile.dart';
+import 'app/domain/use_case/get_stickers.dart';
 import 'app/domain/use_case/listen_connect_status.dart';
 import 'app/domain/use_case/listen_friend.dart';
 import 'app/domain/use_case/listen_message.dart';
@@ -46,6 +49,7 @@ import 'app/presentation/bloc/home/home_bloc.dart';
 import 'app/presentation/bloc/profile/profile_bloc.dart';
 import 'app/presentation/bloc/rooms/rooms_bloc.dart';
 import 'app/presentation/bloc/settings/settings_bloc.dart';
+import 'app/presentation/bloc/sticker/sticker_bloc.dart';
 import 'config/database/hive_tools.dart';
 import 'config/dio/dio_tools.dart';
 import 'config/socket/app_socket.dart';
@@ -95,17 +99,21 @@ class DependencyInjection {
     );
 
     sl.registerFactory<ConnectBloc>(() => ConnectBloc(
-      fetchHobbies: sl(),
-      findFriend: sl(),
-      cancelFind: sl(),
-    ));
+          fetchHobbies: sl(),
+          findFriend: sl(),
+          cancelFind: sl(),
+        ));
 
     sl.registerFactory<FriendsBloc>(() => FriendsBloc(
-      fetchFriends: sl(),
-      addFriend: sl(),
-      listenFriend: sl(),
-      listenOnlineFriends: sl(),
-    ));
+          fetchFriends: sl(),
+          addFriend: sl(),
+          listenFriend: sl(),
+          listenOnlineFriends: sl(),
+        ));
+
+    sl.registerFactory<StickerBloc>(() => StickerBloc(
+          getStickers: sl(),
+        ));
 
     // Use case
     sl.registerLazySingleton<Login>(() => Login(authRepository: sl()));
@@ -133,6 +141,7 @@ class DependencyInjection {
     sl.registerLazySingleton<ChangePassword>(() => ChangePassword(authRepository: sl()));
     sl.registerLazySingleton<ListenOnlineFriends>(() => ListenOnlineFriends(socketRepository: sl()));
     sl.registerLazySingleton<Logout>(() => Logout(authRepository: sl()));
+    sl.registerLazySingleton<GetStickers>(() => GetStickers(staticRepository: sl()));
 
     // Repositories
     sl.registerLazySingleton<AuthRepository>(
@@ -152,7 +161,13 @@ class DependencyInjection {
     sl.registerLazySingleton<SocketRepository>(
       () => SocketRepositoryImpl(
         socketData: sl(),
-        remoteData: sl()
+        remoteData: sl(),
+      ),
+    );
+
+    sl.registerLazySingleton<StaticRepository>(
+      () => StaticRepositoryImpl(
+        localData: sl(),
       ),
     );
 

@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 import '../../../../../generated/l10n.dart';
 import '../../../../domain/entity/message_detail.dart';
 import '../../../bloc/rooms/rooms_bloc.dart';
+import '../../../bloc/sticker/sticker_bloc.dart';
 import 'sticker.dart';
 
 class InputMessage extends StatefulWidget {
@@ -86,27 +86,36 @@ class _InputMessageState extends State<InputMessage> {
                     children: [
                       Text(S.current.search, style: Theme.of(context).textTheme.titleMedium),
                       SearchBar(
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          context.read<StickerBloc>().add(StickerFilter(query: value));
+                        },
                         hintText: S.current.search_hint,
                         elevation: MaterialStateProperty.all(0),
                         backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.background),
                         leading: const Icon(Icons.search),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(50), side: BorderSide(color: Theme.of(context).colorScheme.primary))),
+                        shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(50), side: BorderSide(color: Theme.of(context).colorScheme.primary))),
                       ),
                       const SizedBox(height: 16),
                       Text(S.current.emoji, style: Theme.of(context).textTheme.titleMedium),
                       Expanded(
-                        child: GridView.builder(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: size.width ~/ 100,
-                          ),
-                          itemBuilder: (context, index) {
-                            return const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Sticker(),
+                        child: BlocBuilder<StickerBloc, StickerState>(
+                          builder: (context, stickerState) {
+                            return GridView.builder(
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: size.width ~/ 100,
+                              ),
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Sticker(
+                                    src: stickerState.stickers[index].url,
+                                  ),
+                                );
+                              },
+                              itemCount: stickerState.stickers.length,
                             );
                           },
-                          itemCount: 1,
                         ),
                       ),
                     ],

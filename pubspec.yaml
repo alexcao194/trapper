@@ -131,6 +131,7 @@ flutter:
     - assets/
     - assets/rive/
     - assets/png/
+    - assets/sticker/
 
 flutter_intl:
   enabled: true
