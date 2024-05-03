@@ -1,7 +1,6 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:trapper/app/presentation/screen/rooms/widget/header_message.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../bloc/home/home_bloc.dart';

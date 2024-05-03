@@ -1,5 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:trapper/app/domain/entity/settings_snapshot.dart';
+
+import '../../domain/entity/settings_snapshot.dart';
 
 part 'settings_snapshot_model.g.dart';
 

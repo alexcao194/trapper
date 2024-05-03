@@ -1,4 +1,5 @@
-import 'package:trapper/app/domain/entity/account.dart';
+
+import '../../domain/entity/account.dart';
 
 class AccountModel extends Account {
   AccountModel({required super.email, required super.password});

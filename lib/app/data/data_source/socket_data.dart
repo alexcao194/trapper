@@ -2,11 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:pair/pair.dart';
-import 'package:socket_io_client/socket_io_client.dart';
-import 'package:trapper/app/data/model/profile_model.dart';
 
 import '../../../config/socket/app_socket.dart';
 import '../model/message_detail_model.dart';
+import '../model/profile_model.dart';
 import '../model/room_info_model.dart';
 
 abstract class SocketData {

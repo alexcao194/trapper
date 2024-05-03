@@ -1,9 +1,9 @@
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:trapper/app/data/model/profile_model.dart';
-import 'package:trapper/app/data/model/settings_snapshot_model.dart';
 
 import '../../../generated/assets.dart';
+import '../model/profile_model.dart';
+import '../model/settings_snapshot_model.dart';
 import '../model/sticker_model.dart';
 
 abstract class LocalData {

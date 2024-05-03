@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:trapper/app/domain/entity/hobby.dart';
+
+import '../../domain/entity/hobby.dart';
 
 part 'hobby_model.g.dart';
 

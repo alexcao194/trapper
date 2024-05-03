@@ -1,17 +1,17 @@
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:trapper/app/domain/entity/message_detail.dart';
-import 'package:trapper/app/presentation/bloc/auth/auth_bloc.dart';
-import 'package:trapper/config/const/dimen.dart';
 
+
+import '../../../../config/const/dimen.dart';
 import '../../../../config/go_router/app_go_router.dart';
 import '../../../../generated/l10n.dart';
 
 import '../../../../utils/notification_tools.dart';
+import '../../../domain/entity/message_detail.dart';
+import '../../bloc/auth/auth_bloc.dart';
 import '../../bloc/connect/connect_bloc.dart';
 import '../../bloc/friends/friends_bloc.dart';
 import '../../bloc/home/home_bloc.dart';

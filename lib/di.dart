@@ -52,7 +52,6 @@ import 'app/presentation/bloc/settings/settings_bloc.dart';
 import 'app/presentation/bloc/sticker/sticker_bloc.dart';
 import 'config/database/hive_tools.dart';
 import 'config/dio/dio_tools.dart';
-import 'config/socket/app_socket.dart';
 
 class DependencyInjection {
   static final sl = GetIt.instance;

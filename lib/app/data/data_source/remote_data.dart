@@ -1,14 +1,15 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:trapper/app/data/model/account_model.dart';
-import 'package:trapper/app/data/model/hobby_model.dart';
-import 'package:trapper/app/data/model/profile_model.dart';
-import 'package:trapper/app/domain/entity/account.dart';
-import 'package:trapper/app/domain/entity/profile.dart';
-import 'package:trapper/config/dio/dio_tools.dart';
+
+import '../../../config/dio/dio_tools.dart';
+import '../../domain/entity/account.dart';
+import '../../domain/entity/profile.dart';
+import '../model/account_model.dart';
+import '../model/hobby_model.dart';
+import '../model/profile_model.dart';
+
 
 abstract class RemoteData {
   Future<Map<String, String>> login(AccountModel account);

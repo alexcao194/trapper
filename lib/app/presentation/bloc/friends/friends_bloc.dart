@@ -53,7 +53,7 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
       // }
     });
 
-    listenOnlineFriends().listen((event) {
+    _listenOnlineFriends().listen((event) {
       add(FriendChangeStatus(friendId: event.key, status: event.value));
     });
   }

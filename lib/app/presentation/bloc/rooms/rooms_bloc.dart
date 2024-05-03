@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../generated/l10n.dart';
 import '../../../domain/entity/message_detail.dart';
 import '../../../domain/entity/room_info.dart';
 import '../../../domain/use_case/fect_message.dart';

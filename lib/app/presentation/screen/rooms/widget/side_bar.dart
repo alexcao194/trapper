@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../config/const/dimen.dart';
 import '../../../../../generated/l10n.dart';
-import '../../../../domain/entity/message_detail.dart';
 import '../../../bloc/profile/profile_bloc.dart';
 import '../../../bloc/rooms/rooms_bloc.dart';
 import 'header_message.dart';

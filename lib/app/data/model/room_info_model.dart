@@ -1,7 +1,6 @@
-import 'package:trapper/app/data/model/profile_model.dart';
-import 'package:trapper/app/domain/entity/room_info.dart';
-
+import '../../domain/entity/room_info.dart';
 import 'message_detail_model.dart';
+import 'profile_model.dart';
 
 class RoomInfoModel extends RoomInfo {
   RoomInfoModel({

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../config/const/dimen.dart';
-
 class TextMessage extends StatelessWidget {
   const TextMessage({super.key, required this.isSender, required this.message});
 
