@@ -31,6 +31,7 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
     _fetchFriends = fetchFriends;
     _addFriend = addFriend;
     _listenFriend = listenFriend;
+    _listenOnlineFriends = listenOnlineFriends;
     on<FriendsFetch>(_onFetch);
     on<FriendsAdd>(_onAdd);
     on<FriendsSendMessage>(_onSendMessage);
