@@ -12,6 +12,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeInitial>(_onInitial);
     on<HomeNavigate>(_onNavigate);
     on<HomeUpdateIndex>(_onUpdateIndex);
+    on<HomeReset>(_onReset);
   }
 
   FutureOr<void> _onNavigate(HomeNavigate event, Emitter<HomeState> emit) async {
@@ -33,5 +34,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   FutureOr<void> _onUpdateIndex(HomeUpdateIndex event, Emitter<HomeState> emit) {
     emit(state.copyWith(index: event.index));
+  }
+
+  FutureOr<void> _onReset(HomeReset event, Emitter<HomeState> emit) {
+    emit(const HomeState());
   }
 }

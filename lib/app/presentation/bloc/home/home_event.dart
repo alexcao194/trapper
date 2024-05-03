@@ -25,3 +25,10 @@ class HomeUpdateIndex extends HomeEvent {
   @override
   List<Object> get props => [index];
 }
+
+class HomeReset extends HomeEvent {
+  const HomeReset();
+
+  @override
+  List<Object> get props => [];
+}

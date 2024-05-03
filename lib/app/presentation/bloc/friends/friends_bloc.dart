@@ -37,6 +37,7 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
     on<FriendsSendMessage>(_onSendMessage);
     on<FriendPick>(_onPick);
     on<FriendChangeStatus>(_onFriendChangeStatus);
+    on<FriendsReset>(_onReset);
 
 
     if (_listenFriendSubscription != null) {
@@ -97,5 +98,9 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
       return e;
     }).toList();
     emit(state.copyWith(friends: friends));
+  }
+
+  FutureOr<void> _onReset(FriendsReset event, Emitter<FriendsState> emit) {
+    emit(const FriendsState());
   }
 }

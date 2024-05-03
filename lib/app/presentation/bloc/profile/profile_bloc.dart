@@ -30,6 +30,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ProfileEventGet>(_onGet);
     on<ProfileEventUpdate>(_onUpdate);
     on<ProfileEventPostPhoto>(_onPostPhoto);
+    on<ProfileReset>(_onReset);
   }
 
   FutureOr<void> _onGet(ProfileEventGet event, Emitter<ProfileState> emit) async {
@@ -89,5 +90,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         ),
       ),
     );
+  }
+
+  FutureOr<void> _onReset(ProfileReset event, Emitter<ProfileState> emit) {
+    emit(const ProfileState(profile: Profile()));
   }
 }

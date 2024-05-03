@@ -30,3 +30,10 @@ class ProfileEventPostPhoto extends ProfileEvent {
   @override
   List<Object> get props => [image, index];
 }
+
+class ProfileReset extends ProfileEvent {
+  const ProfileReset();
+
+  @override
+  List<Object> get props => [];
+}

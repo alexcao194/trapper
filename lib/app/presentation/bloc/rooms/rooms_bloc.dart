@@ -41,6 +41,7 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
     on<RoomsPick>(_onPick);
     on<RoomsSendMessage>(_onSendMessage);
     on<RoomPickWithUserId>(_onPickWithUserId);
+    on<RoomsReset>(_onReset);
 
     _listenConnectStatus().listen((isConnected) {
       if (isConnected) {
@@ -121,5 +122,9 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
     final room = state.roomsInfo.firstWhere((element) => element.profile!.id == event.userID);
     _fetchMessage(room.id!);
     emit(state.copyWith(currentID: room.id));
+  }
+
+  FutureOr<void> _onReset(RoomsReset event, Emitter<RoomsState> emit) {
+    emit(const RoomsState.initial());
   }
 }

@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthStateUnauthenticated) {
-            context.go(RoutePath.login);
+            _logout();
           }
         },
         builder: (context, authState) {
@@ -253,5 +253,14 @@ class _HomeScreenState extends State<HomeScreen> {
         });
       }
     });
+  }
+
+  void _logout() {
+    context.read<ConnectBloc>().add(const ConnectReset());
+    context.read<RoomsBloc>().add(const RoomsReset());
+    context.read<ProfileBloc>().add(const ProfileReset());
+    context.read<FriendsBloc>().add(const FriendsReset());
+    context.read<HomeBloc>().add(const HomeReset());
+    context.go(RoutePath.login);
   }
 }

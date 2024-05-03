@@ -55,3 +55,10 @@ final class RoomsSendMessage extends RoomsEvent {
   @override
   List<Object> get props => [roomID, message];
 }
+
+final class RoomsReset extends RoomsEvent {
+  const RoomsReset();
+
+  @override
+  List<Object> get props => [];
+}

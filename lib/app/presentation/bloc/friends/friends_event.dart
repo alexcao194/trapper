@@ -47,3 +47,10 @@ class FriendChangeStatus extends FriendsEvent {
   @override
   List<Object?> get props => [friendId, status];
 }
+
+class FriendsReset extends FriendsEvent {
+  const FriendsReset();
+
+  @override
+  List<Object?> get props => [];
+}
