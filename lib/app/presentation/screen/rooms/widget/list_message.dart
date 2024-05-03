@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:trapper/app/presentation/screen/rooms/widget/sticker.dart';
 
 import '../../../../../config/const/dimen.dart';
 import '../../../../../generated/l10n.dart';
@@ -55,9 +56,8 @@ class ListMessage extends StatelessWidget {
                                   src: currentMessages[index].message!,
                                 );
                               case MessageType.emoji:
-                                return TextMessage(
-                                  isSender: isSender,
-                                  message: currentMessages[index].message!,
+                                return Sticker(
+                                  src: currentMessages[index].message!,
                                 );
                               default:
                                 return TextMessage(

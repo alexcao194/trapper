@@ -108,8 +108,14 @@ class _InputMessageState extends State<InputMessage> {
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Sticker(
-                                    src: stickerState.stickers[index].url,
+                                  child: MaterialButton(
+                                    onPressed: () {
+                                      var roomID = state.roomsInfo.firstWhere((element) => element.id == state.currentID).id!;
+                                      _sendStickerMessage(roomID, stickerState.stickers[index].url);
+                                    },
+                                    child: Sticker(
+                                      src: stickerState.stickers[index].url,
+                                    ),
                                   ),
                                 );
                               },
@@ -215,5 +221,13 @@ class _InputMessageState extends State<InputMessage> {
       });
       context.read<RoomsBloc>().add(RoomsSendMessage(roomID: roomID, message: message));
     }
+  }
+
+  void _sendStickerMessage(String roomID, String url) {
+    var message = MessageDetail(
+      message: url,
+      type: MessageType.emoji,
+    );
+    context.read<RoomsBloc>().add(RoomsSendMessage(roomID: roomID, message: message));
   }
 }
