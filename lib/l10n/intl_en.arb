@@ -165,5 +165,6 @@
   "otp_must_be_number": "OTP must be a number",
   "reset_password_successful": "Reset password successful",
   "failure": "Failure",
-  "login_successful": "Login successful"
+  "login_successful": "Login successful",
+  "jwt_expired": "The session has expired. Please login again"
 }

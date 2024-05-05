@@ -164,5 +164,6 @@
   "otp_must_be_number": "Mã OTP phải là số",
   "reset_password_successful": "Đặt lại mật khẩu thành công",
   "failure": "Thất bại",
-  "login_successful": "Login successful"
+  "login_successful": "Login successful",
+  "jwt_expired": "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại"
 }

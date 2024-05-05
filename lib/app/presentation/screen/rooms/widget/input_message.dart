@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:trapper/config/const/dimen.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../domain/entity/message_detail.dart';
@@ -22,6 +23,7 @@ class _InputMessageState extends State<InputMessage> {
   Image? _image;
   Uint8List? _imageBytes;
   late TextEditingController _controller;
+  late FocusNode _focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class _InputMessageState extends State<InputMessage> {
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
                     maxWidth: size.width * 0.5,
+                    maxHeight: size.height * 0.3,
                   ),
                   child: Stack(
                     children: [
@@ -103,7 +106,7 @@ class _InputMessageState extends State<InputMessage> {
                           builder: (context, stickerState) {
                             return GridView.builder(
                               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: size.width ~/ 100,
+                                crossAxisCount: size.width <= Dimen.mobileWidth ? size.width ~/ 100 : size.width ~/ 200,
                               ),
                               itemBuilder: (context, index) {
                                 return Padding(
@@ -129,6 +132,11 @@ class _InputMessageState extends State<InputMessage> {
                 )),
             const SizedBox(height: 8),
             TextField(
+              onSubmitted: (value) {
+                var roomID = state.roomsInfo.firstWhere((element) => element.id == state.currentID).id!;
+                _sendMessage(roomID);
+              },
+              focusNode: _focusNode,
               controller: _controller,
               decoration: InputDecoration(
                 hintText: S.current.text_message_hint,
@@ -182,11 +190,13 @@ class _InputMessageState extends State<InputMessage> {
   void initState() {
     super.initState();
     _controller = TextEditingController();
+    _focusNode = FocusNode();
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -221,6 +231,11 @@ class _InputMessageState extends State<InputMessage> {
       });
       context.read<RoomsBloc>().add(RoomsSendMessage(roomID: roomID, message: message));
     }
+
+    _focusNode.requestFocus();
+    setState(() {
+      _showEmoji = false;
+    });
   }
 
   void _sendStickerMessage(String roomID, String url) {
@@ -229,5 +244,8 @@ class _InputMessageState extends State<InputMessage> {
       type: MessageType.emoji,
     );
     context.read<RoomsBloc>().add(RoomsSendMessage(roomID: roomID, message: message));
+    setState(() {
+      _showEmoji = false;
+    });
   }
 }

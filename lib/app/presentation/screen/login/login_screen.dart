@@ -9,6 +9,7 @@ import 'package:toastification/toastification.dart';
 
 import '../../../../config/const/dimen.dart';
 import '../../../../config/go_router/app_go_router.dart';
+import '../../../../config/message_distribution/message_distribution.dart';
 import '../../../../utils/dialog_tools.dart';
 import '../../../../utils/notification_tools.dart';
 import '../../../../utils/validator.dart';
@@ -67,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 } else if (state is AuthStateFailure) {
                   if (state.error != null) {
                     _failTrigger.fire();
-                    DialogTools.showFailureDialog(context, message: state.error!);
+                    DialogTools.showFailureDialog(context, message: MessageDistribution.fromID(state.error!));
                   }
                 } else if (state is AuthStateResetPasswordSuccessful) {
                   toastification.show(

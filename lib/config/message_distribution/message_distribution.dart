@@ -5,8 +5,8 @@ class MessageDistribution {
 
   static fromID(String id) {
 
-    if (id != "invalid-data" && id.startsWith('invalid-')) {
-      return S.current.invalid_field(id.substring(8));
+    if (id != "invalid-data" && id.startsWith('"invalid-')) {
+      return S.current.invalid_field(id.substring(9, id.length - 1));
     }
 
     switch (id) {
@@ -28,11 +28,15 @@ class MessageDistribution {
       case 'invalid-data': return S.current.invalid_data;
       case 'incorrect-email-or-password': return S.current.incorrect_email_or_password;
       case 'email-exists': return S.current.email_already_in_use;
+      case '"email-exists"': return S.current.email_already_in_use;
       case 'send-message-failed': return S.current.send_message_failed;
       case 'profile-not-found': return S.current.profile_not_found;
       case 'hobbies-not-found': return S.current.hobbies_not_found;
       case 'file-invalid': return S.current.file_invalid;
-      default: return 'unknown';
+      case 'invalid-password!': return S.current.incorrect_email_or_password;
+      case 'jwt-expired!': return S.current.jwt_expired;
+      case 'incorrect-email-or-password': return S.current.incorrect_email_or_password;
+      default: return id;
     }
   }
 }
