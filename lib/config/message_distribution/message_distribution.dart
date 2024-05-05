@@ -5,8 +5,10 @@ class MessageDistribution {
 
   static fromID(String id) {
 
-    if (id != "invalid-data" && id.startsWith('"invalid-')) {
-      return S.current.invalid_field(id.substring(9, id.length - 1));
+    id = id.replaceAll('"', '');
+
+    if (id != "invalid-data" && id.startsWith('invalid-')) {
+      return S.current.invalid_field(id.substring(9));
     }
 
     switch (id) {
@@ -27,6 +29,7 @@ class MessageDistribution {
       case 'password-changed': return S.current.password_changed;
       case 'invalid-data': return S.current.invalid_data;
       case 'incorrect-email-or-password': return S.current.incorrect_email_or_password;
+      case '"incorrect-email-or-password"': return S.current.incorrect_email_or_password;
       case 'email-exists': return S.current.email_already_in_use;
       case '"email-exists"': return S.current.email_already_in_use;
       case 'send-message-failed': return S.current.send_message_failed;
