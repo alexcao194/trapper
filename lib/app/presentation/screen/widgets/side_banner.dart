@@ -16,12 +16,15 @@ class SlideBanner extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxHeight: 500,
-              minHeight: 200,
-            ),
-            child: Image.asset(Assets.assetsBanner, fit: BoxFit.cover, height: size.height * 0.5)
+        Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxHeight: 500,
+                minHeight: 200,
+              ),
+              child: Image.asset(Assets.assetsBanner, fit: BoxFit.cover, height: size.height * 0.5)
+          ),
         ),
         Text(
           S.current.app_name,
