@@ -24,6 +24,8 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
 
   StreamSubscription<List<RoomInfo>>? _roomsInfoSubscription;
 
+  List<RoomInfo> roomsInfo = [];
+
   RoomsBloc({
     required FetchRoomsInfo fetchRoomsInfo,
     required ListenMessage listenMessage,
