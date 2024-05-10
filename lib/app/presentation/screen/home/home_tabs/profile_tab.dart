@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../config/message_distribution/message_distribution.dart';
 import '../../../../../generated/assets.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../domain/entity/profile.dart';
@@ -121,7 +122,7 @@ class ProfileTab extends StatelessWidget {
                       children: List.generate(
                         profile.hobbies.length,
                         (index) => CustomChip(
-                          label: profile.hobbies[index].name,
+                          label: MessageDistribution.fromID(profile.hobbies[index].id),
                           isSelected: true,
                         ),
                       )

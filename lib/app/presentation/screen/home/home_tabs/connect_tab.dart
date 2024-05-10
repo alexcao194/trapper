@@ -142,7 +142,7 @@ class ConnectTab extends StatelessWidget {
                                     children: List.generate(
                                       profile.hobbies.length,
                                           (index) => CustomChip(
-                                        label: profile.hobbies[index].name,
+                                        label: MessageDistribution.fromID(profile.hobbies[index].id),
                                         isSelected: true,
                                       ),
                                     )
