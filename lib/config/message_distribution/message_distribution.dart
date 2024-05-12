@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import '../../generated/l10n.dart';
 
 class MessageDistribution {
@@ -10,6 +12,8 @@ class MessageDistribution {
     if (id != "invalid-data" && id.startsWith('invalid-')) {
       return S.current.invalid_field(id.substring(9));
     }
+
+    debugPrint('Message Distribution: $id');
 
     switch (id) {
       case 'reading': return S.current.reading;
@@ -29,9 +33,8 @@ class MessageDistribution {
       case 'password-changed': return S.current.password_changed;
       case 'invalid-data': return S.current.invalid_data;
       case 'incorrect-email-or-password': return S.current.incorrect_email_or_password;
-      case '"incorrect-email-or-password"': return S.current.incorrect_email_or_password;
+      case 'old-password-incorrect': return S.current.old_password_incorrect;
       case 'email-exists': return S.current.email_already_in_use;
-      case '"email-exists"': return S.current.email_already_in_use;
       case 'send-message-failed': return S.current.send_message_failed;
       case 'profile-not-found': return S.current.profile_not_found;
       case 'hobbies-not-found': return S.current.hobbies_not_found;
@@ -39,6 +42,7 @@ class MessageDistribution {
       case 'invalid-password!': return S.current.incorrect_email_or_password;
       case 'jwt-expired!': return S.current.jwt_expired;
       case 'incorrect-email-or-password': return S.current.incorrect_email_or_password;
+
       default: return id;
     }
   }

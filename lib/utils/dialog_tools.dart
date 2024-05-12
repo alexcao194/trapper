@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:trapper/app/presentation/screen/login/widget/change_password_box.dart';
 
-import '../app/presentation/screen/login/widget/forgot_password_box.dart';
+import '../app/presentation/screen/login/widget/reset_password_box.dart';
 import '../app/presentation/screen/login/widget/sign_up_box.dart';
 import '../config/const/dimen.dart';
 import '../generated/l10n.dart';
@@ -49,7 +50,22 @@ class DialogTools {
         children: [
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: Dimen.mobileWidth),
-            child: const ForgotPasswordBox(),
+            child: const ResetPasswordBox(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static void showChangePasswordDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text(S.current.change_password),
+        children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: Dimen.mobileWidth),
+            child: const ChangePasswordBox(),
           ),
         ],
       ),
@@ -85,4 +101,6 @@ class DialogTools {
       ),
     );
   }
+
+
 }

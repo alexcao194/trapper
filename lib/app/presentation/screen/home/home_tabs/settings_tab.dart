@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:trapper/utils/dialog_tools.dart';
 
 import '../../../../../config/const/app_colors.dart';
 import '../../../../../config/const/dimen.dart';
@@ -9,6 +10,7 @@ import '../../../../../generated/assets.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../utils/notification_tools.dart';
 import '../../../../domain/entity/profile.dart';
+import '../../../bloc/auth/auth_bloc.dart';
 import '../../../bloc/home/home_bloc.dart';
 import '../../../bloc/profile/profile_bloc.dart';
 import '../../../bloc/settings/settings_bloc.dart';
@@ -139,6 +141,23 @@ class _SettingsTabState extends State<SettingsTab> {
                       S.current.update_button,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
                     ));
+                var changePasswordButton = TextButton(
+                    onPressed: () {
+                      showChangePasswordDialog(context);
+                    },
+                    child: Text(
+                      S.current.change_password,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.primary, decoration: TextDecoration.underline),
+                    ));
+
+                var logoutButton = FilledButton(
+                    onPressed: () {
+                      context.read<AuthBloc>().add(const AuthEventLogout());
+                    },
+                    child: Text(
+                      S.current.logout,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                    ));
 
                 final languageSettings = <Widget>[
                   Text(S.current.language),
@@ -255,6 +274,7 @@ class _SettingsTabState extends State<SettingsTab> {
                                   avatar,
                                   const SizedBox(height: 20),
                                   ...fields,
+                                  changePasswordButton,
                                   const SizedBox(height: 20),
                                   updateButton,
                                 ],
@@ -279,6 +299,7 @@ class _SettingsTabState extends State<SettingsTab> {
                         avatar,
                         const SizedBox(height: 20),
                         ...fields,
+                        changePasswordButton,
                         const SizedBox(height: 20),
                         updateButton,
                         const SizedBox(height: 20),
@@ -347,5 +368,9 @@ class _SettingsTabState extends State<SettingsTab> {
   void _save() {
     context.read<HomeBloc>().add(const HomeNavigate(index: 0));
     context.read<SettingsBloc>().add(const SettingsSave());
+  }
+
+  void showChangePasswordDialog(BuildContext context) {
+    DialogTools.showChangePasswordDialog(context);
   }
 }

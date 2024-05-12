@@ -43,11 +43,11 @@ class AuthEventSendOTP extends AuthEvent {
   List<Object?> get props => [email];
 }
 
-class AuthEventChangePassword extends AuthEvent {
+class AuthEventResetPassword extends AuthEvent {
   final String password;
   final String otp;
   final String email;
-  const AuthEventChangePassword({required this.password, required this.otp, required this.email});
+  const AuthEventResetPassword({required this.password, required this.otp, required this.email});
 
   @override
   List<Object?> get props => [password, otp, email];
@@ -58,4 +58,13 @@ class AuthEventReset extends AuthEvent {
 
   @override
   List<Object?> get props => [];
+}
+
+class AuthEventChangePassword extends AuthEvent {
+  final Account account;
+  final String newPassword;
+  const AuthEventChangePassword({required this.account, required this.newPassword});
+
+  @override
+  List<Object?> get props => [account, newPassword];
 }

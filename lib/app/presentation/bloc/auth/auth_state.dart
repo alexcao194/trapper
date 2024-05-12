@@ -46,3 +46,10 @@ class AuthStateResetPasswordSuccessful extends AuthState {
   @override
   List<Object?> get props => [];
 }
+
+class AuthStateChangePasswordSuccessful extends AuthState {
+  const AuthStateChangePasswordSuccessful();
+
+  @override
+  List<Object?> get props => [];
+}

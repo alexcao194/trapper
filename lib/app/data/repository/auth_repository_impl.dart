@@ -102,4 +102,14 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(Failure(e.message));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> changePassword({required Account account, required String newPassword}) async {
+    try {
+      await _remoteData.changePassword(accountModel: AccountModel.fromEntity(account), newPassword: newPassword);
+      return const Right(null);
+    } on DioException catch (e) {
+      return Left(Failure(e.message));
+    }
+  }
 }

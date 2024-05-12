@@ -6,14 +6,14 @@ import '../../../bloc/auth/auth_bloc.dart';
 import '../../../../../generated/l10n.dart';
 import 'rounded_text_field.dart';
 
-class ForgotPasswordBox extends StatefulWidget {
-  const ForgotPasswordBox({super.key});
+class ResetPasswordBox extends StatefulWidget {
+  const ResetPasswordBox({super.key});
 
   @override
-  State<ForgotPasswordBox> createState() => _ForgotPasswordBoxState();
+  State<ResetPasswordBox> createState() => _ResetPasswordBoxState();
 }
 
-class _ForgotPasswordBoxState extends State<ForgotPasswordBox> {
+class _ResetPasswordBoxState extends State<ResetPasswordBox> {
   late TextEditingController _email;
   late TextEditingController _otp;
   late TextEditingController _password;
@@ -150,7 +150,7 @@ class _ForgotPasswordBoxState extends State<ForgotPasswordBox> {
   }
   
   void _changePassword() {
-    context.read<AuthBloc>().add(AuthEventChangePassword(password: _password.text, otp: _otp.text, email: _email.text));
+    context.read<AuthBloc>().add(AuthEventResetPassword(password: _password.text, otp: _otp.text, email: _email.text));
   }
 
   String _buildButtonText(AuthState state) {

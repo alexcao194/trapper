@@ -18,6 +18,7 @@ import 'app/domain/repository/socket_repository.dart';
 import 'app/domain/repository/static_repository.dart';
 import 'app/domain/use_case/add_friend.dart';
 import 'app/domain/use_case/cancel_find.dart';
+import 'app/domain/use_case/change_password.dart';
 import 'app/domain/use_case/reset_password.dart';
 import 'app/domain/use_case/connect.dart';
 import 'app/domain/use_case/disconnect.dart';
@@ -68,9 +69,10 @@ class DependencyInjection {
         authSubscription: DioTools.registerInterceptors(sl<Dio>()),
         connect: sl(),
         disconnect: sl(),
-        changePassword: sl(),
+        resetPassword: sl(),
         sendOTP: sl(),
         logout: sl(),
+        changePassword: sl(),
       ),
     );
 
@@ -141,6 +143,7 @@ class DependencyInjection {
     sl.registerLazySingleton<ListenOnlineFriends>(() => ListenOnlineFriends(socketRepository: sl()));
     sl.registerLazySingleton<Logout>(() => Logout(authRepository: sl()));
     sl.registerLazySingleton<GetStickers>(() => GetStickers(staticRepository: sl()));
+    sl.registerLazySingleton<ChangePassword>(() => ChangePassword(authRepository: sl()));
 
     // Repositories
     sl.registerLazySingleton<AuthRepository>(

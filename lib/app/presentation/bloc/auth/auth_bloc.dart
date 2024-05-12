@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../domain/entity/account.dart';
 import '../../../domain/entity/profile.dart';
+import '../../../domain/use_case/change_password.dart';
 import '../../../domain/use_case/reset_password.dart';
 import '../../../domain/use_case/connect.dart';
 import '../../../domain/use_case/disconnect.dart';
@@ -29,6 +30,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   late Disconnect _disconnect;
   late SendOTP _sendOTP;
   late ResetPassword _resetPassword;
+  late ChangePassword _changePassword;
 
   AuthBloc({
     required Login login,
@@ -38,8 +40,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required Connect connect,
     required Disconnect disconnect,
     required SendOTP sendOTP,
-    required ResetPassword changePassword,
+    required ResetPassword resetPassword,
     required Logout logout,
+    required ChangePassword changePassword,
   }) : super(const AuthStateUnauthenticated()) {
     _login = login;
     _register = register;
@@ -48,13 +51,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     _connect = connect;
     _disconnect = disconnect;
     _sendOTP = sendOTP;
-    _resetPassword = changePassword;
+    _resetPassword = resetPassword;
     _logout = logout;
+    _changePassword = changePassword;
     on<AuthEventLogin>(_onLogin);
     on<AuthEventRegister>(_onRegister);
     on<AuthEventValidateToken>(_onValidateToken);
     on<AuthEventLogout>(_onLogout);
     on<AuthEventSendOTP>(_onSendOTP);
+    on<AuthEventResetPassword>(_onResetPassword);
     on<AuthEventChangePassword>(_onChangePassword);
     on<AuthEventReset>(_onReset);
     
@@ -124,7 +129,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  FutureOr<void> _onChangePassword(AuthEventChangePassword event, Emitter<AuthState> emit) async {
+  FutureOr<void> _onResetPassword(AuthEventResetPassword event, Emitter<AuthState> emit) async {
     emit(const AuthStateLoading());
     var result = await _resetPassword(email: event.email, otp: event.otp, password: event.password);
     result.fold(
@@ -144,5 +149,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> _onReset(AuthEventReset event, Emitter<AuthState> emit) {
     emit(const AuthStateUnauthenticated());
+  }
+
+  FutureOr<void> _onChangePassword(AuthEventChangePassword event, Emitter<AuthState> emit) async {
+    emit(const AuthStateLoading());
+    var result = await _changePassword(
+      account: event.account,
+      newPassword: event.newPassword,
+    );
+
+    result.fold(
+      (failure) => emit(AuthStateFailure(error: failure.message)),
+      (_) => emit(const AuthStateChangePasswordSuccessful()),
+    );
   }
 }

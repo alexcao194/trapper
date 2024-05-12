@@ -24,6 +24,7 @@ abstract class RemoteData {
   Future<String> sendImage({required Uint8List image, required String roomId});
   Future<void> sendOTP(String email);
   Future<void> resetPassword({required String email, required String otp, required String password});
+  Future<void> changePassword({required AccountModel accountModel, required String newPassword});
 }
 
 class RemoteDataImpl implements RemoteData {
@@ -241,6 +242,23 @@ class RemoteDataImpl implements RemoteData {
   Future<void> sendOTP(String email) {
     return dio.post('/auth/identify_email', data: {
       'email': email,
+    }).then((value) {
+      if (value.statusCode != 200) {
+        throw DioException(
+          requestOptions: value.requestOptions,
+          response: value,
+          message: jsonEncode(value.data),
+        );
+      }
+    });
+  }
+
+  @override
+  Future<void> changePassword({required AccountModel accountModel, required String newPassword}) {
+    return dio.post('/account/password/change', data: {
+      'email': accountModel.email,
+      'oldPassword': accountModel.password,
+      'newPassword': newPassword,
     }).then((value) {
       if (value.statusCode != 200) {
         throw DioException(

@@ -166,5 +166,8 @@
   "reset_password_successful": "Reset password successful",
   "failure": "Failure",
   "login_successful": "Login successful",
-  "jwt_expired": "The session has expired. Please login again"
+  "jwt_expired": "The session has expired. Please login again",
+  "old_password_incorrect": "Old password is incorrect",
+  "old_password": "Old password",
+  "new_password": "New password"
 }

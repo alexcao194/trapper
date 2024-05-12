@@ -165,5 +165,8 @@
   "reset_password_successful": "Đặt lại mật khẩu thành công",
   "failure": "Thất bại",
   "login_successful": "Login successful",
-  "jwt_expired": "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại"
+  "jwt_expired": "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại",
+  "old_password_incorrect": "Mật khẩu cũ không chính xác",
+  "old_password": "Mật khẩu cũ",
+  "new_password": "Mật khẩu mới"
 }
