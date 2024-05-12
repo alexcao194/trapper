@@ -112,10 +112,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     icon: const Icon(Icons.settings),
                                     title: Text(S.current.settings_button),
                                   ),
-                                  FlashyTabBarItem(
-                                    icon: const Icon(Icons.info),
-                                    title: Text(S.current.about_button),
-                                  ),
+                                  // FlashyTabBarItem(
+                                  //   icon: const Icon(Icons.info),
+                                  //   title: Text(S.current.about_button),
+                                  // ),
                                 ],
                               ) : null,
                               floatingActionButton: roomsState.roomsInfo.isNotEmpty
@@ -198,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           const KeepAlivePage(child: FriendsTab()),
                                           const KeepAlivePage(child: ConnectTab()),
                                           const KeepAlivePage(child: SettingsTab()),
-                                          const KeepAlivePage(child: AboutTab()),
+                                          // const KeepAlivePage(child: AboutTab()),
                                         ],
                                       ),
                                     ),
