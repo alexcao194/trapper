@@ -162,5 +162,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (failure) => emit(AuthStateFailure(error: failure.message)),
       (_) => emit(const AuthStateChangePasswordSuccessful()),
     );
+    emit(const AuthStateAuthenticated());
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-
+import 'package:trapper/config/message_distribution/message_distribution.dart';
 
 import '../../../../config/const/dimen.dart';
 import '../../../../config/go_router/app_go_router.dart';
@@ -48,7 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _go(int index) {
-    _pageController?.animateToPage(index, duration: const Duration(milliseconds: 800), curve: Curves.fastOutSlowIn);
+    _pageController?.animateToPage(index,
+        duration: const Duration(milliseconds: 800),
+        curve: Curves.fastOutSlowIn);
   }
 
   @override
@@ -59,6 +61,12 @@ class _HomeScreenState extends State<HomeScreen> {
           if (state is AuthStateUnauthenticated) {
             _logout();
           }
+          if (state is AuthStateFailure) {
+            NotificationTools.showErrorNotification(context: context, message: MessageDistribution.fromID(state.error ?? 'Something went wrong'));
+          }
+          if (state is AuthStateChangePasswordSuccessful) {
+            NotificationTools.showSuccessNotification(context: context, message: S.current.change_password_successful);
+          }
         },
         builder: (context, authState) {
           return BlocBuilder<HomeBloc, HomeState>(
@@ -66,11 +74,15 @@ class _HomeScreenState extends State<HomeScreen> {
               return BlocListener<FriendsBloc, FriendsState>(
                 listener: (context, state) {
                   if (state.showMessages) {
-                    NotificationTools.showNotification(context: context, message: state.message!);
+                    NotificationTools.showNotification(
+                        context: context, message: state.message!);
                   }
                 },
                 child: BlocConsumer<RoomsBloc, RoomsState>(
-                  listenWhen: (previous, roomsState) => previous.roomsInfo.isEmpty || roomsState.roomsInfo.first.lastMessage != previous.roomsInfo.first.lastMessage,
+                  listenWhen: (previous, roomsState) =>
+                      previous.roomsInfo.isEmpty ||
+                      roomsState.roomsInfo.first.lastMessage !=
+                          previous.roomsInfo.first.lastMessage,
                   listener: (context, roomsState) {
                     if (roomsState.roomsInfo.isNotEmpty) {
                       setState(() {
@@ -86,118 +98,177 @@ class _HomeScreenState extends State<HomeScreen> {
                         return Stack(
                           children: [
                             Scaffold(
-                              backgroundColor: Theme.of(context).colorScheme.background,
-                              bottomNavigationBar: (size.width <= Dimen.mobileWidth) ? FlashyTabBar(
-                                selectedIndex: homeState.index,
-                                onItemSelected: (index) {
-                                  if (profileState.profile.name == null) {
-                                    return;
-                                  }
-                                  _go(index);
-                                },
-                                items: [
-                                  FlashyTabBarItem(
-                                    icon: const Icon(Icons.person),
-                                    title: Text(S.current.profile_button),
-                                  ),
-                                  FlashyTabBarItem(
-                                    icon: const Icon(Icons.people),
-                                    title: Text(S.current.friends_button),
-                                  ),
-                                  FlashyTabBarItem(
-                                    icon: const Icon(Icons.connect_without_contact),
-                                    title: Text(S.current.connect_button),
-                                  ),
-                                  FlashyTabBarItem(
-                                    icon: const Icon(Icons.settings),
-                                    title: Text(S.current.settings_button),
-                                  ),
-                                  // FlashyTabBarItem(
-                                  //   icon: const Icon(Icons.info),
-                                  //   title: Text(S.current.about_button),
-                                  // ),
-                                ],
-                              ) : null,
-                              floatingActionButton: roomsState.roomsInfo.isNotEmpty
-                                  ? Builder(
-                                  builder: (context) {
-                                    var lastMessage = roomsState.roomsInfo.first.lastMessage ?? MessageDetail(
-                                      type: MessageType.text,
-                                      message: S.current.last_message_placeholder,
-                                    );
-                                    return Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        if (_showLastMessage)
-                                          Container(
-                                            margin: const EdgeInsets.only(right: 10),
-                                            padding: const EdgeInsets.all(8),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(8),
-                                              color: Theme.of(context).colorScheme.primary,
-                                            ),
-                                            child: Text(
-                                              getMessage(lastMessage, lastMessage.sender == profileState.profile.id),
-                                              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                                color: Theme.of(context).colorScheme.onPrimary,
-                                              ),
-                                            ),
-                                          ),
-                                        MaterialButton(
-                                          shape: const CircleBorder(),
-                                          onPressed: () {
-                                            if (_showLastMessage) {
-                                              _openMessages(context);
-                                            } else {
-                                              setState(() {
-                                                _showLastMessage = true;
-                                              });
-                                              _waitHideLastMessage();
-                                            }
-                                          },
-                                          child: Container(
-                                            height: 50,
-                                            width: 50,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                color: Theme.of(context).colorScheme.primary,
-                                                width: 2,
-                                              ),
-                                            ),
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(100),
-                                              child: (roomsState.roomsInfo.first.profile!.photoUrl == null)
-                                                  ? const Icon(Icons.person)
-                                                  : Image.network(
-                                                roomsState.roomsInfo.first.profile!.photoUrl!,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.background,
+                              bottomNavigationBar: (size.width <=
+                                      Dimen.mobileWidth)
+                                  ? FlashyTabBar(
+                                      selectedIndex: homeState.index,
+                                      onItemSelected: (index) {
+                                        if (profileState.profile.name == null) {
+                                          return;
+                                        }
+                                        _go(index);
+                                      },
+                                      items: [
+                                        FlashyTabBarItem(
+                                          icon: const Icon(Icons.person),
+                                          title: Text(S.current.profile_button),
                                         ),
+                                        FlashyTabBarItem(
+                                          icon: const Icon(Icons.people),
+                                          title: Text(S.current.friends_button),
+                                        ),
+                                        FlashyTabBarItem(
+                                          icon: const Icon(
+                                              Icons.connect_without_contact),
+                                          title: Text(S.current.connect_button),
+                                        ),
+                                        FlashyTabBarItem(
+                                          icon: const Icon(Icons.settings),
+                                          title:
+                                              Text(S.current.settings_button),
+                                        ),
+                                        // FlashyTabBarItem(
+                                        //   icon: const Icon(Icons.info),
+                                        //   title: Text(S.current.about_button),
+                                        // ),
                                       ],
-                                    );
-                                  }
-                              )
+                                    )
+                                  : null,
+                              floatingActionButton: roomsState
+                                      .roomsInfo.isNotEmpty
+                                  ? homeState.index == 3
+                                      ? FloatingActionButton(
+                                          onPressed: () {
+                                            context
+                                                .read<AuthBloc>()
+                                                .add(const AuthEventLogout());
+                                          },
+                                          child: const Icon(Icons.logout),
+                                        )
+                                      : Builder(builder: (context) {
+                                          var lastMessage = roomsState.roomsInfo
+                                                  .first.lastMessage ??
+                                              MessageDetail(
+                                                type: MessageType.text,
+                                                message: S.current
+                                                    .last_message_placeholder,
+                                              );
+                                          return Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              if (_showLastMessage)
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      right: 10),
+                                                  padding:
+                                                      const EdgeInsets.all(8),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                  child: Text(
+                                                    getMessage(
+                                                        lastMessage,
+                                                        lastMessage.sender ==
+                                                            profileState
+                                                                .profile.id),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleMedium!
+                                                        .copyWith(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .onPrimary,
+                                                        ),
+                                                  ),
+                                                ),
+                                              MaterialButton(
+                                                shape: const CircleBorder(),
+                                                onPressed: () {
+                                                  if (_showLastMessage) {
+                                                    _openMessages(context);
+                                                  } else {
+                                                    setState(() {
+                                                      _showLastMessage = true;
+                                                    });
+                                                    _waitHideLastMessage();
+                                                  }
+                                                },
+                                                child: Container(
+                                                  height: 50,
+                                                  width: 50,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .primary,
+                                                      width: 2,
+                                                    ),
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            100),
+                                                    child: (roomsState
+                                                                .roomsInfo
+                                                                .first
+                                                                .profile!
+                                                                .photoUrl ==
+                                                            null)
+                                                        ? const Icon(
+                                                            Icons.person)
+                                                        : Image.network(
+                                                            roomsState
+                                                                .roomsInfo
+                                                                .first
+                                                                .profile!
+                                                                .photoUrl!,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        })
                                   : null,
                               body: Row(
                                 children: [
-                                  if (size.width > Dimen.mobileWidth) SideNavigation(
-                                    onItemSelected: _go,
-                                  ),
+                                  if (size.width > Dimen.mobileWidth)
+                                    SideNavigation(
+                                      onItemSelected: _go,
+                                    ),
                                   Expanded(
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: PageView(
-                                        scrollDirection: size.width > Dimen.mobileWidth ? Axis.vertical : Axis.horizontal,
+                                        scrollDirection:
+                                            size.width > Dimen.mobileWidth
+                                                ? Axis.vertical
+                                                : Axis.horizontal,
                                         controller: _pageController,
-                                        physics: const NeverScrollableScrollPhysics(),
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
                                         children: [
-                                          KeepAlivePage(child: ProfileTab(profile: profileState.profile)),
-                                          const KeepAlivePage(child: FriendsTab()),
-                                          const KeepAlivePage(child: ConnectTab()),
-                                          const KeepAlivePage(child: SettingsTab()),
+                                          KeepAlivePage(
+                                              child: ProfileTab(
+                                                  profile:
+                                                      profileState.profile)),
+                                          const KeepAlivePage(
+                                              child: FriendsTab()),
+                                          const KeepAlivePage(
+                                              child: ConnectTab()),
+                                          const KeepAlivePage(
+                                              child: SettingsTab()),
                                           // const KeepAlivePage(child: AboutTab()),
                                         ],
                                       ),
@@ -206,12 +277,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                             ),
-                            if (profileState.profile.name == null || authState is AuthStateLoading)
+                            if (profileState.profile.name == null ||
+                                authState is AuthStateLoading)
                               Container(
-                                color: Theme.of(context).colorScheme.background.withOpacity(0.5),
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .background
+                                    .withOpacity(0.5),
                                 child: Center(
-                                  child: LoadingAnimationWidget.fourRotatingDots(
-                                    color: Theme.of(context).colorScheme.primary,
+                                  child:
+                                      LoadingAnimationWidget.fourRotatingDots(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                     size: 50,
                                   ),
                                 ),

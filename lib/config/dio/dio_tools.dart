@@ -46,6 +46,7 @@ class DioTools {
           response.requestOptions.headers['access_token'] = newToken['access_token'];
           return handler.resolve(await dio.fetch(response.requestOptions));
         }
+        debugPrint('Response: ${response.data}');
         return handler.next(response); // continue
       },
       onError: (DioException e, handler) {
@@ -84,7 +85,7 @@ class DioTools {
 
   static String _getUrl() {
     if (kDebugMode && kIsWeb) {
-      return 'https://trapper-server.onrender.com';
+      // return 'https://trapper-server.onrender.com';
       return 'http://localhost:1904';
     } else {
       return 'https://trapper-server.onrender.com';
