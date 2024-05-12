@@ -18,7 +18,7 @@ import 'app/domain/repository/socket_repository.dart';
 import 'app/domain/repository/static_repository.dart';
 import 'app/domain/use_case/add_friend.dart';
 import 'app/domain/use_case/cancel_find.dart';
-import 'app/domain/use_case/change_password.dart';
+import 'app/domain/use_case/reset_password.dart';
 import 'app/domain/use_case/connect.dart';
 import 'app/domain/use_case/disconnect.dart';
 import 'app/domain/use_case/fect_message.dart';
@@ -137,7 +137,7 @@ class DependencyInjection {
     sl.registerLazySingleton<ListenFriend>(() => ListenFriend(socketRepository: sl()));
     sl.registerLazySingleton<ListenConnectStatus>(() => ListenConnectStatus(socketRepository: sl()));
     sl.registerLazySingleton<SendOTP>(() => SendOTP(authRepository: sl()));
-    sl.registerLazySingleton<ChangePassword>(() => ChangePassword(authRepository: sl()));
+    sl.registerLazySingleton<ResetPassword>(() => ResetPassword(authRepository: sl()));
     sl.registerLazySingleton<ListenOnlineFriends>(() => ListenOnlineFriends(socketRepository: sl()));
     sl.registerLazySingleton<Logout>(() => Logout(authRepository: sl()));
     sl.registerLazySingleton<GetStickers>(() => GetStickers(staticRepository: sl()));

@@ -9,5 +9,5 @@ abstract class AuthRepository {
   Future<Either<Failure, void>> logout();
   Future<Either<Failure, void>> validateToken();
   Future<Either<Failure, void>> sendOTP(String email);
-  Future<Either<Failure, void>> changePassword({required String email, required String otp, required String password});
+  Future<Either<Failure, void>> resetPassword({required String email, required String otp, required String password});
 }

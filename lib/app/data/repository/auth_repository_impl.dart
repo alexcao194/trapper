@@ -84,9 +84,9 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, void>> changePassword({required String email, required String otp, required String password}) async {
+  Future<Either<Failure, void>> resetPassword({required String email, required String otp, required String password}) async {
     try {
-      await _remoteData.changePassword(email: email, otp: otp, password: password);
+      await _remoteData.resetPassword(email: email, otp: otp, password: password);
       return const Right(null);
     } on DioException catch (e) {
       return Left(Failure(e.message));

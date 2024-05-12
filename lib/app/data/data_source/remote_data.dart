@@ -23,7 +23,7 @@ abstract class RemoteData {
   Future<List<Profile>> getFriends();
   Future<String> sendImage({required Uint8List image, required String roomId});
   Future<void> sendOTP(String email);
-  Future<void> changePassword({required String email, required String otp, required String password});
+  Future<void> resetPassword({required String email, required String otp, required String password});
 }
 
 class RemoteDataImpl implements RemoteData {
@@ -222,7 +222,7 @@ class RemoteDataImpl implements RemoteData {
   }
 
   @override
-  Future<void> changePassword({required String email, required String otp, required String password}) async {
+  Future<void> resetPassword({required String email, required String otp, required String password}) async {
     var response = await dio.post('/auth/forgot_password', data: {
       'newPassword': password,
       'email': email,
