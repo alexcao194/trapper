@@ -23,7 +23,7 @@ class SlideBanner extends StatelessWidget {
                 maxHeight: 500,
                 minHeight: 200,
               ),
-              child: Image.asset(Assets.assetsBanner, fit: BoxFit.cover, height: size.height * 0.5)
+              child: Image.asset(Assets.assetsBanner, fit: BoxFit.contain, height: size.height * 0.5)
           ),
         ),
         Text(
