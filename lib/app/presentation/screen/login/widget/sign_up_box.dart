@@ -148,7 +148,7 @@ class _SignUpBoxState extends State<SignUpBox> {
                               onSelected: (value) {
                                 if (value == null) return;
                                 _genderValue = value;
-                                _gender.text = value ? "Nam" : "Nữ";
+                                _gender.text = value ? S.current.male : S.current.female;
                               },
                               inputDecorationTheme: InputDecorationTheme(
                                 border: OutlineInputBorder(
@@ -158,14 +158,14 @@ class _SignUpBoxState extends State<SignUpBox> {
                               ),
                               controller: _gender,
                               hintText: S.current.gender,
-                              dropdownMenuEntries: const [
+                              dropdownMenuEntries: [
                                 DropdownMenuEntry<bool>(
                                   value: true,
-                                  label: 'Nam',
+                                  label: S.current.male,
                                 ),
                                 DropdownMenuEntry<bool>(
                                   value: false,
-                                  label: 'Nữ',
+                                  label: S.current.female,
                                 ),
                               ],
                             ),

@@ -10,7 +10,7 @@ class MessageDistribution {
     id = id.replaceAll('"', '');
 
     if (id != "invalid-data" && id.startsWith('invalid-')) {
-      return S.current.invalid_field(id.substring(9));
+      return S.current.invalid_field(id.substring(8));
     }
 
     debugPrint('Message Distribution: $id');

@@ -85,7 +85,7 @@ class DioTools {
 
   static String _getUrl() {
     if (kDebugMode && kIsWeb) {
-      // return 'https://trapper-server.onrender.com';
+      return 'https://trapper-server.onrender.com';
       return 'http://localhost:1904';
     } else {
       return 'https://trapper-server.onrender.com';
