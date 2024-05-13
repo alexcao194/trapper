@@ -34,7 +34,7 @@
   "confirm_password_invalid": "Invalid confirm password",
   "confirm_password_required": "Confirm password is required",
   "confirm_password_not_match": "Confirm password does not match",
-  "password_length_error": "Password must be at least 6 characters",
+  "password_length_error": "Password is too weak",
   "full_name_required": "Full name is required",
   "phone_number_invalid": "Invalid phone number",
   "phone_number_required": "Phone number is required",

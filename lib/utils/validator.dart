@@ -15,7 +15,10 @@ class Validator {
     if (password.isEmpty) {
       return null;
     }
-    if (password.length < 6) {
+    // if (!RegExp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$").hasMatch(password)) {
+    // if (password.length < 8) {
+    // must have at least 8 characters, contain at least one number, one uppercase and one lowercase letter
+    if (password.length < 8 || !RegExp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)").hasMatch(password)) {
       return S.current.password_length_error;
     }
     if (checker != null && password != checker) {

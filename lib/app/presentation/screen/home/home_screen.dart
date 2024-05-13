@@ -62,10 +62,15 @@ class _HomeScreenState extends State<HomeScreen> {
             _logout();
           }
           if (state is AuthStateFailure) {
-            NotificationTools.showErrorNotification(context: context, message: MessageDistribution.fromID(state.error ?? 'Something went wrong'));
+            NotificationTools.showErrorNotification(
+                context: context,
+                message: MessageDistribution.fromID(
+                    state.error ?? 'Something went wrong'));
           }
           if (state is AuthStateChangePasswordSuccessful) {
-            NotificationTools.showSuccessNotification(context: context, message: S.current.change_password_successful);
+            NotificationTools.showSuccessNotification(
+                context: context,
+                message: S.current.change_password_successful);
           }
         },
         builder: (context, authState) {
@@ -136,18 +141,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ],
                                     )
                                   : null,
-                              floatingActionButton: roomsState
-                                      .roomsInfo.isNotEmpty
-                                  ? homeState.index == 3
-                                      ? FloatingActionButton(
-                                          onPressed: () {
-                                            context
-                                                .read<AuthBloc>()
-                                                .add(const AuthEventLogout());
-                                          },
-                                          child: const Icon(Icons.logout),
-                                        )
-                                      : Builder(builder: (context) {
+                              floatingActionButton: homeState.index == 3
+                                  ? FloatingActionButton(
+                                      onPressed: () {
+                                        context
+                                            .read<AuthBloc>()
+                                            .add(const AuthEventLogout());
+                                      },
+                                      child: const Icon(Icons.logout),
+                                    )
+                                  : roomsState.roomsInfo.isNotEmpty
+                                      ? Builder(builder: (context) {
                                           var lastMessage = roomsState.roomsInfo
                                                   .first.lastMessage ??
                                               MessageDetail(
@@ -240,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ],
                                           );
                                         })
-                                  : null,
+                                      : null,
                               body: Row(
                                 children: [
                                   if (size.width > Dimen.mobileWidth)
